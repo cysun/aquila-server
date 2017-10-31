@@ -1,5 +1,5 @@
 package edu.csula.aquila.model;
-import java.util.*
+import java.util.*;
 
 public class College{
 	

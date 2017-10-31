@@ -1,5 +1,5 @@
 package edu.csula.aquila.model;
-import java.util.*
+import java.util.*;
 
 
 public class Department{
@@ -12,7 +12,7 @@ public class Department{
 	Department(long id, String name, User depChair, College college){
 		this.id = id;
 		this.name= name;
-		this.depCair = depChair;
+		this.depChair = depChair;
 		this.college = college;
 	}
 

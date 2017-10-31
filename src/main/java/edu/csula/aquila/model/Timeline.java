@@ -10,7 +10,7 @@ class Timeline{
 	String fundingAgency;
 	Date shippingDeadline; //??
 	Date uASDate;
-	Date sponsorDueDate
+	Date sponsorDueDate;
 	Date finalSign;
 	Date shippingDate; // same as shipping deadline?
 	Map<String,Date> piDueDates;
@@ -154,7 +154,7 @@ class Timeline{
 		this.analystSign = analystSign;
 	}
 
-	void setAddComments(String addComments){
+	void setAddComments(List<String> addComments){
 		this.addComments = addComments;
 	}
 }
