@@ -58,7 +58,7 @@ public class ApprovalForm {
 
 	// 9
 	boolean costSharingRequired;
-	List<ApprovalCollege> costSharingColleges;
+	List<College> costSharingColleges;
 	double totalOfColleges;
 	double calStateLACostSharing;
 	double unRecoveredFACostSharing;
@@ -83,4 +83,11 @@ public class ApprovalForm {
 	String typeOfGrantContracts;
 	String purposeOfProject;
 	int cfdaNumber;
+	//innerclass
+	public class College {
+		 double personelCost;
+		 double fringeCost;
+		 double meetingExpenses;
+		 double totalCost;
+	}
 }
