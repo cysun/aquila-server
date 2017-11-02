@@ -2,19 +2,23 @@ package edu.csula.aquila.model;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Date;
 
 public class IntakeForm {
+	long id;
 	//A
 	 String principleInvestogator;
 	 String department;
 	 String college;
 	 String projectTitle;
-	 double proposedFundingAmount;
+	 Integer proposedFundingAmount;
+	 Date startDate;
+	 Date endDate;
 	//B
-	List<IntakePersonnel> Personnel;
+	List<Personnel> Personnel;
 	//C 
-	boolean	anticipatedStipend;
-	Map<String,String> Stipends;
+	boolean	anticipateStipend;
+	String stipends;
 	boolean facultyStudentResearchCreativeActivities;
 	boolean studentsInResearch;
 	int noOfUndergradStudents;
@@ -24,18 +28,18 @@ public class IntakeForm {
 	boolean reportWriting;
 	boolean literatureReview;
 	boolean codingOrDataEntry;
-	boolean  presentation;
+	boolean presentation;
 	boolean archivalResearch;
 	boolean dataAnalysis;
 	boolean otherActivities;
 	List<String> otherActivitiesList;
 
 	//D
-	List<IntakeSubGrantSubContract> subGrantsOrSubContracts;
+	List<SubGrantSubContract> subGrantsOrSubContracts;
 	//E
-	List<IntakeProjectLocation> projectLocations;
+	List<ProjectLocation> projectLocations;
 	//F
-	List<IntakeAdditionalParty> additionalInvolvedParties;
+	List<AdditionalParty> additionalInvolvedParties;
 	//G
 	int agencyCostRatePercentage;
 	boolean agencyCostSharing;
@@ -43,7 +47,7 @@ public class IntakeForm {
 	int computersRequested;
 	Map<String,Double> requestedEquipment;
 	//H
-	List<IntakeSpace> spaces;
+	List<Space> spaces;
 	//I
 	Map<String,String> hazardousSubstances;
 	//J
@@ -61,4 +65,37 @@ public class IntakeForm {
 	int noOfCopies;
 	//L
 	String summary;
+	//inner classes
+	public class Personnel{
+		 String name;
+		 String employer;
+		 String positionTitleOnGrant;
+		 int units;
+		 int percentOfTimeProposed;
+	}
+	public class AdditionalParty {
+		 String partyName;
+		 String supervisor;
+		 String explanationOfInvolvement;
+	}
+	public class ProjectLocation {
+		 String siteName;
+		 String siteAddress;
+		 int projectedPercentOfTimeAtSite;
+		 boolean onCampusSpaceOrOnCampusRentalNeeded;
+	}
+	public class Space {
+		 String item;
+		 String typeOFSpace;
+		 String sourceOfFunds;
+	}
+	public class SubGrantSubContract {
+		String institutionName;
+		String address;
+		double proposedFundingAmount;
+		String contactPerson;
+		String contactInfo;
+	}
+
+	
 }
