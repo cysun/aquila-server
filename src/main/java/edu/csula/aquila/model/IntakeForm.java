@@ -1,71 +1,162 @@
 package edu.csula.aquila.model;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "intake_form")
 public class IntakeForm {
-	long id;
+	
+	@Id
+	@GeneratedValue
+	Long id;
 	//A
-	 String principleInvestogator;
-	 String department;
-	 String college;
-	 String projectTitle;
-	 Integer proposedFundingAmount;
-	 Date startDate;
-	 Date endDate;
+	@Column(name = "pi")
+	String principleInvestogator;
+	@Column
+	String department;
+	@Column
+	String college;
+	@Column(name = "project_title")
+	String projectTitle;
+	@Column(name = "proposed_funding_amount")
+	Integer proposedFundingAmount;
+	@Column(name = "start_date")
+	Date startDate;
+	@Column(name = "end_date")
+	Date endDate;
 	//B
+	
+	@OneToMany
 	List<Personnel> Personnel;
 	//C 
+	
+	@Column(name = "anticipate_stipend")
 	boolean	anticipateStipend;
+	
+	@Column(name = "stipends")
 	String stipends;
+	
+	@Column(name = "faculty_student_research_creative_activities")
 	boolean facultyStudentResearchCreativeActivities;
+	
+	@Column(name = "students_in_research")
 	boolean studentsInResearch;
+	
+	@Column(name = "number_of_undergrad_students")
 	int noOfUndergradStudents;
+	
+	@Column(name = "number_of_graduate_students")
 	int noOfGradStudents;
+	
+	@Column(name = "lab_assistance")
 	boolean laboratoryAssistance;
+	
+	@Column(name = "data_collection")
 	boolean dataCollection;
+	
+	@Column(name = "report_writing")
 	boolean reportWriting;
+	
+	@Column(name = "literature_review")
 	boolean literatureReview;
+	
+	@Column(name = "coding_or_data_entry")
 	boolean codingOrDataEntry;
+	
+	@Column
 	boolean presentation;
+	
+	@Column(name = "archival_research")
 	boolean archivalResearch;
+	
+	@Column(name = "data_analysis")
 	boolean dataAnalysis;
+	
+	@Column(name = "other_activities")
 	boolean otherActivities;
+	
+	@ElementCollection
+	@Column(name = "other_activities")
 	List<String> otherActivitiesList;
 
 	//D
+	@OneToMany
 	List<SubGrantSubContract> subGrantsOrSubContracts;
 	//E
+	@OneToMany
 	List<ProjectLocation> projectLocations;
 	//F
+	@OneToMany
 	List<AdditionalParty> additionalInvolvedParties;
 	//G
+	@Column(name = "agency_cost_rate_percentage")
 	int agencyCostRatePercentage;
+	
+	@Column(name = "agency_cost_sharing")
 	boolean agencyCostSharing;
+	
+	@Column(name = "pi_cost_sharing")
 	boolean piCostSharing;
+	
+	@Column(name = "computers_requested")
 	int computersRequested;
+	
+	@ElementCollection //!!?!?!?!?! can you use element collection on maps
+	@Column
 	Map<String,Double> requestedEquipment;
 	//H
+	
+	@ElementCollection
 	List<Space> spaces;
 	//I
+	
+	@ElementCollection
+	@Column
 	Map<String,String> hazardousSubstances;
 	//J
+	@Column(name = "human_subject")
 	boolean humanSubject;
+	@Column(name = "vertebrate_animals")
 	boolean vertebrateAnimals;
-	String questionareField;
+	
+	@Column(name = "questionaire")
+	String questionaireField;
+	@Column(name = "category_title")
 	String categoryTitle;
 	//K
+	@Column(name = "assistance_with_proposal_development")
 	boolean assistanceWithProposalDevelopment;
+	@Column(name = "technical_assistance")
 	boolean technicalAssistance;
+	@Column(name = "letter_of_support_president")
 	boolean letterOfSupportPresident;
+	@Column(name = "letter_of_support_provost")
 	boolean letterOfSupportProvost;
-	boolean letterOfSupportAssocVPOfReearch;
+	@Column(name = "letter_of_support_assoc_vp_of_research")
+	boolean letterOfSupportAssocVPOfResearch;
+	@Column(name = "duplication_of_final_document_package")
 	boolean duplicationfFinalDocumentPackage;
+	@Column(name = "number_of_copies")
 	int noOfCopies;
 	//L
+	@Column
 	String summary;
+	
+	
 	//inner classes
+	
+	
+	
 	public class Personnel{
 		 String name;
 		 String employer;
