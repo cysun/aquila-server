@@ -115,5 +115,3 @@ public class Proposal implements Serializable{
 		this.budgetForm = budgetForm;
 	}	
 }
-
-

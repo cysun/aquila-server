@@ -1,5 +1,4 @@
 package edu.csula.aquila.model;
-
 import java.io.Serializable;
 import java.util.*;
 
