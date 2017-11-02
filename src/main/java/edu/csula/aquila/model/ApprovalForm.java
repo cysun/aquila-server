@@ -198,18 +198,7 @@ public class ApprovalForm implements Serializable{
 
 	@Column(name = "internal_notes")
 	private List<String> internalNotes;
-=======
-	boolean costSharingRequired;
-	List<College> costSharingColleges;
-	double totalOfColleges;
-	double calStateLACostSharing;
-	double unRecoveredFACostSharing;
-	double unRecoveredFAMTDC;
-	double thirdParyCostShare;
-	double totalCalStateLACostSharing;
-	double totalProposalCostSharing;
-	List<String> InternalNotes;
->>>>>>> upstream/master
+
 
 	// 10
 	@Column(name = "proposal_personnel_signature")
@@ -228,7 +217,7 @@ public class ApprovalForm implements Serializable{
 	private Date deanSignatureDate;
 
 	// 11
-<<<<<<< HEAD
+
 
 	@Column(name = "uas_project_id")
 	private String uasProjectId;

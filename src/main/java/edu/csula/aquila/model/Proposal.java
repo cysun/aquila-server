@@ -1,6 +1,6 @@
 package edu.csula.aquila.model;
 
-<<<<<<< HEAD
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -122,7 +122,7 @@ public class Proposal implements Serializable{
 	
 	
 }
-=======
+
 public class Proposal {
 	IntakeForm intakeForm;
 	ApprovalForm approvalForm;
@@ -136,4 +136,4 @@ public class Proposal {
 	//Budget
 	BudgetFile budgetForm;
 }
->>>>>>> upstream/master
+
