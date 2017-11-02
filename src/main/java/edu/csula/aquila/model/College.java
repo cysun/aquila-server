@@ -3,38 +3,12 @@ package edu.csula.aquila.model;
 
 import java.io.Serializable;
 
-=======
-import java.util.*;
-
->>>>>>> upstream/master
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-<<<<<<< HEAD
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
-@Entity
-@Table(name = "college")
-
-public class College implements Serializable{
-	
-	@Id
-	@GeneratedValue
-	private Long id;
-
-	@Column(nullable = false; unique = true)
-	private String name;
-
-	@Column(name="dean")
-	private User dean;
-
-	public College()
-	{
-=======
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
