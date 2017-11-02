@@ -168,7 +168,6 @@ public class ApprovalForm implements Serializable{
 
 	// 9
 
-
 	@Column(name = "cost_sharing_required")
 	private boolean costSharingRequired;
 
@@ -198,7 +197,6 @@ public class ApprovalForm implements Serializable{
 
 	@Column(name = "internal_notes")
 	private List<String> internalNotes;
-
 
 	// 10
 	@Column(name = "proposal_personnel_signature")
@@ -249,8 +247,6 @@ public class ApprovalForm implements Serializable{
 
 	public ApprovalForm(){}
 
-	
-	
 	public Long getId() {
 		return id;
 	}

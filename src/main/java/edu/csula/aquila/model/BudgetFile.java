@@ -3,15 +3,38 @@ package edu.csula.aquila.model;
 import java.io.File;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "budget")
 public class BudgetFile {
 
-	File budget;
-	
+	@Id
+	@GeneratedValue
 	Long id;
+	
+	@Column(name = "uploader")
 	String nameOfUploader;
-	String description;
+	
+	@Column(name = "file_name")
+	String nameOfFile;
+	
+	@Column(name = "file_type")
+	String type;
+	
+	@Column(name = "file_path")
 	String filePath;
+	
+	@Column(name = "date")
 	Date dateOfUpload;
+	
+	@OneToOne(mappedBy="budgetForm")
+	Proposal proposal;
 	
 	public File getBudget() {
 		return budget;
@@ -37,13 +60,6 @@ public class BudgetFile {
 		this.nameOfUploader = nameOfUploader;
 	}
 	
-	public String getDescription() {
-		return description;
-	}
-	
-	public void setDescription(String description) {
-		this.description = description;
-	}
 	
 	public String getFilePath() {
 		return filePath;
