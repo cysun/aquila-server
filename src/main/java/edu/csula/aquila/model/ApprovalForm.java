@@ -167,6 +167,7 @@ public class ApprovalForm implements Serializable{
 	private Date chiefFinancialOfficerSignatureDate;
 
 	// 9
+
 	@Column(name = "cost_sharing_required")
 	private boolean costSharingRequired;
 
@@ -773,6 +774,5 @@ public class ApprovalForm implements Serializable{
 	public void setCfdaNumber(int cfdaNumber) {
 		this.cfdaNumber = cfdaNumber;
 	}
-
 
 }
