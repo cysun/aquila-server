@@ -2,7 +2,7 @@ package edu.csula.aquila.model;
 
 import java.util.*;
 
-class ConflictOfInterestNonPHS{
+class ConflictOfInterestKPNonPHS{
 	
 	long id;
 	User pI;
