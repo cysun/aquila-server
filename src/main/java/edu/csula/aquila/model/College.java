@@ -1,5 +1,5 @@
 package edu.csula.aquila.model;
-<<<<<<< HEAD
+
 
 import java.io.Serializable;
 
@@ -56,7 +56,7 @@ public class College {
 	this.id = id;
 	this.name = name;
 	this.dean = dean;
->>>>>>> upstream/master
+	
 	}
 
 	public Long getId() {

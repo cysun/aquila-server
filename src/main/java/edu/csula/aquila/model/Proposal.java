@@ -123,17 +123,4 @@ public class Proposal implements Serializable{
 	
 }
 
-public class Proposal {
-	IntakeForm intakeForm;
-	ApprovalForm approvalForm;
-	ConflictOfInterestNonPHS conflictOfInterestNonPHS;
-	ConflictOfInterestPHS conflictOfInterestPHS;
-	ConflictOfInterestNonPHS conflictOfInterestPINonPHS;
-	EquipmentForm equipmentForm;
-	Timeline timeline;
-
-
-	//Budget
-	BudgetFile budgetForm;
-}
 

@@ -167,7 +167,7 @@ public class ApprovalForm implements Serializable{
 	private Date chiefFinancialOfficerSignatureDate;
 
 	// 9
-<<<<<<< HEAD
+
 
 	@Column(name = "cost_sharing_required")
 	private boolean costSharingRequired;
@@ -780,20 +780,12 @@ public class ApprovalForm implements Serializable{
 	}
 
 
-=======
-	String uasProjectId;
-	float proposalCode;
-	List<String> coPis;
-	String typeOfProposal;
-	String typeOfGrantContracts;
-	String purposeOfProject;
-	int cfdaNumber;
 	//innerclass
-	public class College {
+	public class AprovalCollege {
 		 double personelCost;
 		 double fringeCost;
 		 double meetingExpenses;
 		 double totalCost;
 	}
->>>>>>> upstream/master
+
 }
