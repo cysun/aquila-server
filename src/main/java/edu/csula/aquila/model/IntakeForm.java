@@ -28,7 +28,7 @@ public class IntakeForm {
 	boolean reportWriting;
 	boolean literatureReview;
 	boolean codingOrDataEntry;
-	boolean  presentation;
+	boolean presentation;
 	boolean archivalResearch;
 	boolean dataAnalysis;
 	boolean otherActivities;

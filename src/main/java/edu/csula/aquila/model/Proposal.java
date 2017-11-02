@@ -8,7 +8,6 @@ public class Proposal {
 	ConflictOfInterestNonPHS conflictOfInterestPINonPHS;
 	EquipmentForm equipmentForm;
 	Timeline timeline;
-
-
-	
+	//Budget
+	BudgetFile budgetForm;
 }

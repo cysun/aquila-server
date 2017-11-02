@@ -1,10 +1,25 @@
 package edu.csula.aquila.model;
 import java.util.*;
 
-public class College{
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "colleges")
+public class College {
 	
-	long id;
+	@Id
+	@GeneratedValue
+	Long id;
+	
+	@Column(name = "college_name")
 	String name;
+	
+	@OneToOne
 	User dean;
 
 	College(long id, String name, User dean){
