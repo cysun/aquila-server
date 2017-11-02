@@ -4,11 +4,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -111,8 +114,10 @@ public class IntakeForm {
 	@Column(name = "computers_requested")
 	int computersRequested;
 	
-	@ElementCollection //!!?!?!?!?! can you use element collection on maps
-	@Column
+	@ElementCollection //fixed you can follow this example for all other maps
+	@MapKeyColumn(name="equipment_name")
+	@Column(name = "amount")
+	@CollectionTable(name="requested_equipment", joinColumns=@JoinColumn(name="id"))
 	Map<String,Double> requestedEquipment;
 	//H
 	
@@ -156,7 +161,7 @@ public class IntakeForm {
 	//inner classes
 	
 	
-	
+	//create as different tables if needed
 	public class Personnel{
 		 String name;
 		 String employer;
