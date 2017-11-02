@@ -10,6 +10,5 @@ public class Proposal {
 	Timeline timeline;
 
 
-	//Budget
 	
 }
