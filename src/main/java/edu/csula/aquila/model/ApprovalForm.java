@@ -779,13 +779,4 @@ public class ApprovalForm implements Serializable{
 		this.cfdaNumber = cfdaNumber;
 	}
 
-
-	//innerclass
-	public class AprovalCollege {
-		 double personelCost;
-		 double fringeCost;
-		 double meetingExpenses;
-		 double totalCost;
-	}
-
 }
