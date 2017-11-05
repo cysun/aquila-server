@@ -1,12 +1,11 @@
 package edu.csula.aquila.model;
 
-import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.OneToOne;
 
 @Entity
@@ -23,6 +22,7 @@ public class College {
 	
 	@OneToOne
 	User dean;
+
 
 	College(){
 

@@ -113,5 +113,5 @@ public class Proposal implements Serializable{
 
 	public void setBudgetForm(BudgetFile budgetForm) {
 		this.budgetForm = budgetForm;
-	}	
+  }
 }
