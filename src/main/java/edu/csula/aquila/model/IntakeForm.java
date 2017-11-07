@@ -1,5 +1,6 @@
 package edu.csula.aquila.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "intake_form")
-public class IntakeForm {
+public class IntakeForm implements Serializable{
 	
 	@Id
 	@GeneratedValue
@@ -39,8 +40,8 @@ public class IntakeForm {
 	Date endDate;
 	//B
 	
-	@OneToMany
-	List<Personnel> Personnel;
+//	@OneToMany
+//	List<Personnel> Personnel;
 	//C 
 	
 	@Column(name = "anticipate_stipend")
@@ -88,19 +89,19 @@ public class IntakeForm {
 	@Column(name = "other_activities")
 	boolean otherActivities;
 	
-	@ElementCollection
-	@Column(name = "other_activities")
-	List<String> otherActivitiesList;
+//	@ElementCollection
+//	@Column(name = "other_activities")
+//	List<String> otherActivitiesList;
 
 	//D
-	@OneToMany
-	List<SubGrantSubContract> subGrantsOrSubContracts;
-	//E
-	@OneToMany
-	List<ProjectLocation> projectLocations;
-	//F
-	@OneToMany
-	List<AdditionalParty> additionalInvolvedParties;
+//	@OneToMany
+//	List<SubGrantSubContract> subGrantsOrSubContracts;
+//	//E
+//	@OneToMany
+//	List<ProjectLocation> projectLocations;
+//	//F
+//	@OneToMany
+//	List<AdditionalParty> additionalInvolvedParties;
 	//G
 	@Column(name = "agency_cost_rate_percentage")
 	int agencyCostRatePercentage;
@@ -114,20 +115,20 @@ public class IntakeForm {
 	@Column(name = "computers_requested")
 	int computersRequested;
 	
-	@ElementCollection //fixed you can follow this example for all other maps
-	@MapKeyColumn(name="equipment_name")
-	@Column(name = "amount")
-	@CollectionTable(name="requested_equipment", joinColumns=@JoinColumn(name="id"))
-	Map<String,Double> requestedEquipment;
-	//H
-	
-	@ElementCollection
-	List<Space> spaces;
-	//I
-	
-	@ElementCollection
-	@Column
-	Map<String,String> hazardousSubstances;
+//	@ElementCollection //fixed you can follow this example for all other maps
+//	@MapKeyColumn(name="equipment_name")
+//	@Column(name = "amount")
+//	@CollectionTable(name="requested_equipment", joinColumns=@JoinColumn(name="id"))
+//	Map<String,Double> requestedEquipment;
+//	//H
+//	
+//	@ElementCollection
+//	List<Space> spaces;
+//	//I
+//	
+//	@ElementCollection
+//	@Column
+//	Map<String,String> hazardousSubstances;
 	//J
 	@Column(name = "human_subject")
 	boolean humanSubject;
@@ -162,35 +163,557 @@ public class IntakeForm {
 	
 	
 	//create as different tables if needed
-	public class Personnel{
+	@Entity
+	@Table(name = "personnel")
+	public class Personnel implements Serializable{
+		@Id
+		@GeneratedValue
+		Long Id;
+		
+		@Column
 		 String name;
+		@Column
 		 String employer;
+		@Column(name = "position_title_on_grant")
 		 String positionTitleOnGrant;
+		@Column
 		 int units;
+		@Column(name = "percent_of_time_proposed")
 		 int percentOfTimeProposed;
+		public Long getId() {
+			return Id;
+		}
+		public void setId(Long id) {
+			Id = id;
+		}
+		public String getName() {
+			return name;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+		public String getEmployer() {
+			return employer;
+		}
+		public void setEmployer(String employer) {
+			this.employer = employer;
+		}
+		public String getPositionTitleOnGrant() {
+			return positionTitleOnGrant;
+		}
+		public void setPositionTitleOnGrant(String positionTitleOnGrant) {
+			this.positionTitleOnGrant = positionTitleOnGrant;
+		}
+		public int getUnits() {
+			return units;
+		}
+		public void setUnits(int units) {
+			this.units = units;
+		}
+		public int getPercentOfTimeProposed() {
+			return percentOfTimeProposed;
+		}
+		public void setPercentOfTimeProposed(int percentOfTimeProposed) {
+			this.percentOfTimeProposed = percentOfTimeProposed;
+		}
 	}
-	public class AdditionalParty {
+	@Entity
+	@Table(name = "additional_party")
+	public class AdditionalParty implements Serializable{
+		@Id
+		@GeneratedValue
+		Long Id;
+		
+		@Column(name = "party_name")
 		 String partyName;
+		@Column
 		 String supervisor;
-		 String explanationOfInvolvement;
+		@Column(name = "explanation_of_involvement") 
+		String explanationOfInvolvement;
+		
+
+		public Long getId() {
+			return Id;
+		}
+		public void setId(Long id) {
+			Id = id;
+		}
+		public String getPartyName() {
+			return partyName;
+		}
+		public void setPartyName(String partyName) {
+			this.partyName = partyName;
+		}
+		public String getSupervisor() {
+			return supervisor;
+		}
+		public void setSupervisor(String supervisor) {
+			this.supervisor = supervisor;
+		}
+		public String getExplanationOfInvolvement() {
+			return explanationOfInvolvement;
+		}
+		public void setExplanationOfInvolvement(String explanationOfInvolvement) {
+			this.explanationOfInvolvement = explanationOfInvolvement;
+		}
 	}
-	public class ProjectLocation {
+	@Entity
+	@Table(name = "project_location")
+	public class ProjectLocation implements Serializable{
+		@Id
+		@GeneratedValue
+		Long Id;
+		
+		@Column(name = "site_name")
 		 String siteName;
+		@Column(name = "site_address")
 		 String siteAddress;
+		@Column(name = "projected_percent_of_time_at_site")
 		 int projectedPercentOfTimeAtSite;
+		@Column(name = "on_campus_space_or_on_campus_rental_needed")
 		 boolean onCampusSpaceOrOnCampusRentalNeeded;
+		public Long getId() {
+			return Id;
+		}
+		public void setId(Long id) {
+			Id = id;
+		}
+		public String getSiteName() {
+			return siteName;
+		}
+		public void setSiteName(String siteName) {
+			this.siteName = siteName;
+		}
+		public String getSiteAddress() {
+			return siteAddress;
+		}
+		public void setSiteAddress(String siteAddress) {
+			this.siteAddress = siteAddress;
+		}
+		public int getProjectedPercentOfTimeAtSite() {
+			return projectedPercentOfTimeAtSite;
+		}
+		public void setProjectedPercentOfTimeAtSite(int projectedPercentOfTimeAtSite) {
+			this.projectedPercentOfTimeAtSite = projectedPercentOfTimeAtSite;
+		}
+		public boolean isOnCampusSpaceOrOnCampusRentalNeeded() {
+			return onCampusSpaceOrOnCampusRentalNeeded;
+		}
+		public void setOnCampusSpaceOrOnCampusRentalNeeded(boolean onCampusSpaceOrOnCampusRentalNeeded) {
+			this.onCampusSpaceOrOnCampusRentalNeeded = onCampusSpaceOrOnCampusRentalNeeded;
+		}
+		
+		
 	}
-	public class Space {
+	
+	@Entity
+	@Table(name = "space")
+	public class Space implements Serializable{
+		@Id
+		@GeneratedValue
+		Long Id;
+		
+		@Column
 		 String item;
-		 String typeOFSpace;
+		@Column(name = "type_of_space")
+		 String typeOfSpace;
+		@Column(name = "source_of_funds")
 		 String sourceOfFunds;
+		public Long getId() {
+			return Id;
+		}
+		public void setId(Long id) {
+			Id = id;
+		}
+		public String getItem() {
+			return item;
+		}
+		public void setItem(String item) {
+			this.item = item;
+		}
+		public String getTypeOfSpace() {
+			return typeOfSpace;
+		}
+		public void setTypeOfSpace(String typeOfSpace) {
+			this.typeOfSpace = typeOfSpace;
+		}
+		public String getSourceOfFunds() {
+			return sourceOfFunds;
+		}
+		public void setSourceOfFunds(String sourceOfFunds) {
+			this.sourceOfFunds = sourceOfFunds;
+		}
+		
+		
 	}
-	public class SubGrantSubContract {
+	
+	@Entity
+	@Table(name = "subgrant_subcontract")
+	public class SubGrantSubContract implements Serializable{
+		@Id
+		@GeneratedValue
+		Long Id;
+		
+		@Column(name = "institution_name")
 		String institutionName;
+		@Column
 		String address;
+		@Column(name = "proposed_funding_amount")
 		double proposedFundingAmount;
+		@Column(name = "contact_person")
 		String contactPerson;
+		@Column(name = "contact_info")
 		String contactInfo;
+		public Long getId() {
+			return Id;
+		}
+		public void setId(Long id) {
+			Id = id;
+		}
+		public String getInstitutionName() {
+			return institutionName;
+		}
+		public void setInstitutionName(String institutionName) {
+			this.institutionName = institutionName;
+		}
+		public String getAddress() {
+			return address;
+		}
+		public void setAddress(String address) {
+			this.address = address;
+		}
+		public double getProposedFundingAmount() {
+			return proposedFundingAmount;
+		}
+		public void setProposedFundingAmount(double proposedFundingAmount) {
+			this.proposedFundingAmount = proposedFundingAmount;
+		}
+		public String getContactPerson() {
+			return contactPerson;
+		}
+		public void setContactPerson(String contactPerson) {
+			this.contactPerson = contactPerson;
+		}
+		public String getContactInfo() {
+			return contactInfo;
+		}
+		public void setContactInfo(String contactInfo) {
+			this.contactInfo = contactInfo;
+		}
+		
+		
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getPrincipleInvestogator() {
+		return principleInvestogator;
+	}
+
+	public void setPrincipleInvestogator(String principleInvestogator) {
+		this.principleInvestogator = principleInvestogator;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public String getCollege() {
+		return college;
+	}
+
+	public void setCollege(String college) {
+		this.college = college;
+	}
+
+	public String getProjectTitle() {
+		return projectTitle;
+	}
+
+	public void setProjectTitle(String projectTitle) {
+		this.projectTitle = projectTitle;
+	}
+
+	public Integer getProposedFundingAmount() {
+		return proposedFundingAmount;
+	}
+
+	public void setProposedFundingAmount(Integer proposedFundingAmount) {
+		this.proposedFundingAmount = proposedFundingAmount;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public boolean isAnticipateStipend() {
+		return anticipateStipend;
+	}
+
+	public void setAnticipateStipend(boolean anticipateStipend) {
+		this.anticipateStipend = anticipateStipend;
+	}
+
+	public String getStipends() {
+		return stipends;
+	}
+
+	public void setStipends(String stipends) {
+		this.stipends = stipends;
+	}
+
+	public boolean isFacultyStudentResearchCreativeActivities() {
+		return facultyStudentResearchCreativeActivities;
+	}
+
+	public void setFacultyStudentResearchCreativeActivities(boolean facultyStudentResearchCreativeActivities) {
+		this.facultyStudentResearchCreativeActivities = facultyStudentResearchCreativeActivities;
+	}
+
+	public boolean isStudentsInResearch() {
+		return studentsInResearch;
+	}
+
+	public void setStudentsInResearch(boolean studentsInResearch) {
+		this.studentsInResearch = studentsInResearch;
+	}
+
+	public int getNoOfUndergradStudents() {
+		return noOfUndergradStudents;
+	}
+
+	public void setNoOfUndergradStudents(int noOfUndergradStudents) {
+		this.noOfUndergradStudents = noOfUndergradStudents;
+	}
+
+	public int getNoOfGradStudents() {
+		return noOfGradStudents;
+	}
+
+	public void setNoOfGradStudents(int noOfGradStudents) {
+		this.noOfGradStudents = noOfGradStudents;
+	}
+
+	public boolean isLaboratoryAssistance() {
+		return laboratoryAssistance;
+	}
+
+	public void setLaboratoryAssistance(boolean laboratoryAssistance) {
+		this.laboratoryAssistance = laboratoryAssistance;
+	}
+
+	public boolean isDataCollection() {
+		return dataCollection;
+	}
+
+	public void setDataCollection(boolean dataCollection) {
+		this.dataCollection = dataCollection;
+	}
+
+	public boolean isReportWriting() {
+		return reportWriting;
+	}
+
+	public void setReportWriting(boolean reportWriting) {
+		this.reportWriting = reportWriting;
+	}
+
+	public boolean isLiteratureReview() {
+		return literatureReview;
+	}
+
+	public void setLiteratureReview(boolean literatureReview) {
+		this.literatureReview = literatureReview;
+	}
+
+	public boolean isCodingOrDataEntry() {
+		return codingOrDataEntry;
+	}
+
+	public void setCodingOrDataEntry(boolean codingOrDataEntry) {
+		this.codingOrDataEntry = codingOrDataEntry;
+	}
+
+	public boolean isPresentation() {
+		return presentation;
+	}
+
+	public void setPresentation(boolean presentation) {
+		this.presentation = presentation;
+	}
+
+	public boolean isArchivalResearch() {
+		return archivalResearch;
+	}
+
+	public void setArchivalResearch(boolean archivalResearch) {
+		this.archivalResearch = archivalResearch;
+	}
+
+	public boolean isDataAnalysis() {
+		return dataAnalysis;
+	}
+
+	public void setDataAnalysis(boolean dataAnalysis) {
+		this.dataAnalysis = dataAnalysis;
+	}
+
+	public boolean isOtherActivities() {
+		return otherActivities;
+	}
+
+	public void setOtherActivities(boolean otherActivities) {
+		this.otherActivities = otherActivities;
+	}
+
+	public int getAgencyCostRatePercentage() {
+		return agencyCostRatePercentage;
+	}
+
+	public void setAgencyCostRatePercentage(int agencyCostRatePercentage) {
+		this.agencyCostRatePercentage = agencyCostRatePercentage;
+	}
+
+	public boolean isAgencyCostSharing() {
+		return agencyCostSharing;
+	}
+
+	public void setAgencyCostSharing(boolean agencyCostSharing) {
+		this.agencyCostSharing = agencyCostSharing;
+	}
+
+	public boolean isPiCostSharing() {
+		return piCostSharing;
+	}
+
+	public void setPiCostSharing(boolean piCostSharing) {
+		this.piCostSharing = piCostSharing;
+	}
+
+	public int getComputersRequested() {
+		return computersRequested;
+	}
+
+	public void setComputersRequested(int computersRequested) {
+		this.computersRequested = computersRequested;
+	}
+
+	public boolean isHumanSubject() {
+		return humanSubject;
+	}
+
+	public void setHumanSubject(boolean humanSubject) {
+		this.humanSubject = humanSubject;
+	}
+
+	public boolean isVertebrateAnimals() {
+		return vertebrateAnimals;
+	}
+
+	public void setVertebrateAnimals(boolean vertebrateAnimals) {
+		this.vertebrateAnimals = vertebrateAnimals;
+	}
+
+	public String getQuestionaireField() {
+		return questionaireField;
+	}
+
+	public void setQuestionaireField(String questionaireField) {
+		this.questionaireField = questionaireField;
+	}
+
+	public String getCategoryTitle() {
+		return categoryTitle;
+	}
+
+	public void setCategoryTitle(String categoryTitle) {
+		this.categoryTitle = categoryTitle;
+	}
+
+	public boolean isAssistanceWithProposalDevelopment() {
+		return assistanceWithProposalDevelopment;
+	}
+
+	public void setAssistanceWithProposalDevelopment(boolean assistanceWithProposalDevelopment) {
+		this.assistanceWithProposalDevelopment = assistanceWithProposalDevelopment;
+	}
+
+	public boolean isTechnicalAssistance() {
+		return technicalAssistance;
+	}
+
+	public void setTechnicalAssistance(boolean technicalAssistance) {
+		this.technicalAssistance = technicalAssistance;
+	}
+
+	public boolean isLetterOfSupportPresident() {
+		return letterOfSupportPresident;
+	}
+
+	public void setLetterOfSupportPresident(boolean letterOfSupportPresident) {
+		this.letterOfSupportPresident = letterOfSupportPresident;
+	}
+
+	public boolean isLetterOfSupportProvost() {
+		return letterOfSupportProvost;
+	}
+
+	public void setLetterOfSupportProvost(boolean letterOfSupportProvost) {
+		this.letterOfSupportProvost = letterOfSupportProvost;
+	}
+
+	public boolean isLetterOfSupportAssocVPOfResearch() {
+		return letterOfSupportAssocVPOfResearch;
+	}
+
+	public void setLetterOfSupportAssocVPOfResearch(boolean letterOfSupportAssocVPOfResearch) {
+		this.letterOfSupportAssocVPOfResearch = letterOfSupportAssocVPOfResearch;
+	}
+
+	public boolean isDuplicationfFinalDocumentPackage() {
+		return duplicationfFinalDocumentPackage;
+	}
+
+	public void setDuplicationfFinalDocumentPackage(boolean duplicationfFinalDocumentPackage) {
+		this.duplicationfFinalDocumentPackage = duplicationfFinalDocumentPackage;
+	}
+
+	public int getNoOfCopies() {
+		return noOfCopies;
+	}
+
+	public void setNoOfCopies(int noOfCopies) {
+		this.noOfCopies = noOfCopies;
+	}
+
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
 	}
 
 	

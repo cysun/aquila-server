@@ -1,5 +1,5 @@
 package edu.csula.aquila.model;
-import java.util.*;
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name= "departments")
-public class Department{
+public class Department implements Serializable{
 
 	@Id
 	@GeneratedValue
@@ -20,44 +20,43 @@ public class Department{
 	@Column(nullable = false, unique = true, name = "department_name")
 	String name;
 	
-	@OneToOne
+	@Column(name = "department_chair")
 	User depChair;
 	
-	@ManyToOne
+	@Column(name = "college")
 	College college;
 
-	Department(long id, String name, User depChair, College college){
-		this.id = id;
-		this.name= name;
-		this.depChair = depChair;
-		this.college = college;
-	}
-
-	long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	String getName(){
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
 		return name;
 	}
 
-	User getDepChair(){
-		return depChair;
-	}
-
-	College getCollege(){
-		return college;
-	}
-
-	void setName(String name){
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	void setDepChair(User depChair){
+	public User getDepChair() {
+		return depChair;
+	}
+
+	public void setDepChair(User depChair) {
 		this.depChair = depChair;
 	}
 
-	void setCollege(College college){
+	public College getCollege() {
+		return college;
+	}
+
+	public void setCollege(College college) {
 		this.college = college;
 	}
+
+	
 }

@@ -23,7 +23,7 @@ public class ConflictOfInterestKPNonPHS implements Serializable{
 	private Long id;
 
 	
-	@ManyToOne
+	@Column(name = "pi")
 	private User pI;
 
 	@Column(name = "proposal_number", nullable = false, unique = true)
@@ -38,12 +38,16 @@ public class ConflictOfInterestKPNonPHS implements Serializable{
 	@Column(name="sub_award")
 	private boolean subAward; 
 	//strings for boolean subaward if true
+	
+	@Column(name = "subaward_sponsor")
 	private String subAwardSponsor;
+	
+	@Column(name = "subaward_agency")
 	private String subAwardAgency;
 
-	@ElementCollection
-	@Column(name="disclosure_reasons")
-	private Map<Boolean,String> disclosureReasons;
+//	@ElementCollection
+//	@Column(name="disclosure_reasons")
+//	private Map<Boolean,String> disclosureReasons;
 
 	@Column(name = "budget_period_start")
 	private Date budgetPeriodStart;
@@ -60,7 +64,7 @@ public class ConflictOfInterestKPNonPHS implements Serializable{
 	@Column(name = "amount_requested")
 	private double amountRequested;
 
-	@Column(name = "")
+	@Column
 	private long iRBACUCIBCNo; //name unclear
 
 	@Column(name = "significat_fin_interest")
@@ -79,9 +83,7 @@ public class ConflictOfInterestKPNonPHS implements Serializable{
 	private Date aRIDate;
 
 	public ConflictOfInterestKPNonPHS(){}
-	
-	
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -144,14 +146,6 @@ public class ConflictOfInterestKPNonPHS implements Serializable{
 
 	public void setSubAwardAgency(String subAwardAgency) {
 		this.subAwardAgency = subAwardAgency;
-	}
-
-	public Map<Boolean, String> getDisclosureReasons() {
-		return disclosureReasons;
-	}
-
-	public void setDisclosureReasons(Map<Boolean, String> disclosureReasons) {
-		this.disclosureReasons = disclosureReasons;
 	}
 
 	public Date getBudgetPeriodStart() {
@@ -241,6 +235,8 @@ public class ConflictOfInterestKPNonPHS implements Serializable{
 	public void setaRIDate(Date aRIDate) {
 		this.aRIDate = aRIDate;
 	}
+	
+	
 
 
 
