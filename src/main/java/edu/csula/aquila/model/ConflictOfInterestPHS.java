@@ -23,46 +23,50 @@ class ConflictOfInterestPHS implements Serializable{
 	
 	@Id
 	@GeneratedValue
-	Long id;
+	private Long id;
 	
 	@Column(name = "pi")
-	User pI;
+	private User pI;
 	
 	@Column(name = "proposal_number")
-	long proposalNumber;
+	private long proposalNumber;
 	
 	@Column(name = "proposal_title")
-	String proposalTitle; //come from intake??
+	private String proposalTitle; //come from intake??
 	
-//	@ElementCollection
-//	@MapKeyColumn(name="sponsor_name")
-//	@Column(name="is_sponsor")
-//	@CollectionTable(name="sponsor", joinColumns=@JoinColumn(name="id"))
-//	Map<Boolean,String> sponsor;
+	@ElementCollection
+	@MapKeyColumn(name="sponsor_name")
+	@Column(name="is_sponsor")
+	private Map<Boolean,String> sponsor;
 	
-//	@ElementCollection
-//	List<Boolean> disclosureReasons;//possible Map<boolean,String>, need string if boolean is true
+	@ElementCollection
+	@MapKeyColumn(name="reasons")
+	@Column(name="previous_info")
+	private Map<Boolean,String> disclosureReasons;
 
 	@Column(name = "budget_period_start")
-	Date budgetPeriodStart;
+	private Date budgetPeriodStart;
+	
 	@Column(name = "budget_period_end")
-	Date budgetPeriodEnd;
+	private Date budgetPeriodEnd;
+	
 	@Column(name = "project_period_start")
-	Date projectPeriodStart;
+	private Date projectPeriodStart;
+	
 	@Column(name = "project_period_end")
-	Date projectPeriodEnd;
+	private Date projectPeriodEnd;
 	
 	@Column(name = "amount_requested")
-	double amountRequested;
+	private double amountRequested;
 	
-	@Column
-	long iRBACUCIBCNo; //name unclear
+	@Column(name="irb_iacuc_ibc_no")
+	private long iRBACUCIBCNo; //name unclear
 	
 	@Column(name = "siginificant_financial_interest")
 	boolean significantFinInterest;
 	
 	@Column(name = "key_personnel_sign")
-	String keyPersonnelSign; //needs signature and print, signature its own class?
+	private Signature keyPersonnelSign; 
 	
 	@Column(name = "key_personnel_date")
 	Date keyPersonnelDate;
@@ -103,6 +107,23 @@ class ConflictOfInterestPHS implements Serializable{
 
 	public void setProposalTitle(String proposalTitle) {
 		this.proposalTitle = proposalTitle;
+	}
+	
+	
+	public Map<Boolean, String> getSponsor() {
+		return sponsor;
+	}
+
+	public void setSponsor(Map<Boolean, String> sponsor) {
+		this.sponsor = sponsor;
+	}
+
+	public Map<Boolean, String> getDisclosureReasons() {
+		return disclosureReasons;
+	}
+
+	public void setDisclosureReasons(Map<Boolean, String> disclosureReasons) {
+		this.disclosureReasons = disclosureReasons;
 	}
 
 	public Date getBudgetPeriodStart() {
@@ -161,11 +182,11 @@ class ConflictOfInterestPHS implements Serializable{
 		this.significantFinInterest = significantFinInterest;
 	}
 
-	public String getKeyPersonnelSign() {
+	public Signature getKeyPersonnelSign() {
 		return keyPersonnelSign;
 	}
 
-	public void setKeyPersonnelSign(String keyPersonnelSign) {
+	public void setKeyPersonnelSign(Signature keyPersonnelSign) {
 		this.keyPersonnelSign = keyPersonnelSign;
 	}
 

@@ -9,6 +9,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,50 +21,72 @@ public class ConflictOfInterestPINonPHS implements Serializable{
 	Long Id;
 	
 	@Column(name = "subaward_with_federal_agency_pass_through")
-	String subawardWithFederalAgencyPassThrough;
-	@Column(name = "disclosure_reason")
-	String disclosureReason; //new proposal, continuation/additional funding, new/change investigator, new interest obtained, new sponsor on existing project, request from irb, no cost time extension, other
-	@Column(name = "proposal_title")
-	String proposalTitle; //uncertain field
-	@Column(name = "budget_period_start")
-	Date budgetPeriodStart;
-	@Column(name = "budget_period_end")
-	Date budgetPeriodEnd;
-	@Column(name = "project_period_start")
-	Date projectPeriodStart;
-	@Column(name = "project_period_end")
-	Date projectPeriodEnd;
-	@Column(name = "amount_requested")
-	double amountRequested;
-	@Column
-	long irbACUibcNos; //what is this
+	private String subawardWithFederalAgencyPassThrough;
 	
-//disclosure and certification
+	@Column(name = "disclosure_reason")
+	private String disclosureReason; //new proposal, continuation/additional funding, new/change investigator, new interest obtained, new sponsor on existing project, request from irb, no cost time extension, other
+	
+	@Column(name = "proposal_title")
+	private String proposalTitle; //uncertain field
+	
+	@Column(name = "budget_period_start")
+	private Date budgetPeriodStart;
+	
+	@Column(name = "budget_period_end")
+	private Date budgetPeriodEnd;
+	
+	@Column(name = "project_period_start")
+	private Date projectPeriodStart;
+	
+	@Column(name = "project_period_end")
+	private Date projectPeriodEnd;
+	
+	@Column(name = "amount_requested")
+	private double amountRequested;
+	
+	@Column(name="irb_iacuc_ibc_no")
+	private long irbACUibcNos; //what is this
+	
+	//disclosure and certification
 	@Column(name = "significant_financial_interest")
-	boolean significantFinancialInterest;
-//	//if above true
-//	@ElementCollection
-//	List<Boolean> significantFinancialInterestReason;
-//	@ElementCollection
-//	List<Boolean> significantFinancialInterestDoesNotInclude; //not sure 
+
+	private boolean significantFinancialInterest;
+	
+	//if above true
+	@ElementCollection
+	private List<Boolean> significantFinancialInterestReason;
+	
+	@ElementCollection
+	private List<Boolean> significantFinancialInterestDoesNotInclude; //not sure 
+
 	
 	@Column(name = "other_personnel_contribution")
-	boolean otherPersonnelContribution;
+	private boolean otherPersonnelContribution;
+	
 	//if above true
-//	@ElementCollection
-//	List<User> namesOfOtherInvestigators;
+	@ElementCollection
+	//@OneToMany(mappedBy="conflict_of_interest_pi_non_phs")
+	private List<User> namesOfOtherInvestigators;
+	
 	@Column(name = "pi_signature")
-	Signature piSignature;
+	private Signature piSignature;
+	
 	@Column(name = "signature_date")
-	Date signatureDate;
+	private Date signatureDate;
+	
 	@Column(name = "pi_name")
-	User piName;
+	private User piName;
+	
 	@Column(name = "ari_official_approved")
-	boolean ARIOfficialApproved;
+	private boolean ARIOfficialApproved;
+	
 	@Column(name = "ari_official")
-	String ARIOfficial; //is this a signature or a print name?
+	private String ARIOfficial; //is this a signature or a print name?
+	
 	@Column(name = "ari_date")
-	Date ARIDate;
+	private Date ARIDate;
+	
+	
 	public Long getId() {
 		return Id;
 	}
@@ -130,11 +153,31 @@ public class ConflictOfInterestPINonPHS implements Serializable{
 	public void setSignificantFinancialInterest(boolean significantFinancialInterest) {
 		this.significantFinancialInterest = significantFinancialInterest;
 	}
+	
+	public List<Boolean> getSignificantFinancialInterestReason() {
+		return significantFinancialInterestReason;
+	}
+	public void setSignificantFinancialInterestReason(List<Boolean> significantFinancialInterestReason) {
+		this.significantFinancialInterestReason = significantFinancialInterestReason;
+	}
+	public List<Boolean> getSignificantFinancialInterestDoesNotInclude() {
+		return significantFinancialInterestDoesNotInclude;
+	}
+	public void setSignificantFinancialInterestDoesNotInclude(List<Boolean> significantFinancialInterestDoesNotInclude) {
+		this.significantFinancialInterestDoesNotInclude = significantFinancialInterestDoesNotInclude;
+	}
 	public boolean isOtherPersonnelContribution() {
 		return otherPersonnelContribution;
 	}
 	public void setOtherPersonnelContribution(boolean otherPersonnelContribution) {
 		this.otherPersonnelContribution = otherPersonnelContribution;
+	}
+	
+	public List<User> getNamesOfOtherInvestigators() {
+		return namesOfOtherInvestigators;
+	}
+	public void setNamesOfOtherInvestigators(List<User> namesOfOtherInvestigators) {
+		this.namesOfOtherInvestigators = namesOfOtherInvestigators;
 	}
 	public Signature getPiSignature() {
 		return piSignature;
