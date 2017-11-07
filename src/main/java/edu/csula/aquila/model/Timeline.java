@@ -16,19 +16,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="timeline")
-
 public class Timeline implements Serializable{
 	
 	@Id
 	@GeneratedValue
-	private Long id;
+	private Long Id;
 	
-	@ManyToOne
+	@Column(name = "pi")
 	User pI;
 	
-	@ElementCollection
-	@OneToMany
-	List<User> coPI;
+//	@ElementCollection
+//	@OneToMany
+//	List<User> coPI;
 
 	@Column(name="proposal")
 	String proposal;// unclear if proposal name or code
@@ -51,13 +50,13 @@ public class Timeline implements Serializable{
 	@Column(name="shipping_date")
 	Date shippingDate; // same as shipping deadline?
 	
-	@ElementCollection
-	@OneToMany
-	Map<String,Date> piDueDates;
-
-	@ElementCollection
-	@OneToMany
-	Map<String,Date> orspDueDates;
+//	@ElementCollection
+//	@OneToMany
+//	Map<String,Date> piDueDates;
+//
+//	@ElementCollection
+//	@OneToMany
+//	Map<String,Date> orspDueDates;
 
 	@Column(name="pi_initial")
 	//signatures, may not be strings
@@ -72,18 +71,18 @@ public class Timeline implements Serializable{
 	@Column(name="analyst_sign_date")
 	Date analystSign;
 	
-	@ElementCollection
-	@OneToMany
-	List<String> addComments;
+//	@ElementCollection
+//	@OneToMany
+//	List<String> addComments;
 
 	Timeline(){}
 
 	public Long getId() {
-		return id;
+		return Id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setId(Long Id) {
+		this.Id = Id;
 	}
 
 	public User getpI() {
@@ -92,14 +91,6 @@ public class Timeline implements Serializable{
 
 	public void setpI(User pI) {
 		this.pI = pI;
-	}
-
-	public List<User> getCoPI() {
-		return coPI;
-	}
-
-	public void setCoPI(List<User> coPI) {
-		this.coPI = coPI;
 	}
 
 	public String getProposal() {
@@ -158,22 +149,6 @@ public class Timeline implements Serializable{
 		this.shippingDate = shippingDate;
 	}
 
-	public Map<String, Date> getPiDueDates() {
-		return piDueDates;
-	}
-
-	public void setPiDueDates(Map<String, Date> piDueDates) {
-		this.piDueDates = piDueDates;
-	}
-
-	public Map<String, Date> getOrspDueDates() {
-		return orspDueDates;
-	}
-
-	public void setOrspDueDates(Map<String, Date> orspDueDates) {
-		this.orspDueDates = orspDueDates;
-	}
-
 	public String getPiInitial() {
 		return piInitial;
 	}
@@ -206,14 +181,6 @@ public class Timeline implements Serializable{
 		this.analystSign = analystSign;
 	}
 
-	public List<String> getAddComments() {
-		return addComments;
-	}
-
-	public void setAddComments(List<String> addComments) {
-		this.addComments = addComments;
-	};
-	//working on constructor
 
 	
 	

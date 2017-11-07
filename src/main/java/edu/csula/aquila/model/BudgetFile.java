@@ -1,18 +1,17 @@
 package edu.csula.aquila.model;
 
-import java.io.File;
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "budget")
-public class BudgetFile {
+public class BudgetFile implements Serializable{
 
 	@Id
 	@GeneratedValue
@@ -32,48 +31,56 @@ public class BudgetFile {
 	
 	@Column(name = "date")
 	Date dateOfUpload;
-	
-	@OneToOne(mappedBy="budgetForm")
-	Proposal proposal;
-	
-	public File getBudget() {
-		return budget;
-	}
-	
-	public void setBudget(File budget) {
-		this.budget = budget;
-	}
-	
+
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getNameOfUploader() {
 		return nameOfUploader;
 	}
-	
+
 	public void setNameOfUploader(String nameOfUploader) {
 		this.nameOfUploader = nameOfUploader;
 	}
-	
-	
+
+	public String getNameOfFile() {
+		return nameOfFile;
+	}
+
+	public void setNameOfFile(String nameOfFile) {
+		this.nameOfFile = nameOfFile;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public String getFilePath() {
 		return filePath;
 	}
-	
+
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
 	}
+
 	public Date getDateOfUpload() {
 		return dateOfUpload;
 	}
+
 	public void setDateOfUpload(Date dateOfUpload) {
 		this.dateOfUpload = dateOfUpload;
 	}
+
+
 	
 	
 }

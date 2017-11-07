@@ -17,7 +17,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "conflict_of_interest_phs")
-
 public class ConflictOfInterestKPPHS implements Serializable{
 
 	//identical to Non PHS, excludes bool subaward, sponsor as Map<Boolean,String>
@@ -26,8 +25,7 @@ public class ConflictOfInterestKPPHS implements Serializable{
 	@GeneratedValue
 	private Long id;
 
-	//@Column(name="pi")
-	@ManyToOne
+	@Column(name = "pi")
 	private User pI;
 
 	@Column(name="proposal_number")
@@ -36,12 +34,12 @@ public class ConflictOfInterestKPPHS implements Serializable{
 	@Column(name="proposal_title")
 	private String proposalTitle; //come from intake??
 
-	@ElementCollection
-	@Column(name="sponsor")
-	private Map<Boolean,String> sponsor;
+//	@ElementCollection
+//	@Column(name="sponsor")
+//	private Map<Boolean,String> sponsor;
 
-	@Column(name="disclosure_reasons")
-	private List<Boolean> disclosureReasons;//possible Map<boolean,String>, need string if boolean is true
+//	@Column(name="disclosure_reasons")
+//	private List<Boolean> disclosureReasons;//possible Map<boolean,String>, need string if boolean is true
 
 	@Column(name = "budget_period_start")
 	private Date budgetPeriodStart;
@@ -58,7 +56,7 @@ public class ConflictOfInterestKPPHS implements Serializable{
 	@Column(name = "amount_requested")
 	private Integer amountRequested;
 
-	@Column(name = "")
+	@Column
 	private long iRBACUCIBCNo; //name unclear
 
 	@Column(name = "significant_fin_interest")
@@ -77,8 +75,7 @@ public class ConflictOfInterestKPPHS implements Serializable{
 	private Date aRIDate;
 	
 	public ConflictOfInterestKPPHS() {}
-	
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -109,22 +106,6 @@ public class ConflictOfInterestKPPHS implements Serializable{
 
 	public void setProposalTitle(String proposalTitle) {
 		this.proposalTitle = proposalTitle;
-	}
-
-	public Map<Boolean, String> getSponsor() {
-		return sponsor;
-	}
-
-	public void setSponsor(Map<Boolean, String> sponsor) {
-		this.sponsor = sponsor;
-	}
-
-	public List<Boolean> getDisclosureReasons() {
-		return disclosureReasons;
-	}
-
-	public void setDisclosureReasons(List<Boolean> disclosureReasons) {
-		this.disclosureReasons = disclosureReasons;
 	}
 
 	public Date getBudgetPeriodStart() {
@@ -214,5 +195,6 @@ public class ConflictOfInterestKPPHS implements Serializable{
 	public void setaRIDate(Date aRIDate) {
 		this.aRIDate = aRIDate;
 	}
-
+	
+	
 }

@@ -11,52 +11,42 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "proposal")
-
 public class Proposal implements Serializable{
 	
 	@Id
 	@GeneratedValue
 	private Long id;
 
-	//@Column(name ="intake")
-	@OneToOne
+	@Column(name ="intake")
 	private IntakeForm intakeForm;
 	
-	//@Column(name = "approval")
-	@OneToOne
+	@Column(name = "approval")
 	private ApprovalForm approvalForm;
 
-	//@Column(name = "coi_nonphs_kp")
-	@OneToOne
+	@Column(name = "coi_nonphs_kp")
 	private ConflictOfInterestKPNonPHS conflictOfInterestKPNonPHS;
 
-	//@Column(name = "coi_phs_kp")
-	@OneToOne
+	@Column(name = "coi_phs_kp")
 	private ConflictOfInterestKPPHS conflictOfInterestKPPHS;
 	
-	//@Column(name = "coi_nonphs_pi")
-	@OneToOne
+	@Column(name = "coi_nonphs_pi")
 	private ConflictOfInterestPINonPHS conflictOfInterestPINonPHS;
 
-	//@Column(name = "coi_phs_pi")
-	@OneToOne
+	@Column(name = "coi_phs_pi")
 	private ConflictOfInterestPHS conflictOfInterestPHS;
 	
-	//@Column(name = "equipment")
-	@OneToOne
+	@Column(name = "equipment")
 	private EquipmentForm equipmentForm;
 
-	//@Column(name = "timeline")
-	@OneToOne
+	@Column(name = "timeline")
 	private Timeline timeline;
 
 	
-	//@Column(name = "budget")
-	@OneToOne
+	@Column(name = "budget")
 	BudgetFile budgetForm;
 
 	public Proposal(){}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -105,7 +95,7 @@ public class Proposal implements Serializable{
 		this.conflictOfInterestPINonPHS = conflictOfInterestPINonPHS;
 	}
 
-	public ConflictOfInterestPHS getConflictOfInterestPIPHS() {
+	public ConflictOfInterestPHS getConflictOfInterestPHS() {
 		return conflictOfInterestPHS;
 	}
 
@@ -135,5 +125,7 @@ public class Proposal implements Serializable{
 
 	public void setBudgetForm(BudgetFile budgetForm) {
 		this.budgetForm = budgetForm;
-  }
+	}
+	
+
 }
