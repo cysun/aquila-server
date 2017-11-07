@@ -43,9 +43,9 @@ public class ConflictOfInterestPINonPHS implements Serializable{
 	boolean significantFinancialInterest;
 //	//if above true
 //	@ElementCollection
-//	boolean[] significantFinancialInterestReason;
+//	List<Boolean> significantFinancialInterestReason;
 //	@ElementCollection
-//	boolean[] significantFinancialInterestDoesNotInclude; //not sure 
+//	List<Boolean> significantFinancialInterestDoesNotInclude; //not sure 
 	
 	@Column(name = "other_personnel_contribution")
 	boolean otherPersonnelContribution;

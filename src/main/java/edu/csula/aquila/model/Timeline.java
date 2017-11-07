@@ -71,9 +71,9 @@ public class Timeline implements Serializable{
 	@Column(name="analyst_sign_date")
 	Date analystSign;
 	
-//	@ElementCollection
-//	@OneToMany
-//	List<String> addComments;
+	@ElementCollection
+	@Column(name="add_comments")
+	List<String> addComments;
 
 	Timeline(){}
 

@@ -19,6 +19,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "approval_form")
 public class ApprovalForm implements Serializable{
 	
+	private static final long serialVersionUID = 2L;
+	
 	@Id
 	@GeneratedValue
 	private Long Id;
@@ -171,9 +173,9 @@ public class ApprovalForm implements Serializable{
 	@Column(name = "cost_sharing_required")
 	private boolean costSharingRequired;
 
-//	@ElementCollection
-//	@Column(name = "cost_sharing_colleges")
-//	private List<ApprovalCollege> costSharingColleges;
+	@OneToMany(mappedBy="form")
+	@Column(name = "cost_sharing_colleges")
+	private List<ApprovalCollege> costSharingColleges;
 
 	@Column(name = "total_of_college")
 	private Integer totalOfColleges;
@@ -196,9 +198,9 @@ public class ApprovalForm implements Serializable{
 	@Column(name = "total_proposal_cost_sharing")
 	private Integer totalProposalCostSharing;
 
-//	@ElementCollection
-//	@Column(name = "internal_notes")
-//	private List<String> internalNotes;
+	@ElementCollection
+	@Column(name = "internal_notes")
+	private List<String> internalNotes;
 
 	// 10
 	@Column(name = "proposal_personnel_signature")
@@ -225,9 +227,9 @@ public class ApprovalForm implements Serializable{
 	@Column(name = "proposal_code")
 	private float proposalCode;
 
-//	@ElementCollection
-//	@Column(name = "co_pis")
-//	private List<String> coPis;
+	@ElementCollection
+	@Column(name = "co_pis")
+	private List<String> coPis;
 
 	@Column(name = "proposal_type")
 	private String typeOfProposal;
@@ -240,30 +242,6 @@ public class ApprovalForm implements Serializable{
 
 	@Column(name = "cfda_number")
 	private int cfdaNumber;
-
-		@Entity
-		@Table(name="approval_colleges")
-		public class ApprovalCollege {
-		
-//		//	@ManyToOne(mappedBy="costSharingColleges")
-//			ApprovalForm form;
-			
-			@Id
-			@GeneratedValue
-			private Long id;
-		
-			@Column(name="personnel_cost")
-			Integer personnelCost;
-			
-			@Column(name="fringe_cost")
-			Integer fringeCost;
-			
-			@Column(name="meeting_expenses")
-			Integer meetingExpenses;
-			
-			@Column(name="total_cost")
-			Integer totalCost;
-		}
 
 	public ApprovalForm(){}
 
@@ -627,14 +605,6 @@ public class ApprovalForm implements Serializable{
 		this.costSharingRequired = costSharingRequired;
 	}
 
-//	public List<ApprovalCollege> getCostSharingColleges() {
-//		return costSharingColleges;
-//	}
-
-//	public void setCostSharingColleges(List<ApprovalCollege> costSharingColleges) {
-//		this.costSharingColleges = costSharingColleges;
-//	}
-
 	public Integer getTotalOfColleges() {
 		return totalOfColleges;
 	}
@@ -691,13 +661,13 @@ public class ApprovalForm implements Serializable{
 		this.totalProposalCostSharing = totalProposalCostSharing;
 	}
 
-//	public List<String> getInternalNotes() {
-//		return internalNotes;
-//	}
-//
-//	public void setInternalNotes(List<String> internalNotes) {
-//		this.internalNotes = internalNotes;
-//	}
+	public List<String> getInternalNotes() {
+		return internalNotes;
+	}
+
+	public void setInternalNotes(List<String> internalNotes) {
+		this.internalNotes = internalNotes;
+	}
 
 	public Signature getProposalPersonnelSignature() {
 		return proposalPersonnelSignature;
@@ -755,13 +725,13 @@ public class ApprovalForm implements Serializable{
 		this.proposalCode = proposalCode;
 	}
 
-//	public List<String> getCoPis() {
-//		return coPis;
-//	}
-//
-//	public void setCoPis(List<String> coPis) {
-//		this.coPis = coPis;
-//	}
+	public List<String> getCoPis() {
+		return coPis;
+	}
+
+	public void setCoPis(List<String> coPis) {
+		this.coPis = coPis;
+	}
 
 	public String getTypeOfProposal() {
 		return typeOfProposal;
@@ -793,6 +763,43 @@ public class ApprovalForm implements Serializable{
 
 	public void setCfdaNumber(int cfdaNumber) {
 		this.cfdaNumber = cfdaNumber;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public List<ApprovalCollege> getCostSharingColleges() {
+		return costSharingColleges;
+	}
+
+	public void setCostSharingColleges(List<ApprovalCollege> costSharingColleges) {
+		this.costSharingColleges = costSharingColleges;
+	}
+
+
+	@Entity
+	@Table(name="approval_colleges")
+	public class ApprovalCollege {
+	
+		@ManyToOne
+		ApprovalForm form;
+		
+		@Id
+		@GeneratedValue
+		private Long id;
+	
+		@Column(name="personnel_cost")
+		Integer personnelCost;
+		
+		@Column(name="fringe_cost")
+		Integer fringeCost;
+		
+		@Column(name="meeting_expenses")
+		Integer meetingExpenses;
+		
+		@Column(name="total_cost")
+		Integer totalCost;
 	}
 
 
