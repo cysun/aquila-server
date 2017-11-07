@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -38,6 +39,10 @@ public class User implements Serializable {
 
     @Column(nullable = false)
     private boolean enabled = true;
+    
+    //relationship for timeline
+    @ManyToOne
+    Timeline timelineForm;
 
     public User()
     {
