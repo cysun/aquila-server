@@ -1,160 +1,221 @@
 package edu.csula.aquila.model;
 
+import java.io.Serializable;
 import java.util.*;
 
-class Timeline{
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name="timeline")
+
+public class Timeline implements Serializable{
 	
+	@Id
+	@GeneratedValue
+	private Long id;
+	
+	@ManyToOne
 	User pI;
+	
+	@ElementCollection
+	@OneToMany
 	List<User> coPI;
+
+	@Column(name="proposal")
 	String proposal;// unclear if proposal name or code
+	
+	@Column(name="funding_agency")
 	String fundingAgency;
+	
+	@Column(name="shipping_deadline")
 	Date shippingDeadline; //??
+	
+	@Column(name="uas_date")
 	Date uASDate;
+	
+	@Column(name="sponsor_date")
 	Date sponsorDueDate;
+	
+	@Column(name="final_sign_date")
 	Date finalSign;
+	
+	@Column(name="shipping_date")
 	Date shippingDate; // same as shipping deadline?
+	
+	@ElementCollection
+	@OneToMany
 	Map<String,Date> piDueDates;
+
+	@ElementCollection
+	@OneToMany
 	Map<String,Date> orspDueDates;
 
+	@Column(name="pi_initial")
 	//signatures, may not be strings
 	String piInitial;
+	
+	@Column(name="analyst_initial")
 	String analystInitial;
 
+	@Column(name="pi_sign_date")
 	Date piSign;
+	
+	@Column(name="analyst_sign_date")
 	Date analystSign;
+	
+	@ElementCollection
+	@OneToMany
 	List<String> addComments;
 
-	Timeline();
-	//working on constructor
+	Timeline(){}
 
-	User getPI(){
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public User getpI() {
 		return pI;
 	}
 
-	List<User> getCoPI(){
-		return coPI;
-	}
-
-	String getProposal(){
-		return proposal;
-	}
-
-	String getFundingAgency(){
-		return fundingAgency;
-	}
-
-	Date getShippingDeadline(){
-		return shippingDeadline;
-	}
-
-	Date getUASDate(){
-		return uASDate;
-	}
-
-	Date getSponsorDueDate(){
-		return sponsorDueDate;
-	}
-
-	Date getFinalSign(){
-		return finalSign;
-	}
-
-	Date getShippingDate(){
-		return shippingDate;
-	}
-
-
-	Map<String,Date> getPIDueDates(){
-		return piDueDates;
-	}
-
-	Map<String,Date> getORSPDueDates(){
-		return orspDueDates;
-	}
-
-	String getPIInitial(){
-		return piInitial;
-	}
-
-	String getAnalystInitial(){
-		return analystSign;
-	}
-
-	Date getPISign(){
-		return piSign;
-	}
-
-	Date getAnalystSign(){
-		return analystSign;
-	}
-
-	List<String> getAddComments(){
-		return addComments;
-	}
-
-
-	void setPI(User pI){
+	public void setpI(User pI) {
 		this.pI = pI;
 	}
 
-	void setCoPI(List<Users> coPI){
+	public List<User> getCoPI() {
+		return coPI;
+	}
+
+	public void setCoPI(List<User> coPI) {
 		this.coPI = coPI;
 	}
 
-	void setProposal(String proposal){
+	public String getProposal() {
+		return proposal;
+	}
+
+	public void setProposal(String proposal) {
 		this.proposal = proposal;
 	}
 
-	void setFundingAgency(String fundingAgency){
+	public String getFundingAgency() {
+		return fundingAgency;
+	}
+
+	public void setFundingAgency(String fundingAgency) {
 		this.fundingAgency = fundingAgency;
 	}
 
-	void setShippingDeadline(Date shippingDeadline){
+	public Date getShippingDeadline() {
+		return shippingDeadline;
+	}
+
+	public void setShippingDeadline(Date shippingDeadline) {
 		this.shippingDeadline = shippingDeadline;
 	}
 
-	void setUASDate(Date uASDate){
+	public Date getuASDate() {
+		return uASDate;
+	}
+
+	public void setuASDate(Date uASDate) {
 		this.uASDate = uASDate;
 	}
 
-	void setSponsorDueDate(Date sponsorDueDate){
+	public Date getSponsorDueDate() {
+		return sponsorDueDate;
+	}
+
+	public void setSponsorDueDate(Date sponsorDueDate) {
 		this.sponsorDueDate = sponsorDueDate;
 	}
 
-	void setFinalSign(Date finalSign){
+	public Date getFinalSign() {
+		return finalSign;
+	}
+
+	public void setFinalSign(Date finalSign) {
 		this.finalSign = finalSign;
 	}
 
-	void setShippingDate(Date shippingDate){
+	public Date getShippingDate() {
+		return shippingDate;
+	}
+
+	public void setShippingDate(Date shippingDate) {
 		this.shippingDate = shippingDate;
 	}
 
+	public Map<String, Date> getPiDueDates() {
+		return piDueDates;
+	}
 
-	void setPIDueDates(Map<String,Date> piDueDates){
+	public void setPiDueDates(Map<String, Date> piDueDates) {
 		this.piDueDates = piDueDates;
 	}
 
-	void setORSPDueDates(Map<String,Date> orspDueDates){
+	public Map<String, Date> getOrspDueDates() {
+		return orspDueDates;
+	}
+
+	public void setOrspDueDates(Map<String, Date> orspDueDates) {
 		this.orspDueDates = orspDueDates;
 	}
 
-	void setpiInitial(String piInitial){
+	public String getPiInitial() {
+		return piInitial;
+	}
+
+	public void setPiInitial(String piInitial) {
 		this.piInitial = piInitial;
 	}
 
-	void setAnalystInitial(String analystInitial){
+	public String getAnalystInitial() {
+		return analystInitial;
+	}
+
+	public void setAnalystInitial(String analystInitial) {
 		this.analystInitial = analystInitial;
 	}
 
-	void setpiSign(Date piSign){
+	public Date getPiSign() {
+		return piSign;
+	}
+
+	public void setPiSign(Date piSign) {
 		this.piSign = piSign;
 	}
 
-	void setAnalystSign(Date analystSign){
+	public Date getAnalystSign() {
+		return analystSign;
+	}
+
+	public void setAnalystSign(Date analystSign) {
 		this.analystSign = analystSign;
 	}
 
-	void setAddComments(List<String> addComments){
-		this.addComments = addComments;
+	public List<String> getAddComments() {
+		return addComments;
 	}
+
+	public void setAddComments(List<String> addComments) {
+		this.addComments = addComments;
+	};
+	//working on constructor
+
+	
+	
+	
 }

@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.util.*;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,7 +26,8 @@ public class ConflictOfInterestKPPHS implements Serializable{
 	@GeneratedValue
 	private Long id;
 
-	@Column(name="pi")
+	//@Column(name="pi")
+	@ManyToOne
 	private User pI;
 
 	@Column(name="proposal_number")
@@ -32,6 +36,7 @@ public class ConflictOfInterestKPPHS implements Serializable{
 	@Column(name="proposal_title")
 	private String proposalTitle; //come from intake??
 
+	@ElementCollection
 	@Column(name="sponsor")
 	private Map<Boolean,String> sponsor;
 

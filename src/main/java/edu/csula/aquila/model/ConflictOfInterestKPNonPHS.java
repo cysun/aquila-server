@@ -3,9 +3,11 @@ import java.io.Serializable;
 import java.util.*;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,7 +22,8 @@ public class ConflictOfInterestKPNonPHS implements Serializable{
 	@GeneratedValue
 	private Long id;
 
-	@Column(name="pi")
+	
+	@ManyToOne
 	private User pI;
 
 	@Column(name = "proposal_number", nullable = false, unique = true)
@@ -38,6 +41,7 @@ public class ConflictOfInterestKPNonPHS implements Serializable{
 	private String subAwardSponsor;
 	private String subAwardAgency;
 
+	@ElementCollection
 	@Column(name="disclosure_reasons")
 	private Map<Boolean,String> disclosureReasons;
 
@@ -45,34 +49,34 @@ public class ConflictOfInterestKPNonPHS implements Serializable{
 	private Date budgetPeriodStart;
 
 	@Column(name = "budget_period_end")
-	Date budgetPeriodEnd;
+	private Date budgetPeriodEnd;
 
 	@Column(name = "project_period_start")
-	Date projectPeriodStart;
+	private Date projectPeriodStart;
 
 	@Column(name = "project_period_end")
-	Date projectPeriodEnd;
+	private Date projectPeriodEnd;
 
 	@Column(name = "amount_requested")
-	double amountRequested;
+	private double amountRequested;
 
 	@Column(name = "")
-	long iRBACUCIBCNo; //name unclear
+	private long iRBACUCIBCNo; //name unclear
 
 	@Column(name = "significat_fin_interest")
-	boolean significantFinInterest;
+	private boolean significantFinInterest;
 
 	@Column(name = "key_personnel_sign")
-	String keyPersonnelSign; //needs signature and print, signature its own class?
+	private String keyPersonnelSign; //needs signature and print, signature its own class?
 
 	@Column(name = "key_personnel_date")
-	Date keyPersonnelDate;
+	private Date keyPersonnelDate;
 
 	@Column(name = "ari_official")
-	boolean aRIOfficial;
+	private boolean aRIOfficial;
 
 	@Column(name = "ari_date")
-	Date aRIDate;
+	private Date aRIDate;
 
 	public ConflictOfInterestKPNonPHS(){}
 	

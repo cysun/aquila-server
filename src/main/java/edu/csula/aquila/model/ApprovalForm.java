@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.util.*;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -27,7 +30,7 @@ public class ApprovalForm implements Serializable{
 	private String projectTitle;
 
 	@Column(name = "pi_name")
-	@OneToMany
+	//@OneToMany
 	private User pIName;// ?
 
 	@Column(name = "email")
@@ -171,8 +174,10 @@ public class ApprovalForm implements Serializable{
 	@Column(name = "cost_sharing_required")
 	private boolean costSharingRequired;
 
-	@Column(name = "cost_sharing_colleges")
-	private List<ApprovalCollege> costSharingColleges;
+	//@ElementCollection
+	//@Column(name = "cost_sharing_colleges")
+	//@OneToMany
+	//private List<ApprovalCollege> costSharingColleges;
 
 	@Column(name = "total_of_college")
 	private Integer totalOfColleges;
@@ -195,6 +200,7 @@ public class ApprovalForm implements Serializable{
 	@Column(name = "total_proposal_cost_sharing")
 	private Integer totalProposalCostSharing;
 
+	@ElementCollection
 	@Column(name = "internal_notes")
 	private List<String> internalNotes;
 
@@ -223,6 +229,7 @@ public class ApprovalForm implements Serializable{
 	@Column(name = "proposal_code")
 	private float proposalCode;
 
+	@ElementCollection
 	@Column(name = "co_pis")
 	private List<String> coPis;
 
@@ -238,11 +245,27 @@ public class ApprovalForm implements Serializable{
 	@Column(name = "cfda_number")
 	private int cfdaNumber;
 
+	//	@Entity
+	//	@Table(name="approval_colleges")
 		public class ApprovalCollege {
-		 Integer personelCost;
-		 Integer fringeCost;
-		 Integer meetingExpenses;
-		 Integer totalCost;
+		
+		//	@ManyToOne(mappedBy="costSharingColleges")
+			ApprovalForm form;
+			@Id
+			@GeneratedValue
+			private Long id;
+		
+			@Column(name="personnel_cost")
+			Integer personnelCost;
+			
+			@Column(name="fringe_cost")
+			Integer fringeCost;
+			
+			@Column(name="meeting_expenses")
+			Integer meetingExpenses;
+			
+			@Column(name="total_cost")
+			Integer totalCost;
 		}
 
 	public ApprovalForm(){}
@@ -607,21 +630,21 @@ public class ApprovalForm implements Serializable{
 		this.costSharingRequired = costSharingRequired;
 	}
 
-	public List<ApprovalCollege> getCostSharingColleges() {
-		return costSharingColleges;
-	}
-
-	public void setCostSharingColleges(List<ApprovalCollege> costSharingColleges) {
-		this.costSharingColleges = costSharingColleges;
-	}
+//	public List<ApprovalCollege> getCostSharingColleges() {
+//		return costSharingColleges;
+//	}
+//
+//	public void setCostSharingColleges(List<ApprovalCollege> costSharingColleges) {
+//		this.costSharingColleges = costSharingColleges;
+//	}
 
 	public double getTotalOfColleges() {
 		return totalOfColleges;
 	}
 
-	public void setTotalOfColleges(double totalOfColleges) {
-		this.totalOfColleges = totalOfColleges;
-	}
+//	public void setTotalOfColleges(double totalOfColleges) {
+//		this.totalOfColleges = totalOfColleges;
+//	}
 
 	public Integer getCalStateLACostSharing() {
 		return calStateLACostSharing;
