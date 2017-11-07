@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -34,12 +35,15 @@ public class ConflictOfInterestKPPHS implements Serializable{
 	@Column(name="proposal_title")
 	private String proposalTitle; //come from intake??
 
-//	@ElementCollection
-//	@Column(name="sponsor")
-//	private Map<Boolean,String> sponsor;
-
-//	@Column(name="disclosure_reasons")
-//	private List<Boolean> disclosureReasons;//possible Map<boolean,String>, need string if boolean is true
+	@ElementCollection
+	@MapKeyColumn(name="sponsor_type")
+	@Column(name="sponsor_name")
+	private Map<Boolean,String> sponsor;
+	
+	@ElementCollection
+	@MapKeyColumn(name="reasons")
+	@Column(name="previous_info")
+	private Map<Boolean,String> disclosureReasons;
 
 	@Column(name = "budget_period_start")
 	private Date budgetPeriodStart;
@@ -106,6 +110,23 @@ public class ConflictOfInterestKPPHS implements Serializable{
 
 	public void setProposalTitle(String proposalTitle) {
 		this.proposalTitle = proposalTitle;
+	}
+	
+	
+	public Map<Boolean, String> getSponsor() {
+		return sponsor;
+	}
+
+	public void setSponsor(Map<Boolean, String> sponsor) {
+		this.sponsor = sponsor;
+	}
+
+	public Map<Boolean, String> getDisclosureReasons() {
+		return disclosureReasons;
+	}
+
+	public void setDisclosureReasons(Map<Boolean, String> disclosureReasons) {
+		this.disclosureReasons = disclosureReasons;
 	}
 
 	public Date getBudgetPeriodStart() {

@@ -2,12 +2,14 @@ package edu.csula.aquila.model;
 import java.io.Serializable;
 import java.util.*;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -45,9 +47,10 @@ public class ConflictOfInterestKPNonPHS implements Serializable{
 	@Column(name = "subaward_agency")
 	private String subAwardAgency;
 
-//	@ElementCollection
-//	@Column(name="disclosure_reasons")
-//	private Map<Boolean,String> disclosureReasons;
+	@ElementCollection
+	@MapKeyColumn(name="reasons")
+	@Column(name="previous_info")
+	private Map<Boolean,String> disclosureReasons;
 
 	@Column(name = "budget_period_start")
 	private Date budgetPeriodStart;
@@ -71,7 +74,7 @@ public class ConflictOfInterestKPNonPHS implements Serializable{
 	private boolean significantFinInterest;
 
 	@Column(name = "key_personnel_sign")
-	private String keyPersonnelSign; //needs signature and print, signature its own class?
+	private Signature keyPersonnelSign; //needs signature and print, signature its own class?
 
 	@Column(name = "key_personnel_date")
 	private Date keyPersonnelDate;
@@ -204,11 +207,11 @@ public class ConflictOfInterestKPNonPHS implements Serializable{
 		this.significantFinInterest = significantFinInterest;
 	}
 
-	public String getKeyPersonnelSign() {
+	public Signature getKeyPersonnelSign() {
 		return keyPersonnelSign;
 	}
 
-	public void setKeyPersonnelSign(String keyPersonnelSign) {
+	public void setKeyPersonnelSign(Signature keyPersonnelSign) {
 		this.keyPersonnelSign = keyPersonnelSign;
 	}
 
