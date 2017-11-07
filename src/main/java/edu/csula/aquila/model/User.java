@@ -44,6 +44,10 @@ public class User implements Serializable {
     @ManyToOne
     Timeline timelineForm;
 
+    //relationship for conflictOfInterestPInonPHS
+    @ManyToOne
+    ConflictOfInterestPINonPHS coiPiNonPHS;
+    
     public User()
     {
     }
@@ -117,5 +121,23 @@ public class User implements Serializable {
     {
         this.enabled = enabled;
     }
+
+	public Timeline getTimelineForm() {
+		return timelineForm;
+	}
+
+	public void setTimelineForm(Timeline timelineForm) {
+		this.timelineForm = timelineForm;
+	}
+
+	public ConflictOfInterestPINonPHS getCoiPiNonPHS() {
+		return coiPiNonPHS;
+	}
+
+	public void setCoiPiNonPHS(ConflictOfInterestPINonPHS coiPiNonPHS) {
+		this.coiPiNonPHS = coiPiNonPHS;
+	}
+
+
 
 }

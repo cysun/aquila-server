@@ -49,14 +49,15 @@ public class ConflictOfInterestPINonPHS implements Serializable{
 	
 	//disclosure and certification
 	@Column(name = "significant_financial_interest")
-
 	private boolean significantFinancialInterest;
 	
 	//if above true
 	@ElementCollection
+	@Column(name = "significant_financial_interest_reason")
 	private List<Boolean> significantFinancialInterestReason;
 	
 	@ElementCollection
+	@Column(name = "significant_financial_interest_reason_does_not_include")
 	private List<Boolean> significantFinancialInterestDoesNotInclude; //not sure 
 
 	
@@ -64,9 +65,9 @@ public class ConflictOfInterestPINonPHS implements Serializable{
 	private boolean otherPersonnelContribution;
 	
 	//if above true
-	@ElementCollection
-	//@OneToMany(mappedBy="conflict_of_interest_pi_non_phs")
-	private List<User> namesOfOtherInvestigators;
+	@OneToMany(mappedBy ="coiPiNonPHS")
+	@Column(name = "names_of_other_investigators")
+	List<User> namesOfOtherInvestigators;
 	
 	@Column(name = "pi_signature")
 	private Signature piSignature;
