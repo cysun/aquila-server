@@ -17,20 +17,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "approval_form")
-
 public class ApprovalForm implements Serializable{
 	
-
 	@Id
 	@GeneratedValue
-	private Long id;
+	private Long Id;
 
 	// 1-4
 	@Column(name = "project_title")
 	private String projectTitle;
 
 	@Column(name = "pi_name")
-	//@OneToMany
 	private User pIName;// ?
 
 	@Column(name = "email")
@@ -174,10 +171,9 @@ public class ApprovalForm implements Serializable{
 	@Column(name = "cost_sharing_required")
 	private boolean costSharingRequired;
 
-	//@ElementCollection
-	//@Column(name = "cost_sharing_colleges")
-	//@OneToMany
-	//private List<ApprovalCollege> costSharingColleges;
+//	@ElementCollection
+//	@Column(name = "cost_sharing_colleges")
+//	private List<ApprovalCollege> costSharingColleges;
 
 	@Column(name = "total_of_college")
 	private Integer totalOfColleges;
@@ -200,9 +196,9 @@ public class ApprovalForm implements Serializable{
 	@Column(name = "total_proposal_cost_sharing")
 	private Integer totalProposalCostSharing;
 
-	@ElementCollection
-	@Column(name = "internal_notes")
-	private List<String> internalNotes;
+//	@ElementCollection
+//	@Column(name = "internal_notes")
+//	private List<String> internalNotes;
 
 	// 10
 	@Column(name = "proposal_personnel_signature")
@@ -229,9 +225,9 @@ public class ApprovalForm implements Serializable{
 	@Column(name = "proposal_code")
 	private float proposalCode;
 
-	@ElementCollection
-	@Column(name = "co_pis")
-	private List<String> coPis;
+//	@ElementCollection
+//	@Column(name = "co_pis")
+//	private List<String> coPis;
 
 	@Column(name = "proposal_type")
 	private String typeOfProposal;
@@ -245,12 +241,13 @@ public class ApprovalForm implements Serializable{
 	@Column(name = "cfda_number")
 	private int cfdaNumber;
 
-	//	@Entity
-	//	@Table(name="approval_colleges")
+		@Entity
+		@Table(name="approval_colleges")
 		public class ApprovalCollege {
 		
-		//	@ManyToOne(mappedBy="costSharingColleges")
-			ApprovalForm form;
+//		//	@ManyToOne(mappedBy="costSharingColleges")
+//			ApprovalForm form;
+			
 			@Id
 			@GeneratedValue
 			private Long id;
@@ -271,11 +268,11 @@ public class ApprovalForm implements Serializable{
 	public ApprovalForm(){}
 
 	public Long getId() {
-		return id;
+		return Id;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		Id = id;
 	}
 
 	public String getProjectTitle() {
@@ -633,18 +630,18 @@ public class ApprovalForm implements Serializable{
 //	public List<ApprovalCollege> getCostSharingColleges() {
 //		return costSharingColleges;
 //	}
-//
+
 //	public void setCostSharingColleges(List<ApprovalCollege> costSharingColleges) {
 //		this.costSharingColleges = costSharingColleges;
 //	}
 
-	public double getTotalOfColleges() {
+	public Integer getTotalOfColleges() {
 		return totalOfColleges;
 	}
 
-//	public void setTotalOfColleges(double totalOfColleges) {
-//		this.totalOfColleges = totalOfColleges;
-//	}
+	public void setTotalOfColleges(Integer totalOfColleges) {
+		this.totalOfColleges = totalOfColleges;
+	}
 
 	public Integer getCalStateLACostSharing() {
 		return calStateLACostSharing;
@@ -694,13 +691,13 @@ public class ApprovalForm implements Serializable{
 		this.totalProposalCostSharing = totalProposalCostSharing;
 	}
 
-	public List<String> getInternalNotes() {
-		return internalNotes;
-	}
-
-	public void setInternalNotes(List<String> internalNotes) {
-		this.internalNotes = internalNotes;
-	}
+//	public List<String> getInternalNotes() {
+//		return internalNotes;
+//	}
+//
+//	public void setInternalNotes(List<String> internalNotes) {
+//		this.internalNotes = internalNotes;
+//	}
 
 	public Signature getProposalPersonnelSignature() {
 		return proposalPersonnelSignature;
@@ -758,13 +755,13 @@ public class ApprovalForm implements Serializable{
 		this.proposalCode = proposalCode;
 	}
 
-	public List<String> getCoPis() {
-		return coPis;
-	}
-
-	public void setCoPis(List<String> coPis) {
-		this.coPis = coPis;
-	}
+//	public List<String> getCoPis() {
+//		return coPis;
+//	}
+//
+//	public void setCoPis(List<String> coPis) {
+//		this.coPis = coPis;
+//	}
 
 	public String getTypeOfProposal() {
 		return typeOfProposal;
@@ -797,5 +794,6 @@ public class ApprovalForm implements Serializable{
 	public void setCfdaNumber(int cfdaNumber) {
 		this.cfdaNumber = cfdaNumber;
 	}
+
 
 }
