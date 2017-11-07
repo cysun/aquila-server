@@ -48,8 +48,10 @@ public class EquipmentForm implements Serializable{
 	boolean newEquipment;
 	// type of equipment
 	
-//	@ElementCollection
-//	List<String> typeOfEquipment; 
+	@ElementCollection
+	@Column(name="type_of_equipment")
+	List<String> typeOfEquipment; 
+	
 	// location
 	@Column(name = "building_location")
 	String buildingLocation;
@@ -132,11 +134,11 @@ public class EquipmentForm implements Serializable{
 	@Column(name = "hazardous_material")
 	boolean hazardousMaterial;
 	
-//	@ElementCollection
-//	@MapKeyColumn(name="chemical_name")
-//	@Column(name = "amount")
-//	@CollectionTable(name="chemicals", joinColumns=@JoinColumn(name="id"))
-//	Map<Integer, String> chemicals; // chem/quantity
+	@ElementCollection
+	@MapKeyColumn(name="chemical_name")
+	@Column(name = "amount")
+	@CollectionTable(name="chemicals", joinColumns=@JoinColumn(name="id"))
+	Map<Integer, String> chemicals; // chem/quantity
 	
 	@Column(name = "radiation_use")
 	String radiationUse;
@@ -144,8 +146,9 @@ public class EquipmentForm implements Serializable{
 	@Column(name = "maintenance_requirement")
 	boolean maintenanceRequirement;
 	
-//	@ElementCollection
-//	List<String> listOfRequirements;
+	@ElementCollection
+	@Column(name = "list_of_requirements")
+	List<String> listOfRequirements;
 	
 	@Column(name = "size_of_equipment")
 	boolean sizeOfEquipment;
@@ -591,6 +594,30 @@ public class EquipmentForm implements Serializable{
 
 	public void setDirectorOfFacilitiesServicesSignatureDate(Date directorOfFacilitiesServicesSignatureDate) {
 		this.directorOfFacilitiesServicesSignatureDate = directorOfFacilitiesServicesSignatureDate;
+	}
+
+	public Map<Integer, String> getChemicals() {
+		return chemicals;
+	}
+
+	public void setChemicals(Map<Integer, String> chemicals) {
+		this.chemicals = chemicals;
+	}
+
+	public List<String> getListOfRequirements() {
+		return listOfRequirements;
+	}
+
+	public void setListOfRequirements(List<String> listOfRequirements) {
+		this.listOfRequirements = listOfRequirements;
+	}
+
+	public List<String> getTypeOfEquipment() {
+		return typeOfEquipment;
+	}
+
+	public void setTypeOfEquipment(List<String> typeOfEquipment) {
+		this.typeOfEquipment = typeOfEquipment;
 	}
 
 	

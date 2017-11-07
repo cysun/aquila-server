@@ -49,6 +49,7 @@ public class ConflictOfInterestPINonPHS implements Serializable{
 	
 	//disclosure and certification
 	@Column(name = "significant_financial_interest")
+
 	private boolean significantFinancialInterest;
 	
 	//if above true
@@ -57,6 +58,7 @@ public class ConflictOfInterestPINonPHS implements Serializable{
 	
 	@ElementCollection
 	private List<Boolean> significantFinancialInterestDoesNotInclude; //not sure 
+
 	
 	@Column(name = "other_personnel_contribution")
 	private boolean otherPersonnelContribution;
