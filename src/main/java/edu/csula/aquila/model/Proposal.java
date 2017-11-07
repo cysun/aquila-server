@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -12,36 +13,57 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "proposal")
 
 public class Proposal implements Serializable{
+	
+	@Id
+	@GeneratedValue
+	private Long id;
 
-	@Column(name ="intake")
+	//@Column(name ="intake")
+	@OneToOne
 	private IntakeForm intakeForm;
 	
-	@Column(name = "approval")
+	//@Column(name = "approval")
+	@OneToOne
 	private ApprovalForm approvalForm;
 
-	@Column(name = "coi_nonphs_kp")
+	//@Column(name = "coi_nonphs_kp")
+	@OneToOne
 	private ConflictOfInterestKPNonPHS conflictOfInterestKPNonPHS;
 
-	@Column(name = "coi_phs_kp")
+	//@Column(name = "coi_phs_kp")
+	@OneToOne
 	private ConflictOfInterestKPPHS conflictOfInterestKPPHS;
 	
-	@Column(name = "coi_nonphs_pi")
+	//@Column(name = "coi_nonphs_pi")
+	@OneToOne
 	private ConflictOfInterestPINonPHS conflictOfInterestPINonPHS;
 
-	@Column(name = "coi_phs_pi")
-	private ConflictOfInterestPIPHS conflictOfInterestPIPHS;
+	//@Column(name = "coi_phs_pi")
+	@OneToOne
+	private ConflictOfInterestPHS conflictOfInterestPHS;
 	
-	@Column(name = "equipment")
+	//@Column(name = "equipment")
+	@OneToOne
 	private EquipmentForm equipmentForm;
 
-	@Column(name = "timeline")
+	//@Column(name = "timeline")
+	@OneToOne
 	private Timeline timeline;
 
-	//Budget
-	@Column(name = "budget")
+	
+	//@Column(name = "budget")
+	@OneToOne
 	BudgetFile budgetForm;
 
 	public Proposal(){}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public IntakeForm getIntakeForm() {
 		return intakeForm;
@@ -83,12 +105,12 @@ public class Proposal implements Serializable{
 		this.conflictOfInterestPINonPHS = conflictOfInterestPINonPHS;
 	}
 
-	public ConflictOfInterestPIPHS getConflictOfInterestPIPHS() {
-		return conflictOfInterestPIPHS;
+	public ConflictOfInterestPHS getConflictOfInterestPIPHS() {
+		return conflictOfInterestPHS;
 	}
 
-	public void setConflictOfInterestPIPHS(ConflictOfInterestPIPHS conflictOfInterestPIPHS) {
-		this.conflictOfInterestPIPHS = conflictOfInterestPIPHS;
+	public void setConflictOfInterestPHS(ConflictOfInterestPHS conflictOfInterestPHS) {
+		this.conflictOfInterestPHS = conflictOfInterestPHS;
 	}
 
 	public EquipmentForm getEquipmentForm() {
