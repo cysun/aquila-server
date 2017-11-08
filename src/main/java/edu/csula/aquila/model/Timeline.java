@@ -1,18 +1,20 @@
 package edu.csula.aquila.model;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="timeline")
@@ -25,9 +27,10 @@ public class Timeline implements Serializable{
 	@Column(name = "pi")
 	User pI;
 	
-//	@ElementCollection
-//	@OneToMany
-//	List<User> coPI;
+
+	@OneToMany(mappedBy = "timelineForm")
+	@Column(name = "co_pis")
+	List<User> coPI;
 
 	@Column(name="proposal")
 	String proposal;// unclear if proposal name or code
@@ -50,13 +53,35 @@ public class Timeline implements Serializable{
 	@Column(name="shipping_date")
 	Date shippingDate; // same as shipping deadline?
 	
-//	@ElementCollection
-//	@OneToMany
-//	Map<String,Date> piDueDates;
-//
-//	@ElementCollection
-//	@OneToMany
-//	Map<String,Date> orspDueDates;
+	//add meaningful column names to piDueDates and orspDueDates
+	
+	@ElementCollection
+	@MapKeyColumn(name ="principal_investigator")
+	@Column(name ="pi_date_due")
+	@CollectionTable(name="pi_due_dates", joinColumns=@JoinColumn(name="id"))
+	Map<String,Date> piDueDates;
+
+	@ElementCollection
+	@MapKeyColumn(name ="orsp")
+	@Column(name ="orsp_date_due")
+	@CollectionTable(name="orsp_due_dates", joinColumns=@JoinColumn(name="id"))
+	Map<String,Date> orspDueDates;
+
+	public Map<String, Date> getPiDueDates() {
+		return piDueDates;
+	}
+
+	public void setPiDueDates(Map<String, Date> piDueDates) {
+		this.piDueDates = piDueDates;
+	}
+
+	public Map<String, Date> getOrspDueDates() {
+		return orspDueDates;
+	}
+
+	public void setOrspDueDates(Map<String, Date> orspDueDates) {
+		this.orspDueDates = orspDueDates;
+	}
 
 	@Column(name="pi_initial")
 	//signatures, may not be strings
@@ -179,6 +204,22 @@ public class Timeline implements Serializable{
 
 	public void setAnalystSign(Date analystSign) {
 		this.analystSign = analystSign;
+	}
+
+	public List<User> getCoPI() {
+		return coPI;
+	}
+
+	public void setCoPI(List<User> coPI) {
+		this.coPI = coPI;
+	}
+
+	public List<String> getAddComments() {
+		return addComments;
+	}
+
+	public void setAddComments(List<String> addComments) {
+		this.addComments = addComments;
 	}
 
 

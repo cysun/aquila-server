@@ -1,7 +1,8 @@
 package edu.csula.aquila.model;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -10,9 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -25,6 +25,7 @@ public class ApprovalForm implements Serializable{
 	@GeneratedValue
 	private Long Id;
 
+	
 	// 1-4
 	@Column(name = "project_title")
 	private String projectTitle;

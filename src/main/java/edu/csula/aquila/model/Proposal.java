@@ -17,6 +17,8 @@ public class Proposal implements Serializable{
 	@GeneratedValue
 	private Long id;
 
+	
+	//wait off on it till bryan is done
 	@Column(name ="intake")
 	private IntakeForm intakeForm;
 	
