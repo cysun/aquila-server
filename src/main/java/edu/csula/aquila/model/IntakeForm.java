@@ -122,11 +122,11 @@ public class IntakeForm implements Serializable{
 	@Column(name = "computers_requested")
 	int computersRequested;
 	
-//	@ElementCollection //fixed you can follow this example for all other maps
-//	@MapKeyColumn(name="equipment_name")
-//	@Column(name = "amount")
-//	@CollectionTable(name="requested_equipment", joinColumns=@JoinColumn(name="id"))
-//	Map<String,Double> requestedEquipment;
+	@ElementCollection //fixed you can follow this example for all other maps
+	@MapKeyColumn(name="equipment_name")
+	@Column(name = "amount")
+	@CollectionTable(name="requested_equipment", joinColumns=@JoinColumn(name="id"))
+	Map<String,Double> requestedEquipment;
 //	//H
 //	
 	@OneToMany(mappedBy="intake")
@@ -134,9 +134,12 @@ public class IntakeForm implements Serializable{
 	List<Space> spaces;
 //	//I
 //	
-//	@ElementCollection
-//	@Column
-//	Map<String,String> hazardousSubstances;
+	@ElementCollection
+	@MapKeyColumn(name="name_of_agent")
+	@Column(name="substance_type")
+	@CollectionTable(name="hazardous_substances", joinColumns=@JoinColumn(name="id"))
+	Map<String,String> hazardousSubstances;
+	
 	//J
 	@Column(name = "human_subject")
 	boolean humanSubject;
