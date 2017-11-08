@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
+
 import javax.persistence.Table;
 
 @Entity
@@ -40,8 +42,10 @@ public class IntakeForm implements Serializable{
 	Date endDate;
 	//B
 	
-//	@OneToMany
-//	List<Personnel> Personnel;
+	@OneToMany(mappedBy="intake")
+	@Column(name="personnel")
+	List<Personnel> Personnel;
+	
 	//C 
 	
 	@Column(name = "anticipate_stipend")
@@ -89,19 +93,22 @@ public class IntakeForm implements Serializable{
 	@Column(name = "other_activities")
 	boolean otherActivities;
 	
-//	@ElementCollection
-//	@Column(name = "other_activities")
-//	List<String> otherActivitiesList;
+	@ElementCollection
+	@Column(name = "other_activities")
+	List<String> otherActivitiesList;
 
 	//D
-//	@OneToMany
-//	List<SubGrantSubContract> subGrantsOrSubContracts;
+	@OneToMany(mappedBy="intake")
+	@Column(name="subgrants_or_subcontracts")
+	List<SubGrantSubContract> subGrantsOrSubContracts;
 //	//E
-//	@OneToMany
-//	List<ProjectLocation> projectLocations;
+	@OneToMany(mappedBy="intake")
+	@Column(name="project_locations")
+	List<ProjectLocation> projectLocations;
 //	//F
-//	@OneToMany
-//	List<AdditionalParty> additionalInvolvedParties;
+	@OneToMany(mappedBy="intake")
+	@Column(name="additional_involved_parties")
+	List<AdditionalParty> additionalInvolvedParties;
 	//G
 	@Column(name = "agency_cost_rate_percentage")
 	int agencyCostRatePercentage;
@@ -122,8 +129,9 @@ public class IntakeForm implements Serializable{
 //	Map<String,Double> requestedEquipment;
 //	//H
 //	
-//	@ElementCollection
-//	List<Space> spaces;
+	@OneToMany(mappedBy="intake")
+	@Column(name="spaces")
+	List<Space> spaces;
 //	//I
 //	
 //	@ElementCollection
@@ -166,9 +174,13 @@ public class IntakeForm implements Serializable{
 	@Entity
 	@Table(name = "personnel")
 	public class Personnel implements Serializable{
+		
 		@Id
 		@GeneratedValue
 		Long Id;
+		
+		@ManyToOne
+		IntakeForm intake;
 		
 		@Column
 		 String name;
@@ -223,7 +235,8 @@ public class IntakeForm implements Serializable{
 		@Id
 		@GeneratedValue
 		Long Id;
-		
+		@ManyToOne
+		IntakeForm intake;
 		@Column(name = "party_name")
 		 String partyName;
 		@Column
@@ -263,7 +276,8 @@ public class IntakeForm implements Serializable{
 		@Id
 		@GeneratedValue
 		Long Id;
-		
+		@ManyToOne
+		IntakeForm intake;
 		@Column(name = "site_name")
 		 String siteName;
 		@Column(name = "site_address")
@@ -312,7 +326,8 @@ public class IntakeForm implements Serializable{
 		@Id
 		@GeneratedValue
 		Long Id;
-		
+		@ManyToOne
+		IntakeForm intake;
 		@Column
 		 String item;
 		@Column(name = "type_of_space")
@@ -354,6 +369,8 @@ public class IntakeForm implements Serializable{
 		@GeneratedValue
 		Long Id;
 		
+		@ManyToOne
+		IntakeForm intake;
 		@Column(name = "institution_name")
 		String institutionName;
 		@Column
