@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -76,6 +77,10 @@ class ConflictOfInterestPHS implements Serializable{
 	
 	@Column(name = "ari_date")
 	Date aRIDate;
+	
+	//proposal relationship
+	@OneToOne(mappedBy="conflictOfInterestPHS")
+	Proposal proposalForm;
 
 	public Long getId() {
 		return id;

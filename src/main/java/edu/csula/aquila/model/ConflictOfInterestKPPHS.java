@@ -78,6 +78,10 @@ public class ConflictOfInterestKPPHS implements Serializable{
 	@Column(name = "ari_date")
 	private Date aRIDate;
 	
+	//proposal relationship
+	@OneToOne(mappedBy="conflictOfInterestKPPHS")
+	Proposal proposalForm;
+	
 	public ConflictOfInterestKPPHS() {}
 
 	public Long getId() {

@@ -243,6 +243,11 @@ public class ApprovalForm implements Serializable{
 
 	@Column(name = "cfda_number")
 	private int cfdaNumber;
+	
+	
+	//proposal relationship
+	@OneToOne(mappedBy="approvalForm")
+	Proposal proposalForm;
 
 	public ApprovalForm(){}
 
