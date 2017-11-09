@@ -12,10 +12,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.ManyToOne;
-
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -169,6 +169,10 @@ public class IntakeForm implements Serializable{
 	@Column
 	String summary;
 	
+	//proposal relationship
+	@OneToOne(mappedBy="intakeForm")
+	Proposal proposal;
+	
 	
 	//inner classes
 	
@@ -231,6 +235,8 @@ public class IntakeForm implements Serializable{
 		public void setPercentOfTimeProposed(int percentOfTimeProposed) {
 			this.percentOfTimeProposed = percentOfTimeProposed;
 		}
+		
+		
 	}
 	@Entity
 	@Table(name = "additional_party")

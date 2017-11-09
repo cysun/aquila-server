@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -87,6 +88,9 @@ public class ConflictOfInterestPINonPHS implements Serializable{
 	@Column(name = "ari_date")
 	private Date ARIDate;
 	
+	//proposal relationship
+	@OneToOne(mappedBy="conflictOfInterestPINonPHS")
+	Proposal proposalForm;
 	
 	public Long getId() {
 		return Id;

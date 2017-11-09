@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -31,6 +32,10 @@ public class BudgetFile implements Serializable{
 	
 	@Column(name = "date")
 	Date dateOfUpload;
+	
+	//proposal relationship
+	@OneToOne(mappedBy="budgetForm")
+	Proposal proposalForm;
 
 	public Long getId() {
 		return id;

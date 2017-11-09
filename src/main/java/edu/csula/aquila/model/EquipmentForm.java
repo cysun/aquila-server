@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -170,6 +171,10 @@ public class EquipmentForm implements Serializable{
 	
 	@Column(name = "director_of_facilities_services_signature_date")
 	Date directorOfFacilitiesServicesSignatureDate;
+	
+	//proposal relationship
+	@OneToOne(mappedBy="equipmentForm")
+	Proposal proposalForm;
 
 	public Long getId() {
 		return id;

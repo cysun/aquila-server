@@ -18,33 +18,31 @@ public class Proposal implements Serializable{
 	private Long id;
 
 	
-	//wait off on it till bryan is done
-	@Column(name ="intake")
+	@OneToOne
 	private IntakeForm intakeForm;
 	
-	@Column(name = "approval")
+	@OneToOne
 	private ApprovalForm approvalForm;
 
-	@Column(name = "coi_nonphs_kp")
+	@OneToOne
 	private ConflictOfInterestKPNonPHS conflictOfInterestKPNonPHS;
 
-	@Column(name = "coi_phs_kp")
+	@OneToOne
 	private ConflictOfInterestKPPHS conflictOfInterestKPPHS;
 	
-	@Column(name = "coi_nonphs_pi")
+	@OneToOne
 	private ConflictOfInterestPINonPHS conflictOfInterestPINonPHS;
 
-	@Column(name = "coi_phs_pi")
+	@OneToOne
 	private ConflictOfInterestPHS conflictOfInterestPHS;
 	
-	@Column(name = "equipment")
+	@OneToOne
 	private EquipmentForm equipmentForm;
 
-	@Column(name = "timeline")
+	@OneToOne
 	private Timeline timeline;
-
 	
-	@Column(name = "budget")
+	@OneToOne
 	BudgetFile budgetForm;
 
 	public Proposal(){}
@@ -57,6 +55,7 @@ public class Proposal implements Serializable{
 		this.id = id;
 	}
 
+	@Column(name ="intake")
 	public IntakeForm getIntakeForm() {
 		return intakeForm;
 	}
@@ -65,6 +64,7 @@ public class Proposal implements Serializable{
 		this.intakeForm = intakeForm;
 	}
 
+	@Column(name = "approval")
 	public ApprovalForm getApprovalForm() {
 		return approvalForm;
 	}
@@ -73,6 +73,7 @@ public class Proposal implements Serializable{
 		this.approvalForm = approvalForm;
 	}
 
+	@Column(name ="conflict_of_interest_kp_non_phs")
 	public ConflictOfInterestKPNonPHS getConflictOfInterestKPNonPHS() {
 		return conflictOfInterestKPNonPHS;
 	}
@@ -81,6 +82,7 @@ public class Proposal implements Serializable{
 		this.conflictOfInterestKPNonPHS = conflictOfInterestKPNonPHS;
 	}
 
+	@Column(name ="conflict_of_interest_kp_phs")
 	public ConflictOfInterestKPPHS getConflictOfInterestKPPHS() {
 		return conflictOfInterestKPPHS;
 	}
@@ -89,6 +91,7 @@ public class Proposal implements Serializable{
 		this.conflictOfInterestKPPHS = conflictOfInterestKPPHS;
 	}
 
+	@Column(name ="conflict_of_interest_pi_non_phs")
 	public ConflictOfInterestPINonPHS getConflictOfInterestPINonPHS() {
 		return conflictOfInterestPINonPHS;
 	}
@@ -97,6 +100,7 @@ public class Proposal implements Serializable{
 		this.conflictOfInterestPINonPHS = conflictOfInterestPINonPHS;
 	}
 
+	@Column(name ="conflict_of_interest_phs")
 	public ConflictOfInterestPHS getConflictOfInterestPHS() {
 		return conflictOfInterestPHS;
 	}
@@ -105,6 +109,7 @@ public class Proposal implements Serializable{
 		this.conflictOfInterestPHS = conflictOfInterestPHS;
 	}
 
+	@Column(name="equipment_form")
 	public EquipmentForm getEquipmentForm() {
 		return equipmentForm;
 	}
@@ -113,6 +118,7 @@ public class Proposal implements Serializable{
 		this.equipmentForm = equipmentForm;
 	}
 
+	@Column(name="timeline")
 	public Timeline getTimeline() {
 		return timeline;
 	}
@@ -121,6 +127,7 @@ public class Proposal implements Serializable{
 		this.timeline = timeline;
 	}
 
+	@Column(name="budget_form")
 	public BudgetFile getBudgetForm() {
 		return budgetForm;
 	}
