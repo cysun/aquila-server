@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -23,13 +24,18 @@ public class Timeline implements Serializable{
 	
 	@Id
 	@GeneratedValue
+	@Column(name="timeline_id")
 	private Long Id;
 	
 	@Column(name = "pi")
 	User pI;
 	
 
-	@OneToMany(mappedBy = "timelineForm")
+	@OneToMany
+	@JoinTable(
+	name = "co_pis",
+	joinColumns=@JoinColumn(name="timeline_id"),
+	inverseJoinColumns=@JoinColumn(name="user_id"))
 	@Column(name = "co_pis")
 	List<User> coPI;
 

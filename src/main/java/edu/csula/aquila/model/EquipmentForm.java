@@ -22,6 +22,7 @@ public class EquipmentForm implements Serializable{
 	
 	@Id
 	@GeneratedValue
+	@Column(name="equipment_form_id")
 	Long id;
 	
 	@Column(name = "faculty_name")
@@ -173,7 +174,7 @@ public class EquipmentForm implements Serializable{
 	Date directorOfFacilitiesServicesSignatureDate;
 	
 	//proposal relationship
-	@OneToOne(mappedBy="equipmentForm")
+	@OneToOne(mappedBy="equipment_form")
 	Proposal proposalForm;
 
 	public Long getId() {

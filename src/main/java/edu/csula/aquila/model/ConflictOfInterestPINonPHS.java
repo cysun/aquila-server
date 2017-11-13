@@ -9,6 +9,8 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -19,6 +21,7 @@ public class ConflictOfInterestPINonPHS implements Serializable{
 
 	@Id
 	@GeneratedValue
+	@Column(name="conflict_of_interest_pi_non_phs_id")
 	Long Id;
 	
 	@Column(name = "subaward_with_federal_agency_pass_through")
@@ -55,18 +58,23 @@ public class ConflictOfInterestPINonPHS implements Serializable{
 	//if above true
 	@ElementCollection
 	@Column(name = "significant_financial_interest_reason")
-	private List<Boolean> significantFinancialInterestReason;
+	private List<Boolean> sigFinInterstReason;
 	
 	@ElementCollection
-	@Column(name = "significant_financial_interest_reason_does_not_include")
-	private List<Boolean> significantFinancialInterestDoesNotInclude; //not sure 
+	@Column(name = "sig_fin_int_doesnt_include")
+	private List<Boolean> sigFinInterstDoesntInclude;
 
 	
 	@Column(name = "other_personnel_contribution")
 	private boolean otherPersonnelContribution;
 	
 	//if above true
-	@OneToMany(mappedBy ="coiPiNonPHS")
+	@OneToMany
+	@JoinTable(
+	name = "other_investigators",
+	joinColumns=@JoinColumn(name="conflict_of_interest_pi_non_phs_id"),
+	inverseJoinColumns=@JoinColumn(name="user_id")
+	)	
 	@Column(name = "names_of_other_investigators")
 	List<User> namesOfOtherInvestigators;
 	
@@ -89,7 +97,7 @@ public class ConflictOfInterestPINonPHS implements Serializable{
 	private Date ARIDate;
 	
 	//proposal relationship
-	@OneToOne(mappedBy="conflictOfInterestPINonPHS")
+	@OneToOne(mappedBy="coi_pi_nonphs")
 	Proposal proposalForm;
 	
 	public Long getId() {
@@ -159,17 +167,17 @@ public class ConflictOfInterestPINonPHS implements Serializable{
 		this.significantFinancialInterest = significantFinancialInterest;
 	}
 	
-	public List<Boolean> getSignificantFinancialInterestReason() {
-		return significantFinancialInterestReason;
+	public List<Boolean> getSigFinInterstReason() {
+		return sigFinInterstReason;
 	}
-	public void setSignificantFinancialInterestReason(List<Boolean> significantFinancialInterestReason) {
-		this.significantFinancialInterestReason = significantFinancialInterestReason;
+	public void setSigFinInterstReason(List<Boolean> sigFinInterstReason) {
+		this.sigFinInterstReason = sigFinInterstReason;
 	}
-	public List<Boolean> getSignificantFinancialInterestDoesNotInclude() {
-		return significantFinancialInterestDoesNotInclude;
+	public List<Boolean> getSigFinInterstDoesntInclude() {
+		return sigFinInterstDoesntInclude;
 	}
-	public void setSignificantFinancialInterestDoesNotInclude(List<Boolean> significantFinancialInterestDoesNotInclude) {
-		this.significantFinancialInterestDoesNotInclude = significantFinancialInterestDoesNotInclude;
+	public void setSigFinInterstDoesntInclude(List<Boolean> sigFinInterstDoesntInclude) {
+		this.sigFinInterstDoesntInclude = sigFinInterstDoesntInclude;
 	}
 	public boolean isOtherPersonnelContribution() {
 		return otherPersonnelContribution;

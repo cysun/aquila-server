@@ -15,6 +15,7 @@ public class Department implements Serializable{
 
 	@Id
 	@GeneratedValue
+	@Column(name="department_id")
 	Long id;
 	
 	@Column(nullable = false, unique = true, name = "department_name")

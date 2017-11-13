@@ -24,6 +24,7 @@ class ConflictOfInterestPHS implements Serializable{
 	
 	@Id
 	@GeneratedValue
+	@Column(name="conflict_of_interest_phs_id")
 	private Long id;
 	
 	@Column(name = "pi")
@@ -79,7 +80,7 @@ class ConflictOfInterestPHS implements Serializable{
 	Date aRIDate;
 	
 	//proposal relationship
-	@OneToOne(mappedBy="conflictOfInterestPHS")
+	@OneToOne(mappedBy="coi_phs")
 	Proposal proposalForm;
 
 	public Long getId() {
