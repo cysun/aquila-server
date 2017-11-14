@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -38,7 +39,15 @@ public class User implements Serializable {
 
     @Column(nullable = false)
     private boolean enabled = true;
+    
+    //relationship for timeline
+    @ManyToOne
+    Timeline timelineForm;
 
+    //relationship for conflictOfInterestPInonPHS
+    @ManyToOne
+    ConflictOfInterestPINonPHS coiPiNonPHS;
+    
     public User()
     {
     }
@@ -112,5 +121,23 @@ public class User implements Serializable {
     {
         this.enabled = enabled;
     }
+
+	public Timeline getTimelineForm() {
+		return timelineForm;
+	}
+
+	public void setTimelineForm(Timeline timelineForm) {
+		this.timelineForm = timelineForm;
+	}
+
+	public ConflictOfInterestPINonPHS getCoiPiNonPHS() {
+		return coiPiNonPHS;
+	}
+
+	public void setCoiPiNonPHS(ConflictOfInterestPINonPHS coiPiNonPHS) {
+		this.coiPiNonPHS = coiPiNonPHS;
+	}
+
+
 
 }
