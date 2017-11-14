@@ -42,11 +42,11 @@ public class User implements Serializable {
     
     //relationship for timeline
     @ManyToOne
-    Timeline timelineForm;
+    private Timeline timelineForm;
 
     //relationship for conflictOfInterestPInonPHS
     @ManyToOne
-    ConflictOfInterestPINonPHS coiPiNonPHS;
+    private ConflictOfInterestPINonPHS coiPiNonPHS;
     
     public User()
     {

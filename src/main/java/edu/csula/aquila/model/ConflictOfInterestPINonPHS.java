@@ -67,7 +67,7 @@ public class ConflictOfInterestPINonPHS implements Serializable{
 	
 	//if above true
 	@OneToMany(mappedBy ="coiPiNonPHS")
-	@Column(name = "names_of_other_investigators")
+	//@Column(name = "names_of_other_investigators")
 	List<User> namesOfOtherInvestigators;
 	
 	@Column(name = "pi_signature")

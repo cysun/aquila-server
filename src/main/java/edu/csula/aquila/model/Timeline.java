@@ -30,7 +30,7 @@ public class Timeline implements Serializable{
 	
 
 	@OneToMany(mappedBy = "timelineForm")
-	@Column(name = "co_pis")
+	//@Column(name = "co_pis")
 	List<User> coPI;
 
 	@Column(name="proposal")
