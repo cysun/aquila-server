@@ -19,6 +19,7 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue
+    @Column(name="user_id")
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -41,12 +42,15 @@ public class User implements Serializable {
     private boolean enabled = true;
     
     //relationship for timeline
+    @JsonIgnore
     @ManyToOne
-    private Timeline timelineForm;
+    Timeline timeline_form;
+
 
     //relationship for conflictOfInterestPInonPHS
+    @JsonIgnore
     @ManyToOne
-    private ConflictOfInterestPINonPHS coiPiNonPHS;
+    ConflictOfInterestPINonPHS coi_pi_nonphs;
     
     public User()
     {
@@ -122,21 +126,24 @@ public class User implements Serializable {
         this.enabled = enabled;
     }
 
-	public Timeline getTimelineForm() {
-		return timelineForm;
+	public Timeline getTimeline_form() {
+		return timeline_form;
 	}
 
-	public void setTimelineForm(Timeline timelineForm) {
-		this.timelineForm = timelineForm;
+	public void setTimeline_form(Timeline timeline_form) {
+		this.timeline_form = timeline_form;
 	}
 
-	public ConflictOfInterestPINonPHS getCoiPiNonPHS() {
-		return coiPiNonPHS;
+	public ConflictOfInterestPINonPHS getCoi_pi_nonphs() {
+		return coi_pi_nonphs;
 	}
 
-	public void setCoiPiNonPHS(ConflictOfInterestPINonPHS coiPiNonPHS) {
-		this.coiPiNonPHS = coiPiNonPHS;
+	public void setCoi_pi_nonphs(ConflictOfInterestPINonPHS coi_pi_nonphs) {
+		this.coi_pi_nonphs = coi_pi_nonphs;
 	}
+
+
+
 
 
 

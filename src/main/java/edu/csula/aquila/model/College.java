@@ -16,6 +16,7 @@ public class College implements Serializable{
 	
 	@Id
 	@GeneratedValue
+	@Column(name ="college_id")
 	Long Id;
 
 	@Column(name = "college_name")

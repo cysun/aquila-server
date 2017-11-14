@@ -23,6 +23,7 @@ public class ApprovalForm implements Serializable{
 	
 	@Id
 	@GeneratedValue
+	@Column(name="approval_form_id")
 	private Long Id;
 
 	
@@ -246,8 +247,8 @@ public class ApprovalForm implements Serializable{
 	
 	
 	//proposal relationship
-	@OneToOne(mappedBy="approvalForm")
-	Proposal proposalForm;
+	@OneToOne(mappedBy="approval_form")
+	Proposal proposal_form;
 
 	public ApprovalForm(){}
 
@@ -793,6 +794,7 @@ public class ApprovalForm implements Serializable{
 		
 		@Id
 		@GeneratedValue
+		@Column(name="approval_college_id")
 		private Long id;
 	
 		@Column(name="personnel_cost")

@@ -16,6 +16,7 @@ public class BudgetFile implements Serializable{
 
 	@Id
 	@GeneratedValue
+	@Column(name ="budget_form_id")
 	Long id;
 	
 	@Column(name = "uploader")
@@ -34,7 +35,7 @@ public class BudgetFile implements Serializable{
 	Date dateOfUpload;
 	
 	//proposal relationship
-	@OneToOne(mappedBy="budgetForm")
+	@OneToOne(mappedBy="budget_form")
 	Proposal proposalForm;
 
 	public Long getId() {
