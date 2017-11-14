@@ -14,6 +14,7 @@ public class Signature implements Serializable{
 	
 	@Id
 	@GeneratedValue
+	@Column(name="signature_id")
 	Long Id;
 	
 	@Column

@@ -24,6 +24,7 @@ public class IntakeForm implements Serializable{
 	
 	@Id
 	@GeneratedValue
+	@Column(name="intake_form_id")
 	Long id;
 	//A
 	@Column(name = "pi")
@@ -170,7 +171,7 @@ public class IntakeForm implements Serializable{
 	String summary;
 	
 	//proposal relationship
-	@OneToOne(mappedBy="intakeForm")
+	@OneToOne(mappedBy="intake_form")
 	Proposal proposal;
 	
 	
@@ -184,6 +185,7 @@ public class IntakeForm implements Serializable{
 		
 		@Id
 		@GeneratedValue
+		@Column(name="personnel_id")
 		Long Id;
 		
 		@ManyToOne
@@ -243,6 +245,7 @@ public class IntakeForm implements Serializable{
 	public class AdditionalParty implements Serializable{
 		@Id
 		@GeneratedValue
+		@Column(name="additional_party_id")
 		Long Id;
 		@ManyToOne
 		IntakeForm intake;
@@ -284,6 +287,7 @@ public class IntakeForm implements Serializable{
 	public class ProjectLocation implements Serializable{
 		@Id
 		@GeneratedValue
+		@Column(name="project_location_id")
 		Long Id;
 		@ManyToOne
 		IntakeForm intake;
@@ -334,6 +338,7 @@ public class IntakeForm implements Serializable{
 	public class Space implements Serializable{
 		@Id
 		@GeneratedValue
+		@Column(name="space_id")
 		Long Id;
 		@ManyToOne
 		IntakeForm intake;
@@ -376,6 +381,7 @@ public class IntakeForm implements Serializable{
 	public class SubGrantSubContract implements Serializable{
 		@Id
 		@GeneratedValue
+		@Column(name="subgrant_subcontract_id")
 		Long Id;
 		
 		@ManyToOne
