@@ -30,7 +30,6 @@ public class Timeline implements Serializable{
 	@Column(name = "pi")
 	User pI;
 	
-
 	@OneToMany
 	@JoinTable(
 	name = "co_pis",

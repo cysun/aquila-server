@@ -28,6 +28,9 @@ public class User implements Serializable {
     @JsonIgnore
     @Column(nullable = false)
     private String hash;
+    
+    @Column(name="password")
+    private String password;
 
     @Column(name = "last_name")
     private String lastName;
@@ -41,15 +44,7 @@ public class User implements Serializable {
     @Column(nullable = false)
     private boolean enabled = true;
     
-    //relationship for timeline
-    @JsonIgnore
-    @ManyToOne
-    Timeline timeline_form;
 
-    //relationship for conflictOfInterestPInonPHS
-    @JsonIgnore
-    @ManyToOne
-    ConflictOfInterestPINonPHS coi_pi_nonphs;
     
     public User()
     {
@@ -85,7 +80,16 @@ public class User implements Serializable {
         this.hash = hash;
     }
 
-    public String getLastName()
+        
+    public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getLastName()
     {
         return lastName;
     }
@@ -124,26 +128,5 @@ public class User implements Serializable {
     {
         this.enabled = enabled;
     }
-
-	public Timeline getTimeline_form() {
-		return timeline_form;
-	}
-
-	public void setTimeline_form(Timeline timeline_form) {
-		this.timeline_form = timeline_form;
-	}
-
-	public ConflictOfInterestPINonPHS getCoi_pi_nonphs() {
-		return coi_pi_nonphs;
-	}
-
-	public void setCoi_pi_nonphs(ConflictOfInterestPINonPHS coi_pi_nonphs) {
-		this.coi_pi_nonphs = coi_pi_nonphs;
-	}
-
-
-
-
-
 
 }

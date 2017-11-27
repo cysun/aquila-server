@@ -24,10 +24,11 @@ public class UserController {
     }
     
     @RequestMapping(value ="/api/user1", method = RequestMethod.GET)
-    public User getUser(@RequestParam("id") Long id) {
+    public User getUser(@RequestParam("id") Long id)
+    {
     	return userDao.getUser(id); 
     }
     
-    
+      
 
 }
