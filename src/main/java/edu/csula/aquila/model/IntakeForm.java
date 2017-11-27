@@ -171,8 +171,8 @@ public class IntakeForm implements Serializable{
 	String summary;
 	
 	//proposal relationship
-	@OneToOne(mappedBy="intake_form")
-	Proposal proposal;
+//	@OneToOne(mappedBy="intakeForm")
+//	Proposal proposal;
 	
 	
 	//inner classes

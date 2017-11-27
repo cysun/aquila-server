@@ -80,8 +80,8 @@ public class ConflictOfInterestKPPHS implements Serializable{
 	private Date aRIDate;
 	
 	//proposal relationship
-	@OneToOne(mappedBy="coi_kp_phs")
-	Proposal proposalForm;
+//	@OneToOne(mappedBy="coiKpPhs")
+//	Proposal proposalForm;
 	
 	public ConflictOfInterestKPPHS() {}
 

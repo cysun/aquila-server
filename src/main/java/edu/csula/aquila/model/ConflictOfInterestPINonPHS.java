@@ -69,14 +69,9 @@ public class ConflictOfInterestPINonPHS implements Serializable{
 	private boolean otherPersonnelContribution;
 	
 	//if above true
-	@OneToMany
-	@JoinTable(
-	name = "other_investigators",
-	joinColumns=@JoinColumn(name="conflict_of_interest_pi_non_phs_id"),
-	inverseJoinColumns=@JoinColumn(name="user_id")
-	)	
+	@ElementCollection
 	@Column(name = "names_of_other_investigators")
-	List<User> namesOfOtherInvestigators;
+	List<String> namesOfOtherInvestigators;
 	
 	@Column(name = "pi_signature")
 	private Signature piSignature;
@@ -88,17 +83,17 @@ public class ConflictOfInterestPINonPHS implements Serializable{
 	private User piName;
 	
 	@Column(name = "ari_official_approved")
-	private boolean ARIOfficialApproved;
+	private boolean ariOfficialApproved;
 	
 	@Column(name = "ari_official")
-	private String ARIOfficial; //is this a signature or a print name?
+	private String ariOfficial; //is this a signature or a print name?
 	
 	@Column(name = "ari_date")
-	private Date ARIDate;
+	private Date ariDate;
 	
 	//proposal relationship
-	@OneToOne(mappedBy="coi_pi_nonphs")
-	Proposal proposalForm;
+//	@OneToOne(mappedBy="coiPiNonphs")
+//	Proposal proposalForm;
 	
 	public Long getId() {
 		return Id;
@@ -186,12 +181,19 @@ public class ConflictOfInterestPINonPHS implements Serializable{
 		this.otherPersonnelContribution = otherPersonnelContribution;
 	}
 	
-	public List<User> getNamesOfOtherInvestigators() {
+	
+	public List<String> getNamesOfOtherInvestigators() {
 		return namesOfOtherInvestigators;
 	}
-	public void setNamesOfOtherInvestigators(List<User> namesOfOtherInvestigators) {
+	public void setNamesOfOtherInvestigators(List<String> namesOfOtherInvestigators) {
 		this.namesOfOtherInvestigators = namesOfOtherInvestigators;
 	}
+//	public Proposal getProposalForm() {
+//		return proposalForm;
+//	}
+//	public void setProposalForm(Proposal proposalForm) {
+//		this.proposalForm = proposalForm;
+//	}
 	public Signature getPiSignature() {
 		return piSignature;
 	}
@@ -210,24 +212,25 @@ public class ConflictOfInterestPINonPHS implements Serializable{
 	public void setPiName(User piName) {
 		this.piName = piName;
 	}
-	public boolean isARIOfficialApproved() {
-		return ARIOfficialApproved;
+	public boolean isAriOfficialApproved() {
+		return ariOfficialApproved;
 	}
-	public void setARIOfficialApproved(boolean aRIOfficialApproved) {
-		ARIOfficialApproved = aRIOfficialApproved;
+	public void setAriOfficialApproved(boolean ariOfficialApproved) {
+		this.ariOfficialApproved = ariOfficialApproved;
 	}
-	public String getARIOfficial() {
-		return ARIOfficial;
+	public String getAriOfficial() {
+		return ariOfficial;
 	}
-	public void setARIOfficial(String aRIOfficial) {
-		ARIOfficial = aRIOfficial;
+	public void setAriOfficial(String ariOfficial) {
+		this.ariOfficial = ariOfficial;
 	}
-	public Date getARIDate() {
-		return ARIDate;
+	public Date getAriDate() {
+		return ariDate;
 	}
-	public void setARIDate(Date aRIDate) {
-		ARIDate = aRIDate;
+	public void setAriDate(Date ariDate) {
+		this.ariDate = ariDate;
 	}
+
 	
 	
 	

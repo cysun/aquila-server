@@ -1,12 +1,16 @@
 package edu.csula.aquila.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,7 +22,7 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="user_id")
     private Long id;
 
@@ -41,18 +45,26 @@ public class User implements Serializable {
     @Column(nullable = false)
     private boolean enabled = true;
     
-    //relationship for timeline
-    @JsonIgnore
-    @ManyToOne
-    Timeline timeline_form;
-
-    //relationship for conflictOfInterestPInonPHS
-    @JsonIgnore
-    @ManyToOne
-    ConflictOfInterestPINonPHS coi_pi_nonphs;
     
-    public User()
+    @JsonIgnore
+    @OneToMany(cascade = {CascadeType.ALL})
+    @JoinColumn(name="proposal_id", nullable = true)
+    List<Proposal> proposals;
+    
+
+    
+
+
+	public User()
     {
+    }
+    
+    public User(String username, String firstName, String lastName, String email, String password) {
+    	this.username = username;
+    	this.firstName = firstName;
+    	this.lastName = lastName;
+    	this.email = email;
+    	this.hash = password;
     }
 
     public Long getId()
@@ -60,12 +72,11 @@ public class User implements Serializable {
         return id;
     }
 
-    public void setId( Long id )
-    {
-        this.id = id;
-    }
+    public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getUsername()
+	public String getUsername()
     {
         return username;
     }
@@ -125,21 +136,21 @@ public class User implements Serializable {
         this.enabled = enabled;
     }
 
-	public Timeline getTimeline_form() {
-		return timeline_form;
+
+    public List<Proposal> getProposals() {
+		return proposals;
 	}
 
-	public void setTimeline_form(Timeline timeline_form) {
-		this.timeline_form = timeline_form;
+	public void setProposals(List<Proposal> proposals) {
+		this.proposals = proposals;
+	}
+	
+	public void addToProposals(Proposal proposal) {
+		List<Proposal> proposals = getProposals();
+		proposals.add(proposal);
+		setProposals(proposals);
 	}
 
-	public ConflictOfInterestPINonPHS getCoi_pi_nonphs() {
-		return coi_pi_nonphs;
-	}
-
-	public void setCoi_pi_nonphs(ConflictOfInterestPINonPHS coi_pi_nonphs) {
-		this.coi_pi_nonphs = coi_pi_nonphs;
-	}
 
 
 

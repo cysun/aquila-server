@@ -13,8 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.MapKeyColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -31,13 +31,9 @@ public class Timeline implements Serializable{
 	User pI;
 	
 
-	@OneToMany
-	@JoinTable(
-	name = "co_pis",
-	joinColumns=@JoinColumn(name="timeline_id"),
-	inverseJoinColumns=@JoinColumn(name="user_id"))
+	@ElementCollection
 	@Column(name = "co_pis")
-	List<User> coPI;
+	List<String> coPI;
 
 	@Column(name="proposal")
 	String proposal;// unclear if proposal name or code
@@ -108,8 +104,8 @@ public class Timeline implements Serializable{
 	List<String> addComments;
 	
 	//proposal relationship
-	@OneToOne(mappedBy="timeline")
-	Proposal proposalForm;
+//	@OneToOne(mappedBy="timeline")
+//	Proposal proposalForm;
 
 	Timeline(){}
 
@@ -217,13 +213,6 @@ public class Timeline implements Serializable{
 		this.analystSign = analystSign;
 	}
 
-	public List<User> getCoPI() {
-		return coPI;
-	}
-
-	public void setCoPI(List<User> coPI) {
-		this.coPI = coPI;
-	}
 
 	public List<String> getAddComments() {
 		return addComments;
@@ -232,6 +221,22 @@ public class Timeline implements Serializable{
 	public void setAddComments(List<String> addComments) {
 		this.addComments = addComments;
 	}
+
+	public List<String> getCoPI() {
+		return coPI;
+	}
+
+	public void setCoPI(List<String> coPI) {
+		this.coPI = coPI;
+	}
+
+//	public Proposal getProposalForm() {
+//		return proposalForm;
+//	}
+//
+//	public void setProposalForm(Proposal proposalForm) {
+//		this.proposalForm = proposalForm;
+//	}
 
 
 	

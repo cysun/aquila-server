@@ -112,11 +112,6 @@
         primary key (id, chemical_name)
     ) type=MyISAM;
 
-    create table co_pis (
-       timeline_id bigint not null,
-        user_id bigint not null
-    ) type=MyISAM;
-
     create table colleges (
        college_id bigint not null,
         dean tinyblob,
@@ -171,10 +166,10 @@
 
     create table conflict_of_interest_pi_non_phs (
        conflict_of_interest_pi_non_phs_id bigint not null,
+        amount_requested double precision,
         ari_date datetime,
         ari_official varchar(255),
         ari_official_approved bit,
-        amount_requested double precision,
         budget_period_end datetime,
         budget_period_start datetime,
         disclosure_reason varchar(255),
@@ -226,6 +221,11 @@
         primary key (ConflictOfInterestPHS_conflict_of_interest_phs_id, sponsor_name)
     ) type=MyISAM;
 
+    create table ConflictOfInterestPINonPHS_namesOfOtherInvestigators (
+       ConflictOfInterestPINonPHS_conflict_of_interest_pi_non_phs_id bigint not null,
+        names_of_other_investigators varchar(255)
+    ) type=MyISAM;
+
     create table ConflictOfInterestPINonPHS_sigFinInterstDoesntInclude (
        ConflictOfInterestPINonPHS_conflict_of_interest_pi_non_phs_id bigint not null,
         sig_fin_int_doesnt_include bit
@@ -264,10 +264,6 @@
     create table hibernate_sequence (
        next_val bigint
     ) type=MyISAM;
-
-    insert into hibernate_sequence values ( 1 );
-
-    insert into hibernate_sequence values ( 1 );
 
     insert into hibernate_sequence values ( 1 );
 
@@ -413,11 +409,6 @@
         primary key (id, orsp)
     ) type=MyISAM;
 
-    create table other_investigators (
-       conflict_of_interest_pi_non_phs_id bigint not null,
-        user_id bigint not null
-    ) type=MyISAM;
-
     create table personnel (
        personnel_id bigint not null,
         employer varchar(255),
@@ -447,16 +438,11 @@
     ) type=MyISAM;
 
     create table proposal (
-       proposal_id bigint not null,
-        approval_form_approval_form_id bigint,
-        budget_form_budget_form_id bigint,
-        coi_kp_nonphs_conflict_of_interest_non_phs_id bigint,
-        coi_kp_phs_conflict_of_interest_kp_phs bigint,
-        coi_phs_conflict_of_interest_phs_id bigint,
-        coi_pi_nonphs_conflict_of_interest_pi_non_phs_id bigint,
-        equipment_form_equipment_form_id bigint,
-        intake_form_intake_form_id bigint,
-        timeline_timeline_id bigint,
+       proposal_id bigint not null auto_increment,
+        date_created date,
+        proposal_name varchar(255),
+        status varchar(255),
+        user_id bigint,
         primary key (proposal_id)
     ) type=MyISAM;
 
@@ -515,30 +501,27 @@
         add_comments varchar(255)
     ) type=MyISAM;
 
+    create table Timeline_coPI (
+       Timeline_timeline_id bigint not null,
+        co_pis varchar(255)
+    ) type=MyISAM;
+
     create table users (
-       user_id bigint not null,
+       user_id bigint not null auto_increment,
         email varchar(255) not null,
         enabled bit not null,
         first_name varchar(255),
         hash varchar(255) not null,
         last_name varchar(255),
         username varchar(255) not null,
-        coi_pi_nonphs_conflict_of_interest_pi_non_phs_id bigint,
-        timeline_form_timeline_id bigint,
         primary key (user_id)
     ) type=MyISAM;
-
-    alter table co_pis 
-       add constraint UK_aggqgqigbcofv25d45pyt1gjr unique (user_id);
 
     alter table conflict_of_interest_non_phs 
        add constraint UK_8gwfqrom366hxntdc1407do6m unique (proposal_number);
 
     alter table departments 
        add constraint UK_qyf2ekbfpnddm6f3rkgt39i9o unique (department_name);
-
-    alter table other_investigators 
-       add constraint UK_aofegw22699sv3n7vfohrm7w1 unique (user_id);
 
     alter table users 
        add constraint UK_6dotkott2kjsp8vw4d0m25fb7 unique (email);
@@ -571,16 +554,6 @@
        foreign key (id) 
        references intake_form (intake_form_id);
 
-    alter table co_pis 
-       add constraint FKdsig23qv108gwufghwxpvic5s 
-       foreign key (user_id) 
-       references users (user_id);
-
-    alter table co_pis 
-       add constraint FK8vt4et6aaq9jh1crttckt1vbn 
-       foreign key (timeline_id) 
-       references timeline (timeline_id);
-
     alter table ConflictOfInterestKPNonPHS_disclosureReasons 
        add constraint FKlqklgtuniwncjtgevs8k8abvk 
        foreign key (ConflictOfInterestKPNonPHS_conflict_of_interest_non_phs_id) 
@@ -605,6 +578,11 @@
        add constraint FKd95039gun1b64cvgqu0eag3sn 
        foreign key (ConflictOfInterestPHS_conflict_of_interest_phs_id) 
        references conflict_of_interest_phs (conflict_of_interest_kp_phs);
+
+    alter table ConflictOfInterestPINonPHS_namesOfOtherInvestigators 
+       add constraint FKburosnkym2o1prgggj9mvtba4 
+       foreign key (ConflictOfInterestPINonPHS_conflict_of_interest_pi_non_phs_id) 
+       references conflict_of_interest_pi_non_phs (conflict_of_interest_pi_non_phs_id);
 
     alter table ConflictOfInterestPINonPHS_sigFinInterstDoesntInclude 
        add constraint FKdwjr9q8uhwc3ku4j40y1qlnog 
@@ -641,16 +619,6 @@
        foreign key (id) 
        references timeline (timeline_id);
 
-    alter table other_investigators 
-       add constraint FK4u9sq5urvayna6xcan7xgkfe7 
-       foreign key (user_id) 
-       references users (user_id);
-
-    alter table other_investigators 
-       add constraint FK3sq5xse6u962bl0vwd0bmends 
-       foreign key (conflict_of_interest_pi_non_phs_id) 
-       references conflict_of_interest_pi_non_phs (conflict_of_interest_pi_non_phs_id);
-
     alter table personnel 
        add constraint FK3l8hbyiku137kh8owiikkrdr9 
        foreign key (intake_intake_form_id) 
@@ -667,49 +635,14 @@
        references intake_form (intake_form_id);
 
     alter table proposal 
-       add constraint FKntdt9pyobvfcp1cuvcwbq75pg 
-       foreign key (approval_form_approval_form_id) 
-       references approval_form (approval_form_id);
+       add constraint FKemv61ye7eke2swbwg3to7fmg3 
+       foreign key (user_id) 
+       references users (user_id);
 
     alter table proposal 
-       add constraint FKid392390582ebky1lmby5pud5 
-       foreign key (budget_form_budget_form_id) 
-       references budget (budget_form_id);
-
-    alter table proposal 
-       add constraint FKgsmxia0wwg2reu3g867w23vcx 
-       foreign key (coi_kp_nonphs_conflict_of_interest_non_phs_id) 
-       references conflict_of_interest_non_phs (conflict_of_interest_non_phs_id);
-
-    alter table proposal 
-       add constraint FK54kooa5mg77h9go6qi43o0yby 
-       foreign key (coi_kp_phs_conflict_of_interest_kp_phs) 
-       references conflict_of_interest_phs (conflict_of_interest_kp_phs);
-
-    alter table proposal 
-       add constraint FKk3xjn0vv43mice3jrxat601sx 
-       foreign key (coi_phs_conflict_of_interest_phs_id) 
-       references conflict_of_interest_phs (conflict_of_interest_kp_phs);
-
-    alter table proposal 
-       add constraint FK20kna4k0ieamafqb8sux08b7l 
-       foreign key (coi_pi_nonphs_conflict_of_interest_pi_non_phs_id) 
-       references conflict_of_interest_pi_non_phs (conflict_of_interest_pi_non_phs_id);
-
-    alter table proposal 
-       add constraint FKhec7wxej3f742gv6k1qxuhl06 
-       foreign key (equipment_form_equipment_form_id) 
-       references intake_form (intake_form_id);
-
-    alter table proposal 
-       add constraint FKs0rheyyyn53lw735dvtapr0bx 
-       foreign key (intake_form_intake_form_id) 
-       references intake_form (intake_form_id);
-
-    alter table proposal 
-       add constraint FKph4mow8ls5c0yqx0fhvqan8tb 
-       foreign key (timeline_timeline_id) 
-       references timeline (timeline_id);
+       add constraint FKbwvl70focwr531ksyn4h6n9pg 
+       foreign key (proposal_id) 
+       references users (user_id);
 
     alter table requested_equipment 
        add constraint FKomsg8ifkux0n2gk8i7r8x76ps 
@@ -731,12 +664,7 @@
        foreign key (Timeline_timeline_id) 
        references timeline (timeline_id);
 
-    alter table users 
-       add constraint FKq1dhratxc9df60217w70q01y3 
-       foreign key (coi_pi_nonphs_conflict_of_interest_pi_non_phs_id) 
-       references conflict_of_interest_pi_non_phs (conflict_of_interest_pi_non_phs_id);
-
-    alter table users 
-       add constraint FK8nkd2vjrykq02esq7cfgn09ld 
-       foreign key (timeline_form_timeline_id) 
+    alter table Timeline_coPI 
+       add constraint FK6c981s1inlvmxia9judmtkgfu 
+       foreign key (Timeline_timeline_id) 
        references timeline (timeline_id);
