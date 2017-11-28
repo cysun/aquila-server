@@ -1,10 +1,13 @@
 package edu.csula.aquila.controller;
 
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,10 +33,15 @@ public class ProposalController {
 	}
 	
 	@RequestMapping(value = "api/proposal", method = RequestMethod.POST)
-	public Proposal saveProposal(Proposal proposal, @RequestParam Long userId) {
-		User user = userDao.getUser(userId);
+	public Proposal newProposal(@RequestBody ProposalInstantiate proposalInstantiate) {
+		Proposal proposal = new Proposal();
+		proposal.setProposalName(proposalInstantiate.getProposalName());
+		
+		
+		User user = userDao.getUser(proposalInstantiate.getUserId());
 		proposal.setUser(user);
 		proposal.setStatus("In Progress");
+
 		proposal.setDateCreated(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
 		return proposalDao.saveProposal(proposal);
 	}
@@ -43,4 +51,24 @@ public class ProposalController {
 		
 		return proposalDao.getProposalsOfUser(id);
 	}
+	
+	
+}
+
+class ProposalInstantiate{
+	String proposalName;
+	Long userId;
+	
+	ProposalInstantiate(){
+		
+	}
+	
+	public String getProposalName() {
+		return proposalName;
+	}
+	
+	public Long getUserId() {
+		return userId;
+	}
+	
 }
