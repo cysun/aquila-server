@@ -32,6 +32,9 @@ public class User implements Serializable {
     @JsonIgnore
     @Column(nullable = false)
     private String hash;
+    
+    @Column(name="password")
+    private String password;
 
     @Column(name = "last_name")
     private String lastName;
@@ -45,12 +48,11 @@ public class User implements Serializable {
     @Column(nullable = false)
     private boolean enabled = true;
     
-    
+
     @JsonIgnore
     @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name="proposal_id", nullable = true)
     List<Proposal> proposals;
-    
 
     
 
@@ -96,7 +98,16 @@ public class User implements Serializable {
         this.hash = hash;
     }
 
-    public String getLastName()
+        
+    public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getLastName()
     {
         return lastName;
     }
@@ -136,7 +147,6 @@ public class User implements Serializable {
         this.enabled = enabled;
     }
 
-
     public List<Proposal> getProposals() {
 		return proposals;
 	}
@@ -150,11 +160,5 @@ public class User implements Serializable {
 		proposals.add(proposal);
 		setProposals(proposals);
 	}
-
-
-
-
-
-
 
 }

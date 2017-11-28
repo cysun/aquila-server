@@ -29,7 +29,6 @@ public class Timeline implements Serializable{
 	
 	@Column(name = "pi")
 	User pI;
-	
 
 	@ElementCollection
 	@Column(name = "co_pis")
