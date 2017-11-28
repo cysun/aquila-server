@@ -1,9 +1,9 @@
 package edu.csula.aquila.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.csula.aquila.model.User;
@@ -16,9 +16,14 @@ public class LoginController {
 	private LoginDao loginDao;
 
 	
-	@RequestMapping(value ="/login", method = RequestMethod.GET)
-	public User loginTrue(@RequestParam("username") String username, @RequestParam("password") String password)
+	@RequestMapping(value ="/login", method = RequestMethod.POST)
+	public User loginTrue(@RequestBody User user)
     {
+		String username = user.getUsername();
+		String password = user.getPassword();
 		return loginDao.loginTrue(username, password);
     }
+
+
 }
+
