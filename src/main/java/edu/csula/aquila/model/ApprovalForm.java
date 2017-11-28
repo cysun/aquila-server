@@ -9,6 +9,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -247,8 +248,8 @@ public class ApprovalForm implements Serializable{
 	
 	
 	//proposal relationship
-	@OneToOne(mappedBy="approval_form")
-	Proposal proposal_form;
+//	@OneToOne(mappedBy="approvalForm")
+//	Proposal proposalForm;
 
 	public ApprovalForm(){}
 

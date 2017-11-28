@@ -174,8 +174,8 @@ public class EquipmentForm implements Serializable{
 	Date directorOfFacilitiesServicesSignatureDate;
 	
 	//proposal relationship
-	@OneToOne(mappedBy="equipment_form")
-	Proposal proposalForm;
+//	@OneToOne(mappedBy="equipmentForm")
+//	Proposal proposalForm;
 
 	public Long getId() {
 		return id;

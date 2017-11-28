@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -18,6 +19,11 @@ public class BudgetFile implements Serializable{
 	@GeneratedValue
 	@Column(name ="budget_form_id")
 	Long id;
+	
+//	@Column(name = "file")
+//	File budgetFile;
+// still deciding where/how to save into disk
+	
 	
 	@Column(name = "uploader")
 	String nameOfUploader;
@@ -35,8 +41,8 @@ public class BudgetFile implements Serializable{
 	Date dateOfUpload;
 	
 	//proposal relationship
-	@OneToOne(mappedBy="budget_form")
-	Proposal proposalForm;
+//	@OneToOne(mappedBy="budgetForm")
+//	Proposal proposalForm;
 
 	public Long getId() {
 		return id;

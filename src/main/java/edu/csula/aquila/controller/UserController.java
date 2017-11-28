@@ -29,6 +29,12 @@ public class UserController {
     	return userDao.getUser(id); 
     }
     
-      
+    @RequestMapping(value = "/saveuser", method = RequestMethod.POST)
+    public User saveUser(User user) {
+    	return userDao.saveUser(user);
+    }
+    
 
+
+    
 }
