@@ -513,6 +513,7 @@
         first_name varchar(255),
         hash varchar(255) not null,
         last_name varchar(255),
+        password varchar(255),
         username varchar(255) not null,
         primary key (user_id)
     ) type=MyISAM;
