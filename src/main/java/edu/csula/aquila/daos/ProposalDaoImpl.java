@@ -1,5 +1,6 @@
-package edu.csula.aquila.model;
+package edu.csula.aquila.daos;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,14 +9,14 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.csula.aquila.model.Proposal;
+
 @Repository
 public class ProposalDaoImpl  implements ProposalDao{
 
 	@PersistenceContext
 	private EntityManager entityManager;
-	
-	
-	
+
 	
 	@Override
 	public Proposal getProposal(Long id) {
@@ -25,7 +26,15 @@ public class ProposalDaoImpl  implements ProposalDao{
 	@Override
 	@Transactional
 	public Proposal saveProposal(Proposal proposal) {
-		return entityManager.merge( proposal );
+		proposal = entityManager.merge( proposal );
+		
+		Proposal condensedProposal = new Proposal();
+		condensedProposal.setId(proposal.getId());
+		condensedProposal.setProposalName(proposal.getProposalName());
+		condensedProposal.setStatus(proposal.getStatus());
+		condensedProposal.setDateCreated(proposal.getDateCreated());
+		
+		return condensedProposal;
 	}
 	
 	@Override

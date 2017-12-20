@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.csula.aquila.daos.UserDao;
 import edu.csula.aquila.model.User;
-import edu.csula.aquila.model.UserDao;
 
 @RestController
 public class UserController {
@@ -31,17 +31,9 @@ public class UserController {
     }
     
     @RequestMapping(value = "/saveuser", method = RequestMethod.POST)
-    public User saveUser(@RequestBody User user) {
-    	System.out.println("username: " + user.getUsername() + 
-    			"\nfirstname: " + user.getFirstName() +
-    			"\nlastname: " + user.getLastName() +
-    			"\nemail: " + user.getEmail() +
-    			"\npassword: " + user.getPassword() +
-    			"\nhash: " + user.getHash());
+    public User saveUser(@RequestBody User user) 
+    {
     	return userDao.saveUser(user);
     }
-    
-
-
     
 }

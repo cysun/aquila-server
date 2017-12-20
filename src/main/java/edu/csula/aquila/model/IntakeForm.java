@@ -15,8 +15,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "intake_form")
@@ -188,6 +189,7 @@ public class IntakeForm implements Serializable{
 		@Column(name="personnel_id")
 		Long Id;
 		
+		@JsonIgnore
 		@ManyToOne
 		IntakeForm intake;
 		

@@ -1,5 +1,6 @@
-package edu.csula.aquila.model;
+package edu.csula.aquila.daos;
 
+import edu.csula.aquila.model.User;
 
 public interface LoginDao {
 

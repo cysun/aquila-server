@@ -1,7 +1,6 @@
 package edu.csula.aquila.model;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -12,9 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -42,10 +44,9 @@ public class Proposal implements Serializable{
 	@JoinColumn(name="user_id")
 	User user;
 	
-//	@JsonIgnore
-//	@OneToOne
-//	@JoinColumn(name="intake_form_id")
-//	private IntakeForm intakeForm;
+	@OneToOne(cascade = {CascadeType.MERGE})
+	@JoinColumn(name="dummy_form_id")
+	DummyForm dummyForm;
 //	
 //	@JsonIgnore
 //	@OneToOne
@@ -137,6 +138,15 @@ public class Proposal implements Serializable{
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+
+	public DummyForm getDummyForm() {
+		return dummyForm;
+	}
+
+	public void setDummyForm(DummyForm dummyForm) {
+		this.dummyForm = dummyForm;
 	}
 
 	

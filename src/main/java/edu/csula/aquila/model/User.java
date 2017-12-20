@@ -28,10 +28,6 @@ public class User implements Serializable {
 
     @Column(nullable = false, unique = true)
     private String username;
-
- 
-    @Column(nullable = false)
-    private String hash;
     
     @Column(name="password")
     private String password;
@@ -44,9 +40,6 @@ public class User implements Serializable {
 
     @Column(nullable = false, unique = true)
     private String email;
-
-    @Column(nullable = false)
-    private boolean enabled = true;
     
 
     @JsonIgnore
@@ -66,7 +59,7 @@ public class User implements Serializable {
     	this.firstName = firstName;
     	this.lastName = lastName;
     	this.email = email;
-    	this.hash = password;
+    	this.password = password;
     }
 
     public Long getId()
@@ -87,17 +80,6 @@ public class User implements Serializable {
     {
         this.username = username;
     }
-
-    public String getHash()
-    {
-        return hash;
-    }
-
-    public void setHash( String hash )
-    {
-        this.hash = hash;
-    }
-
         
     public String getPassword() {
 		return password;
@@ -137,15 +119,6 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public boolean isEnabled()
-    {
-        return enabled;
-    }
-
-    public void setEnabled( boolean enabled )
-    {
-        this.enabled = enabled;
-    }
 
     public List<Proposal> getProposals() {
 		return proposals;

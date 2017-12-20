@@ -143,13 +143,13 @@
     ) type=MyISAM;
 
     create table conflict_of_interest_phs (
-       conflict_of_interest_phs_id bigint not null,
+       conflict_of_interest_kp_phs bigint not null,
         ari_date datetime,
         ari_official bit,
-        amount_requested double precision,
+        amount_requested integer,
         budget_period_end datetime,
         budget_period_start datetime,
-        irb_iacuc_ibc_no bigint,
+        iRBACUCIBCNo bigint,
         key_personnel_date datetime,
         key_personnel_sign tinyblob,
         pi tinyblob,
@@ -157,9 +157,6 @@
         project_period_start datetime,
         proposal_number bigint,
         proposal_title varchar(255),
-        siginificant_financial_interest bit,
-        conflict_of_interest_kp_phs bigint not null,
-        iRBACUCIBCNo bigint,
         significant_fin_interest bit,
         primary key (conflict_of_interest_kp_phs)
     ) type=MyISAM;
@@ -207,20 +204,6 @@
         primary key (ConflictOfInterestKPPHS_conflict_of_interest_kp_phs, sponsor_type)
     ) type=MyISAM;
 
-    create table ConflictOfInterestPHS_disclosureReasons (
-       ConflictOfInterestPHS_conflict_of_interest_phs_id bigint not null,
-        previous_info varchar(255),
-        reasons bit not null,
-        primary key (ConflictOfInterestPHS_conflict_of_interest_phs_id, reasons)
-    ) type=MyISAM;
-
-    create table ConflictOfInterestPHS_sponsor (
-       ConflictOfInterestPHS_conflict_of_interest_phs_id bigint not null,
-        is_sponsor varchar(255),
-        sponsor_name bit not null,
-        primary key (ConflictOfInterestPHS_conflict_of_interest_phs_id, sponsor_name)
-    ) type=MyISAM;
-
     create table ConflictOfInterestPINonPHS_namesOfOtherInvestigators (
        ConflictOfInterestPINonPHS_conflict_of_interest_pi_non_phs_id bigint not null,
         names_of_other_investigators varchar(255)
@@ -244,6 +227,28 @@
         primary key (department_id)
     ) type=MyISAM;
 
+    create table dummy_form (
+       dummy_form_id bigint not null auto_increment,
+        college varchar(255),
+        department varchar(255),
+        end_date date,
+        pi varchar(255),
+        project_title varchar(255),
+        proposed_funding_amount integer,
+        start_date date,
+        primary key (dummy_form_id)
+    ) type=MyISAM;
+
+    create table dummy_personnel (
+       dummy_personnel_id bigint not null,
+        dummyForm_dummy_form_id bigint,
+        employer varchar(255),
+        name varchar(255),
+        percent_of_time_proposed integer,
+        position_title_on_grant varchar(255),
+        units integer
+    ) type=MyISAM;
+
     create table EquipmentForm_listOfRequirements (
        EquipmentForm_equipment_form_id bigint not null,
         list_of_requirements varchar(255)
@@ -264,8 +269,6 @@
     create table hibernate_sequence (
        next_val bigint
     ) type=MyISAM;
-
-    insert into hibernate_sequence values ( 1 );
 
     insert into hibernate_sequence values ( 1 );
 
@@ -442,6 +445,7 @@
         date_created date,
         proposal_name varchar(255),
         status varchar(255),
+        dummy_form_id bigint,
         user_id bigint,
         primary key (proposal_id)
     ) type=MyISAM;
@@ -509,9 +513,7 @@
     create table users (
        user_id bigint not null auto_increment,
         email varchar(255) not null,
-        enabled bit not null,
         first_name varchar(255),
-        hash varchar(255) not null,
         last_name varchar(255),
         password varchar(255),
         username varchar(255) not null,
@@ -570,16 +572,6 @@
        foreign key (ConflictOfInterestKPPHS_conflict_of_interest_kp_phs) 
        references conflict_of_interest_phs (conflict_of_interest_kp_phs);
 
-    alter table ConflictOfInterestPHS_disclosureReasons 
-       add constraint FK5ghcvaj3xnnbct40lque1judu 
-       foreign key (ConflictOfInterestPHS_conflict_of_interest_phs_id) 
-       references conflict_of_interest_phs (conflict_of_interest_kp_phs);
-
-    alter table ConflictOfInterestPHS_sponsor 
-       add constraint FKd95039gun1b64cvgqu0eag3sn 
-       foreign key (ConflictOfInterestPHS_conflict_of_interest_phs_id) 
-       references conflict_of_interest_phs (conflict_of_interest_kp_phs);
-
     alter table ConflictOfInterestPINonPHS_namesOfOtherInvestigators 
        add constraint FKburosnkym2o1prgggj9mvtba4 
        foreign key (ConflictOfInterestPINonPHS_conflict_of_interest_pi_non_phs_id) 
@@ -594,6 +586,16 @@
        add constraint FKsohsjadxx0ac0qsttihpmctf1 
        foreign key (ConflictOfInterestPINonPHS_conflict_of_interest_pi_non_phs_id) 
        references conflict_of_interest_pi_non_phs (conflict_of_interest_pi_non_phs_id);
+
+    alter table dummy_personnel 
+       add constraint FKsgd360n7jpf13cbwqv7sacugy 
+       foreign key (dummyForm_dummy_form_id) 
+       references dummy_form (dummy_form_id);
+
+    alter table dummy_personnel 
+       add constraint FK3xee95fqqf811c4r18r23vapf 
+       foreign key (dummy_personnel_id) 
+       references dummy_form (dummy_form_id);
 
     alter table EquipmentForm_listOfRequirements 
        add constraint FK7qlnb3av6j5judr47lsmql5kh 
@@ -634,6 +636,11 @@
        add constraint FK5r24dvppnblui4f2nhjkqvaeo 
        foreign key (intake_intake_form_id) 
        references intake_form (intake_form_id);
+
+    alter table proposal 
+       add constraint FKaypklxspl78f6l3n2qplrgh0v 
+       foreign key (dummy_form_id) 
+       references dummy_form (dummy_form_id);
 
     alter table proposal 
        add constraint FKemv61ye7eke2swbwg3to7fmg3 
