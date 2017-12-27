@@ -26,6 +26,8 @@ public class IntakeForm implements Serializable{
 	@GeneratedValue
 	@Column(name="intake_form_id")
 	Long id;
+	
+	private int progress;
 	//A
 	@Column(name = "pi")
 	String principleInvestogator;
@@ -442,6 +444,14 @@ public class IntakeForm implements Serializable{
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public int getProgress() {
+		return progress;
+	}
+
+	public void setProgress(int progress) {
+		this.progress = progress;
 	}
 
 	public String getPrincipleInvestogator() {

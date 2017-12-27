@@ -7,25 +7,26 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-@Table(name = "conflict_of_interest_non_phs")
+@Table(name = "conflict_of_interest_kp_non_phs")
 
 public class ConflictOfInterestKPNonPHS implements Serializable{
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "conflict_of_interest_non_phs_id")
 	private Long id;
 
+	private int progress;
 	
 	@Column(name = "pi")
 	private User pI;
@@ -52,6 +53,7 @@ public class ConflictOfInterestKPNonPHS implements Serializable{
 	@ElementCollection
 	@MapKeyColumn(name="reasons")
 	@Column(name="previous_info")
+	@CollectionTable(name = "kp_nonphs_disclosure_reasons", joinColumns=@JoinColumn(name = "kp_nophs_disclosure_reasons_id"))
 	private Map<Boolean,String> disclosureReasons;
 
 	@Column(name = "budget_period_start")
@@ -92,9 +94,25 @@ public class ConflictOfInterestKPNonPHS implements Serializable{
 //	Proposal proposalForm;
 
 	public ConflictOfInterestKPNonPHS(){}
+	
+	public ConflictOfInterestKPNonPHS(int progress, Long proposalNumber, String proposalTitle)
+	{
+		this.progress = progress;
+		this.proposalNumber = proposalNumber;
+		this.proposalTitle = proposalTitle;
+		
+	}
 
 	public Long getId() {
 		return id;
+	}
+	
+	public int getProgress() {
+		return progress;
+	}
+
+	public void setProgress(int progress) {
+		this.progress = progress;
 	}
 
 	public void setId(Long id) {
@@ -155,6 +173,15 @@ public class ConflictOfInterestKPNonPHS implements Serializable{
 
 	public void setSubAwardAgency(String subAwardAgency) {
 		this.subAwardAgency = subAwardAgency;
+	}
+
+	
+	public Map<Boolean, String> getDisclosureReasons() {
+		return disclosureReasons;
+	}
+
+	public void setDisclosureReasons(Map<Boolean, String> disclosureReasons) {
+		this.disclosureReasons = disclosureReasons;
 	}
 
 	public Date getBudgetPeriodStart() {

@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
@@ -17,35 +18,33 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "conflict_of_interest_phs")
-class ConflictOfInterestPHS implements Serializable{
+@Table(name = "conflict_of_interest_pi_phs")
+public class ConflictOfInterestPHS implements Serializable{
 
 	//identical to Non PHS, excludes bool subaward, sponsor as Map<Boolean,String>
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="conflict_of_interest_phs_id")
 	private Long id;
 	
-	@Column(name = "pi")
-	private User pI;
-	
-	@Column(name = "proposal_number")
-	private long proposalNumber;
-	
-	@Column(name = "proposal_title")
-	private String proposalTitle; //come from intake??
+	private int progress;
 	
 	@ElementCollection
 	@MapKeyColumn(name="sponsor_name")
 	@Column(name="is_sponsor")
+	@CollectionTable(name = "phs_sponsor", joinColumns=@JoinColumn(name = "phs_sponsor_id"))
 	private Map<Boolean,String> sponsor;
 	
 	@ElementCollection
 	@MapKeyColumn(name="reasons")
 	@Column(name="previous_info")
+	@CollectionTable(name = "pi_phs_disclosure_reasons", joinColumns=@JoinColumn(name = "pi_phs_disclosure_reasons_id"))
 	private Map<Boolean,String> disclosureReasons;
-
+	
+	@Column(name = "proposal_title")
+	private String proposalTitle; 
+	
 	@Column(name = "budget_period_start")
 	private Date budgetPeriodStart;
 	
@@ -67,11 +66,11 @@ class ConflictOfInterestPHS implements Serializable{
 	@Column(name = "siginificant_financial_interest")
 	boolean significantFinInterest;
 	
-	@Column(name = "key_personnel_sign")
-	private Signature keyPersonnelSign; 
+	@Column(name = "pi_sign")
+	private Signature piSign; 
 	
-	@Column(name = "key_personnel_date")
-	Date keyPersonnelDate;
+	@Column(name = "pi_date")
+	Date piDate;
 	
 	@Column(name = "ari_official")
 	boolean aRIOfficial;
@@ -87,26 +86,19 @@ class ConflictOfInterestPHS implements Serializable{
 		return id;
 	}
 
+	public int getProgress() {
+		return progress;
+	}
+
+	public void setProgress(int progress) {
+		this.progress = progress;
+	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public User getpI() {
-		return pI;
-	}
-
-	public void setpI(User pI) {
-		this.pI = pI;
-	}
-
-	public long getProposalNumber() {
-		return proposalNumber;
-	}
-
-	public void setProposalNumber(long proposalNumber) {
-		this.proposalNumber = proposalNumber;
-	}
-
+	
 	public String getProposalTitle() {
 		return proposalTitle;
 	}
@@ -188,20 +180,20 @@ class ConflictOfInterestPHS implements Serializable{
 		this.significantFinInterest = significantFinInterest;
 	}
 
-	public Signature getKeyPersonnelSign() {
-		return keyPersonnelSign;
+	public Signature getPiSign() {
+		return piSign;
 	}
 
-	public void setKeyPersonnelSign(Signature keyPersonnelSign) {
-		this.keyPersonnelSign = keyPersonnelSign;
+	public void setPiSign(Signature piSign) {
+		this.piSign = piSign;
 	}
 
-	public Date getKeyPersonnelDate() {
-		return keyPersonnelDate;
+	public Date getPiDate() {
+		return piDate;
 	}
 
-	public void setKeyPersonnelDate(Date keyPersonnelDate) {
-		this.keyPersonnelDate = keyPersonnelDate;
+	public void setPiDate(Date piDate) {
+		this.piDate = piDate;
 	}
 
 	public boolean isaRIOfficial() {
