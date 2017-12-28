@@ -229,24 +229,45 @@
 
     create table dummy_form (
        dummy_form_id bigint not null auto_increment,
+        anticipate_stipend bit,
+        archival_research bit,
+        coding_or_data_entry bit,
         college varchar(255),
+        data_analysis bit,
+        data_collection bit,
         department varchar(255),
         end_date date,
+        faculty_student_research_creative_activities bit,
+        lab_assistance bit,
+        literature_review bit,
+        number_of_graduate_students integer,
+        number_of_undergrad_students integer,
+        other_activities bit,
+        presentations bit,
         pi varchar(255),
         project_title varchar(255),
         proposed_funding_amount integer,
+        report_writing bit,
         start_date date,
+        stipend varchar(255),
+        students_involved bit,
         primary key (dummy_form_id)
     ) type=MyISAM;
 
     create table dummy_personnel (
-       dummy_personnel_id bigint not null,
-        dummyForm_dummy_form_id bigint,
+       dummy_personnel_id bigint not null auto_increment,
         employer varchar(255),
         name varchar(255),
         percent_of_time_proposed integer,
         position_title_on_grant varchar(255),
-        units integer
+        units integer,
+        dummy_form_id bigint,
+        primary key (dummy_personnel_id)
+    ) type=MyISAM;
+
+    create table DummyForm_otherActivitiesList (
+       DummyForm_dummy_form_id bigint not null,
+        other_activities varchar(255)
     ) type=MyISAM;
 
     create table EquipmentForm_listOfRequirements (
@@ -588,13 +609,13 @@
        references conflict_of_interest_pi_non_phs (conflict_of_interest_pi_non_phs_id);
 
     alter table dummy_personnel 
-       add constraint FKsgd360n7jpf13cbwqv7sacugy 
-       foreign key (dummyForm_dummy_form_id) 
+       add constraint FK4t4imuxr59yc7f3vcxbtyl8sg 
+       foreign key (dummy_form_id) 
        references dummy_form (dummy_form_id);
 
-    alter table dummy_personnel 
-       add constraint FK3xee95fqqf811c4r18r23vapf 
-       foreign key (dummy_personnel_id) 
+    alter table DummyForm_otherActivitiesList 
+       add constraint FKpy8cac568kcm7mi1a86l9mqqu 
+       foreign key (DummyForm_dummy_form_id) 
        references dummy_form (dummy_form_id);
 
     alter table EquipmentForm_listOfRequirements 
