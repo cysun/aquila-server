@@ -29,7 +29,7 @@ public class DummyController {
 	
 	//save a personnel
 	@RequestMapping(value = "dummy/{id}/personnel", method = RequestMethod.POST)
-	public DummyForm.DummyPersonnel savePersonnel(@RequestBody DummyForm.DummyPersonnel dummyPersonnel, @PathVariable Long id) throws IllegalArgumentException, IllegalAccessException{
+	public DummyForm.DummyPersonnel savePersonnel(@RequestBody DummyForm.DummyPersonnel dummyPersonnel, @PathVariable Long id){
 		dummyPersonnel.setDummyForm(dummyDao.getDummyForm(id));
 		return dummyDao.saveDummyPersonnel(dummyPersonnel);
 		
