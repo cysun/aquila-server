@@ -41,6 +41,9 @@ public class User implements Serializable {
 
     @Column(name = "first_name")
     private String firstName;
+    
+    @Column(name = "phone_number")
+    private String phoneNumber;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -61,12 +64,14 @@ public class User implements Serializable {
     {
     }
     
-    public User(String username, String firstName, String lastName, String email, String password) {
+    public User(String username, String firstName, String lastName, String email, String hash, String password, String phoneNumber) {
     	this.username = username;
     	this.firstName = firstName;
     	this.lastName = lastName;
     	this.email = email;
-    	this.hash = password;
+    	this.hash = hash;
+    	this.password = password;
+    	this.phoneNumber = phoneNumber;
     }
 
     public Long getId()
@@ -126,8 +131,19 @@ public class User implements Serializable {
     {
         this.firstName = firstName;
     }
+    
 
-    public String getEmail()
+    public String getNumber() 
+    {
+		return phoneNumber;
+	}
+
+	public void setNumber(String number) 
+	{
+		this.phoneNumber = number;
+	}
+
+	public String getEmail()
     {
         return email;
     }
@@ -146,8 +162,9 @@ public class User implements Serializable {
     {
         this.enabled = enabled;
     }
+    
 
-    public List<Proposal> getProposals() {
+	public List<Proposal> getProposals() {
 		return proposals;
 	}
 

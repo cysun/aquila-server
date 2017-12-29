@@ -41,7 +41,12 @@ public class UserController {
     	return userDao.saveUser(user);
     }
     
-
+    @RequestMapping(value = "/edituser", method = RequestMethod.PUT)
+    public User editUser(@RequestBody User user)
+    {
+    	return userDao.editUser(user);
+    			
+    }
 
     
 }

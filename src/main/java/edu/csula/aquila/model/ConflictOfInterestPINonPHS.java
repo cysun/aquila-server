@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -20,9 +22,11 @@ import javax.persistence.Table;
 public class ConflictOfInterestPINonPHS implements Serializable{
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="conflict_of_interest_pi_non_phs_id")
 	Long Id;
+	
+	private int progress;
 	
 	@Column(name = "subaward_with_federal_agency_pass_through")
 	private String subawardWithFederalAgencyPassThrough;
@@ -46,7 +50,7 @@ public class ConflictOfInterestPINonPHS implements Serializable{
 	private Date projectPeriodEnd;
 	
 	@Column(name = "amount_requested")
-	private double amountRequested;
+	private Integer amountRequested;
 	
 	@Column(name="irb_iacuc_ibc_no")
 	private long irbACUibcNos; //what is this
@@ -58,10 +62,12 @@ public class ConflictOfInterestPINonPHS implements Serializable{
 	//if above true
 	@ElementCollection
 	@Column(name = "significant_financial_interest_reason")
+	@CollectionTable(name = "significant_fin_interest", joinColumns = @JoinColumn(name = "significant_fin_interest_id"))
 	private List<Boolean> sigFinInterstReason;
 	
 	@ElementCollection
 	@Column(name = "sig_fin_int_doesnt_include")
+	@CollectionTable(name = "sig_fin_interest_excluded", joinColumns = @JoinColumn(name = "sig_fin_interest_excluded_id"))
 	private List<Boolean> sigFinInterstDoesntInclude;
 
 	
@@ -71,6 +77,7 @@ public class ConflictOfInterestPINonPHS implements Serializable{
 	//if above true
 	@ElementCollection
 	@Column(name = "names_of_other_investigators")
+	@CollectionTable(name = "investigators_names", joinColumns = @JoinColumn(name = "investigators_names_id"))
 	List<String> namesOfOtherInvestigators;
 	
 	@Column(name = "pi_signature")
@@ -100,6 +107,13 @@ public class ConflictOfInterestPINonPHS implements Serializable{
 	}
 	public void setId(Long id) {
 		Id = id;
+	}
+	
+	public int getProgress() {
+		return progress;
+	}
+	public void setProgress(int progress) {
+		this.progress = progress;
 	}
 	public String getSubawardWithFederalAgencyPassThrough() {
 		return subawardWithFederalAgencyPassThrough;
@@ -143,10 +157,10 @@ public class ConflictOfInterestPINonPHS implements Serializable{
 	public void setProjectPeriodEnd(Date projectPeriodEnd) {
 		this.projectPeriodEnd = projectPeriodEnd;
 	}
-	public double getAmountRequested() {
+	public Integer getAmountRequested() {
 		return amountRequested;
 	}
-	public void setAmountRequested(double amountRequested) {
+	public void setAmountRequested(Integer amountRequested) {
 		this.amountRequested = amountRequested;
 	}
 	public long getIrbACUibcNos() {

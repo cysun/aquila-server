@@ -27,6 +27,7 @@ public class ApprovalForm implements Serializable{
 	@Column(name="approval_form_id")
 	private Long Id;
 
+	private int progress;
 	
 	// 1-4
 	@Column(name = "project_title")
@@ -259,6 +260,14 @@ public class ApprovalForm implements Serializable{
 
 	public void setId(Long id) {
 		Id = id;
+	}
+
+	public int getProgress() {
+		return progress;
+	}
+
+	public void setProgress(int progress) {
+		this.progress = progress;
 	}
 
 	public String getProjectTitle() {

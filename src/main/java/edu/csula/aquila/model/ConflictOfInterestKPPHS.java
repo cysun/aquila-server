@@ -3,11 +3,14 @@ package edu.csula.aquila.model;
 import java.io.Serializable;
 import java.util.*;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToOne;
@@ -17,15 +20,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-@Table(name = "conflict_of_interest_phs")
+@Table(name = "conflict_of_interest_kp_phs")
 public class ConflictOfInterestKPPHS implements Serializable{
 
 	//identical to Non PHS, excludes bool subaward, sponsor as Map<Boolean,String>
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="conflict_of_interest_kp_phs")
 	private Long id;
+	
+	private int progress;
 
 	@Column(name = "pi")
 	private User pI;
@@ -39,11 +44,13 @@ public class ConflictOfInterestKPPHS implements Serializable{
 	@ElementCollection
 	@MapKeyColumn(name="sponsor_type")
 	@Column(name="sponsor_name")
+	@CollectionTable(name = "kp_sponsor", joinColumns=@JoinColumn(name = "kp_sponsor_id"))
 	private Map<Boolean,String> sponsor;
 	
 	@ElementCollection
 	@MapKeyColumn(name="reasons")
 	@Column(name="previous_info")
+	@CollectionTable(name = "kp_disclosure_reasons", joinColumns=@JoinColumn(name = "kp_disclosure_reasons_id"))
 	private Map<Boolean,String> disclosureReasons;
 
 	@Column(name = "budget_period_start")
@@ -88,6 +95,14 @@ public class ConflictOfInterestKPPHS implements Serializable{
 	public Long getId() {
 		return id;
 	}
+	
+	public int getProgress() {
+		return progress;
+	}
+
+	public void setProgress(int progress) {
+		this.progress = progress;
+	}
 
 	public void setId(Long id) {
 		this.id = id;
@@ -116,8 +131,8 @@ public class ConflictOfInterestKPPHS implements Serializable{
 	public void setProposalTitle(String proposalTitle) {
 		this.proposalTitle = proposalTitle;
 	}
-	
-	
+		
+
 	public Map<Boolean, String> getSponsor() {
 		return sponsor;
 	}
