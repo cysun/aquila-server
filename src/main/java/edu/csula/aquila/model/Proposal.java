@@ -45,8 +45,8 @@ public class Proposal implements Serializable{
 	User user;
 	
 	@OneToOne(cascade = {CascadeType.MERGE})
-	@JoinColumn(name="dummy_form_id")
-	DummyForm dummyForm;
+	@JoinColumn(name="intake_form_id")
+	IntakeForm intakeForm;
 //	
 //	@JsonIgnore
 //	@OneToOne
@@ -139,27 +139,16 @@ public class Proposal implements Serializable{
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
 
-	public DummyForm getDummyForm() {
-		return dummyForm;
+
+	public IntakeForm getIntakeForm() {
+		return intakeForm;
 	}
 
-	public void setDummyForm(DummyForm dummyForm) {
-		this.dummyForm = dummyForm;
+	public void setIntakeForm(IntakeForm intakeForm) {
+		this.intakeForm = intakeForm;
 	}
 
-	
-//
-//
-//	public IntakeForm getIntakeForm() {
-//		return intakeForm;
-//	}
-//
-//	public void setIntakeForm(IntakeForm intakeForm) {
-//		this.intakeForm = intakeForm;
-//	}
-//
 //	public ApprovalForm getApprovalForm() {
 //		return approvalForm;
 //	}

@@ -17,7 +17,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "intake_form")
+@Table(name = "equipment_form")
 public class EquipmentForm implements Serializable{
 	
 	@Id

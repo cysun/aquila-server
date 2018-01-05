@@ -10,7 +10,7 @@ import edu.csula.aquila.model.IntakeForm;
 
 @Repository
 public class IntakeDaoImpl implements IntakeDao{
-	
+
 	@PersistenceContext
 	private EntityManager entityManager;
 	

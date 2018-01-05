@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.csula.aquila.daos.DummyDao;
+import edu.csula.aquila.daos.IntakeDao;
 import edu.csula.aquila.daos.ProposalDao;
 import edu.csula.aquila.daos.UserDao;
-import edu.csula.aquila.model.DummyForm;
+import edu.csula.aquila.model.IntakeForm;
 import edu.csula.aquila.model.Proposal;
 import edu.csula.aquila.model.User;
 
@@ -28,7 +28,7 @@ public class ProposalController {
 	private UserDao userDao;
 	
 	@Autowired
-	private DummyDao dummyDao;
+	private IntakeDao intakeDao;
 	
 	@RequestMapping(value = "api/proposal", method = RequestMethod.GET)
 	public Proposal getProposal(@RequestParam Long id){
@@ -54,11 +54,11 @@ public class ProposalController {
 		proposal.setDateCreated(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
 		
 		//create a null intake form
-		DummyForm dummyForm = new DummyForm();
-		dummyForm.setProjectTitle(proposalInstantiate.getProposalName());
-		dummyForm.setPrincipleInvestigator(user.getFirstName() + " " + user.getLastName());
-		dummyDao.saveDummyForm(dummyForm);
-		proposal.setDummyForm(dummyForm);
+		IntakeForm intakeForm = new IntakeForm();
+		intakeForm.setProjectTitle(proposalInstantiate.getProposalName());
+		intakeForm.setPrincipleInvestigator(user.getFirstName() + " " + user.getLastName());
+		intakeDao.saveIntakeForm(intakeForm);
+		proposal.setIntakeForm(intakeForm);
 		
 		return proposal = proposalDao.saveProposal(proposal);
 	}
