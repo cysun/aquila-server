@@ -13,13 +13,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "equipment_form")
 public class EquipmentForm implements Serializable{
 	
+	private static final long serialVersionUID = -639475707169544047L;
+
 	@Id
 	@GeneratedValue
 	@Column(name="equipment_form_id")

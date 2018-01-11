@@ -16,7 +16,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -90,7 +89,7 @@ public class Proposal implements Serializable{
 
 	public Proposal(){}
 	
-	public Proposal(String proposalName, User user, String status, Date dateCreate) {
+	public Proposal(String proposalName, User user, String status, Date dateCreated) {
 		this.proposalName = proposalName;
 		this.status = status;
 		this.user = user;

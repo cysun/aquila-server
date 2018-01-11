@@ -14,6 +14,8 @@ import javax.persistence.Table;
 public class College implements Serializable{
 
 	
+	private static final long serialVersionUID = 1916096303254438095L;
+
 	@Id
 	@GeneratedValue
 	@Column(name ="college_id")

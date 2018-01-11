@@ -12,6 +12,8 @@ import javax.persistence.Table;
 @Table(name = "signature")
 public class Signature implements Serializable{
 	
+	private static final long serialVersionUID = -886165093749926388L;
+
 	@Id
 	@GeneratedValue
 	@Column(name="signature_id")
