@@ -1,0 +1,11 @@
+lab 6
+can hard code employee id
+paycheck - do not take actual employee , 
+use to_string for representation
+system-
+use vectors for employee objects
+**once paycheck issue, reset hours to 0
+driver-
+not necessary-> user input
+main method
+think of as the bookeeper

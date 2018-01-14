@@ -13,7 +13,6 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -21,6 +20,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class ConflictOfInterestKPNonPHS implements Serializable{
 	
+	
+	private static final long serialVersionUID = -8903143544660218794L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "conflict_of_interest_non_phs_id")
