@@ -24,6 +24,8 @@ public class EquipmentForm extends Form implements Serializable{
 //	@Column(name="equipment_form_id")
 //	Long id;
 	
+	private int progress;
+	
 	@Column(name = "faculty_name")
 	String facultyName;
 	
@@ -183,6 +185,14 @@ public class EquipmentForm extends Form implements Serializable{
 //	public void setId(Long id) {
 //		this.id = id;
 //	}
+
+	public int getProgress() {
+		return progress;
+	}
+
+	public void setProgress(int progress) {
+		this.progress = progress;
+	}
 
 	public String getFacultyName() {
 		return facultyName;

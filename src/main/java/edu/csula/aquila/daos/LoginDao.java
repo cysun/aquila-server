@@ -10,4 +10,5 @@ public interface LoginDao {
 	
 	public User loginTrue( String username, String password);
 	
+	
 }

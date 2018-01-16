@@ -36,10 +36,11 @@ public class UserController {
     	return userDao.saveUser(user);
     }
     
-    @RequestMapping(value ="/user/{id}", method = RequestMethod.PUT)
-    public User updateUser(@RequestBody User user, @PathVariable Long id)
+    @RequestMapping(value = "/edituser", method = RequestMethod.PUT)
+    public User editUser(@RequestBody User user)
     {
-    	return userDao.saveUser(user); 
+    	return userDao.editUser(user);
+    			
     }
-    
+
 }

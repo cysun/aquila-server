@@ -17,5 +17,7 @@ public interface UserDao {
 
     User saveUser( User user );
     
+    User editUser( User user );
+    
     
 }

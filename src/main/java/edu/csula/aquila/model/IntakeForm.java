@@ -36,6 +36,7 @@ public class IntakeForm  extends Form implements Serializable{
 //	Long id;
 
 	// A 
+
 	@Column(name = "pi")
 	String principleInvestigator;
 
@@ -151,12 +152,14 @@ public class IntakeForm  extends Form implements Serializable{
 //		this.id = id;
 //	}
 
-	public String getPrincipleInvestigator() {
-		return principleInvestigator;
-	}
+
 
 	public void setPrincipleInvestigator(String principleInvestigator) {
 		this.principleInvestigator = principleInvestigator;
+	}
+
+	public String getPrincipleInvestigator() {
+		return principleInvestigator;
 	}
 
 	public String getDepartment() {
