@@ -14,84 +14,17 @@
         meeting_expenses integer,
         personnel_cost integer,
         total_cost integer,
-        form_approval_form_id bigint,
+        form_form_id bigint,
         primary key (approval_college_id)
     ) engine=MyISAM;
 
-    create table approval_form (
-       approval_form_id bigint not null,
-        uas_exec_director_signature tinyblob,
-        uas_exec_director_signature_date datetime,
-        additional_space bit,
-        additional_space_approved varchar(255),
-        avp_signature tinyblob,
-        avp_signature_date datetime,
-        biological_hazards bit,
-        biological_hazards_approved varchar(255),
-        csula_cost_sharing integer,
-        cfda_number integer,
-        chair_signature tinyblob,
-        chair_signature_date datetime,
-        chief_financial_officer_signature tinyblob,
-        chief_financial_officer_signature_date datetime,
-        college tinyblob,
-        college_dean_signature tinyblob,
-        college_signature_date datetime,
-        computer_equipment bit,
-        computer_equipment_approved varchar(255),
-        conflict_of_interest_statement bit,
-        conflict_of_interest_statement_approved varchar(255),
-        cost_sharing_required bit,
-        deadline_date datetime,
-        college_dean_designee tinyblob,
-        college_dean_designee_signature datetime,
-        dean_signature tinyblob,
-        dean_signature_date datetime,
-        department tinyblob,
-        dep_chair_signature tinyblob,
-        dep_chair_signature_date datetime,
-        director_signature tinyblob,
-        director_signature_date datetime,
-        email varchar(255),
-        human_subjects bit,
-        human_subjects_approved varchar(255),
-        pi_name tinyblob,
-        pi_signature tinyblob,
-        pi_signature_date datetime,
-        prepared_by varchar(255),
-        prepared_date datetime,
-        project_title varchar(255),
-        proposal_code float,
-        proposal_personnel_signature tinyblob,
-        provost_vp_academic_affairs tinyblob,
-        provost_vp_academic_affairs_signature datetime,
-        project_purpose varchar(255),
-        radiological_hazards bit,
-        radiological_hazards_approved varchar(255),
-        recombinant_dna bit,
-        recombinant_dna_approved varchar(255),
-        third_party_cost_share integer,
-        total_csula_cost_sharing integer,
-        total_of_college integer,
-        total_proposal_cost_sharing integer,
-        grant_contract_type varchar(255),
-        proposal_type varchar(255),
-        uas_project_id varchar(255),
-        unrecovered_fa_cost_sharing integer,
-        unrecovered_famtdc double precision,
-        university_cost_sharing bit,
-        vertebrate_animal bit,
-        vertebrate_animal_approved varchar(255),
-        primary key (approval_form_id)
-    ) engine=MyISAM;
-
     create table ApprovalForm_coPis (
-       ApprovalForm_approval_form_id bigint not null,
+       ApprovalForm_form_id bigint not null,
         co_pis varchar(255)
     ) engine=MyISAM;
 
     create table ApprovalForm_internalNotes (
-       ApprovalForm_approval_form_id bigint not null,
+       ApprovalForm_form_id bigint not null,
         internal_notes varchar(255)
     ) engine=MyISAM;
 
@@ -127,8 +60,30 @@
         primary key (department_id)
     ) engine=MyISAM;
 
-    create table equipment_form (
-       equipment_form_id bigint not null,
+    create table EquipmentForm_listOfRequirements (
+       EquipmentForm_form_id bigint not null,
+        list_of_requirements varchar(255)
+    ) engine=MyISAM;
+
+    create table EquipmentForm_typeOfEquipment (
+       EquipmentForm_form_id bigint not null,
+        type_of_equipment varchar(255)
+    ) engine=MyISAM;
+
+    create table file_info (
+       file_info_id bigint not null,
+        file_name varchar(255),
+        file_path varchar(255),
+        file_Type varchar(255),
+        uploader varchar(255),
+        upload_date date,
+        primary key (file_info_id)
+    ) engine=MyISAM;
+
+    create table form (
+       DTYPE varchar(31) not null,
+        form_id bigint not null auto_increment,
+        is_complete bit,
         FWR bit,
         air_chilled_water_flow bit,
         amps bit,
@@ -182,31 +137,71 @@
         temperature bit,
         volts bit,
         width integer,
-        primary key (equipment_form_id)
-    ) engine=MyISAM;
-
-    create table EquipmentForm_listOfRequirements (
-       EquipmentForm_equipment_form_id bigint not null,
-        list_of_requirements varchar(255)
-    ) engine=MyISAM;
-
-    create table EquipmentForm_typeOfEquipment (
-       EquipmentForm_equipment_form_id bigint not null,
-        type_of_equipment varchar(255)
-    ) engine=MyISAM;
-
-    create table file_info (
-       file_info_id bigint not null,
-        file_name varchar(255),
-        file_path varchar(255),
-        file_Type varchar(255),
-        uploader varchar(255),
-        upload_date date,
-        primary key (file_info_id)
-    ) engine=MyISAM;
-
-    create table form (
-       form_id bigint not null auto_increment,
+        uas_exec_director_signature tinyblob,
+        uas_exec_director_signature_date datetime,
+        additional_space bit,
+        additional_space_approved varchar(255),
+        avp_signature tinyblob,
+        avp_signature_date datetime,
+        biological_hazards bit,
+        biological_hazards_approved varchar(255),
+        csula_cost_sharing integer,
+        cfda_number integer,
+        chair_signature tinyblob,
+        chair_signature_date datetime,
+        chief_financial_officer_signature tinyblob,
+        chief_financial_officer_signature_date datetime,
+        college tinyblob,
+        college_dean_signature tinyblob,
+        college_signature_date datetime,
+        computer_equipment bit,
+        computer_equipment_approved varchar(255),
+        conflict_of_interest_statement bit,
+        conflict_of_interest_statement_approved varchar(255),
+        cost_sharing_required bit,
+        deadline_date datetime,
+        college_dean_designee tinyblob,
+        college_dean_designee_signature datetime,
+        dean_signature tinyblob,
+        dean_signature_date datetime,
+        dep_chair_signature tinyblob,
+        dep_chair_signature_date datetime,
+        director_signature tinyblob,
+        director_signature_date datetime,
+        email varchar(255),
+        human_subjects bit,
+        human_subjects_approved varchar(255),
+        pi_name tinyblob,
+        pi_signature tinyblob,
+        pi_signature_date datetime,
+        prepared_by varchar(255),
+        prepared_date datetime,
+        project_title varchar(255),
+        proposal_code float,
+        proposal_personnel_signature tinyblob,
+        provost_vp_academic_affairs tinyblob,
+        provost_vp_academic_affairs_signature datetime,
+        project_purpose varchar(255),
+        radiological_hazards bit,
+        radiological_hazards_approved varchar(255),
+        recombinant_dna bit,
+        recombinant_dna_approved varchar(255),
+        third_party_cost_share integer,
+        total_csula_cost_sharing integer,
+        total_of_college integer,
+        total_proposal_cost_sharing integer,
+        grant_contract_type varchar(255),
+        proposal_type varchar(255),
+        uas_project_id varchar(255),
+        unrecovered_fa_cost_sharing integer,
+        unrecovered_famtdc double precision,
+        university_cost_sharing bit,
+        vertebrate_animal bit,
+        vertebrate_animal_approved varchar(255),
+        end_date date,
+        pi varchar(255),
+        proposed_funding_amount integer,
+        start_date date,
         stage_id bigint,
         primary key (form_id)
     ) engine=MyISAM;
@@ -233,22 +228,6 @@
     insert into hibernate_sequence values ( 1 );
 
     insert into hibernate_sequence values ( 1 );
-
-    insert into hibernate_sequence values ( 1 );
-
-    insert into hibernate_sequence values ( 1 );
-
-    create table intake_form (
-       intake_form_id bigint not null auto_increment,
-        college varchar(255),
-        department varchar(255),
-        end_date date,
-        pi varchar(255),
-        project_title varchar(255),
-        proposed_funding_amount integer,
-        start_date date,
-        primary key (intake_form_id)
-    ) engine=MyISAM;
 
     create table other_activities (
        intake_form_id bigint not null,
@@ -282,6 +261,7 @@
         proposal_name varchar(255),
         status varchar(255),
         intake_form_id bigint,
+        timeline_id bigint,
         user_id bigint,
         primary key (proposal_id)
     ) engine=MyISAM;
@@ -291,6 +271,11 @@
         amount integer,
         equipment_name varchar(255) not null,
         primary key (requested_equipment_id, equipment_name)
+    ) engine=MyISAM;
+
+    create table required_forms (
+       timeline_id bigint not null,
+        form_name varchar(255)
     ) engine=MyISAM;
 
     create table signature (
@@ -313,6 +298,8 @@
         completed_date datetime,
         expected_date datetime,
         name varchar(255),
+        uas_review_required bit,
+        uas_reviewed bit,
         timeline_id bigint,
         primary key (stage_id)
     ) engine=MyISAM;
@@ -370,39 +357,39 @@
        add constraint UK_r43af9ap4edm43mmtq01oddj6 unique (username);
 
     alter table additional_parties_involved 
-       add constraint FKk3yyj09trhe5bsognjhetrbhy 
+       add constraint FKrtaab9m7i4m49rphge66b1xs8 
        foreign key (intake_form_id) 
-       references intake_form (intake_form_id);
+       references form (form_id);
 
     alter table approval_colleges 
-       add constraint FK4f92856b8b67qmf4j9qbbutxp 
-       foreign key (form_approval_form_id) 
-       references approval_form (approval_form_id);
+       add constraint FK2doij7kd3qsdg3gabhesja1hx 
+       foreign key (form_form_id) 
+       references form (form_id);
 
     alter table ApprovalForm_coPis 
-       add constraint FK6wbt37q7o8wkx8jni2m0kq74m 
-       foreign key (ApprovalForm_approval_form_id) 
-       references approval_form (approval_form_id);
+       add constraint FK83ubpey6delfeb8wao49ye7lr 
+       foreign key (ApprovalForm_form_id) 
+       references form (form_id);
 
     alter table ApprovalForm_internalNotes 
-       add constraint FKa4xe73f4rh5ysjium1svi2lvn 
-       foreign key (ApprovalForm_approval_form_id) 
-       references approval_form (approval_form_id);
+       add constraint FKsqf6gfsno2y2kdy022aijk0fd 
+       foreign key (ApprovalForm_form_id) 
+       references form (form_id);
 
     alter table chemicals 
-       add constraint FKml1f075o61v26spch4dhpeq86 
+       add constraint FK6eqxf50u8va4p06uom0ippo52 
        foreign key (id) 
-       references equipment_form (equipment_form_id);
+       references form (form_id);
 
     alter table EquipmentForm_listOfRequirements 
-       add constraint FKn3ojmw5s0wmi96sbjjigpmiij 
-       foreign key (EquipmentForm_equipment_form_id) 
-       references equipment_form (equipment_form_id);
+       add constraint FK4ful3bdtw6hd0vv1a8i9bcc0l 
+       foreign key (EquipmentForm_form_id) 
+       references form (form_id);
 
     alter table EquipmentForm_typeOfEquipment 
-       add constraint FK5eeyk268jqeabwqy6dgihsqx6 
-       foreign key (EquipmentForm_equipment_form_id) 
-       references equipment_form (equipment_form_id);
+       add constraint FKb0ql7yie14shqa01xr79hw3xe 
+       foreign key (EquipmentForm_form_id) 
+       references form (form_id);
 
     alter table form 
        add constraint FKjr3t0ti0w8f8ch6brn9pgpokc 
@@ -410,29 +397,34 @@
        references stage (stage_id);
 
     alter table hazardous_substances 
-       add constraint FKbb9hlg9c242rga155rocuh569 
+       add constraint FK4igsnfxmjw3wuw8thvwbxgkir 
        foreign key (hazardous_substances_id) 
-       references intake_form (intake_form_id);
+       references form (form_id);
 
     alter table other_activities 
-       add constraint FKmxswm9gm8ruwldnxybclbotmj 
+       add constraint FK6jy4q546it2biinxtce13cxt7 
        foreign key (intake_form_id) 
-       references intake_form (intake_form_id);
+       references form (form_id);
 
     alter table personnel 
-       add constraint FK1cwmj6erqdt41y1v1ifvblwkn 
+       add constraint FKtkdyls5wk8hygf5ke1drcm5d 
        foreign key (intake_form_id) 
-       references intake_form (intake_form_id);
+       references form (form_id);
 
     alter table project_locations 
-       add constraint FK8cy75vg11jjqwep2216ykx9u2 
+       add constraint FK7ldg8ugry3in3gt9e4quby1y4 
        foreign key (intake_form_id) 
-       references intake_form (intake_form_id);
+       references form (form_id);
 
     alter table proposal 
-       add constraint FKj94sys6t29gqjphjg6w4nhs0r 
+       add constraint FKcy7vdy9wo7ph6fq2jf03twat9 
        foreign key (intake_form_id) 
-       references intake_form (intake_form_id);
+       references form (form_id);
+
+    alter table proposal 
+       add constraint FK1uiqx36h5gwmixwcdm62k6nqk 
+       foreign key (timeline_id) 
+       references timeline (timeline_id);
 
     alter table proposal 
        add constraint FKemv61ye7eke2swbwg3to7fmg3 
@@ -445,14 +437,19 @@
        references users (user_id);
 
     alter table requested_equipment 
-       add constraint FKgwo1o899vxn9h2swf1uvk66k1 
+       add constraint FK7gr275nbngne7oyl9410liv67 
        foreign key (requested_equipment_id) 
-       references intake_form (intake_form_id);
+       references form (form_id);
+
+    alter table required_forms 
+       add constraint FKe4hmcrcjnts57x9grx3y8bomg 
+       foreign key (timeline_id) 
+       references stage (stage_id);
 
     alter table space 
-       add constraint FKd30buuoorkh7eco4a8rg8ovm 
+       add constraint FKmphxnucd6y15dab1kkud99kca 
        foreign key (intake_form_id) 
-       references intake_form (intake_form_id);
+       references form (form_id);
 
     alter table stage 
        add constraint FKsrwsf01ie8mk2fxl0yi7xgwu2 
@@ -460,9 +457,9 @@
        references timeline (timeline_id);
 
     alter table subgrants_or_subcontracts 
-       add constraint FK20oqg2cfgdxc06qrxrevssc1 
+       add constraint FKqjtd9l0ey95ytghk4twncx2ek 
        foreign key (intake_form_id) 
-       references intake_form (intake_form_id);
+       references form (form_id);
 
     alter table Timeline$Stage_addComments 
        add constraint FKrsvm5tmc4ssilxlmpup9o3k4c 

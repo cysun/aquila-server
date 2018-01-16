@@ -26,14 +26,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "intake_form")
-public class IntakeForm implements Serializable {
+public class IntakeForm  extends Form implements Serializable{
 
 	private static final long serialVersionUID = 3L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "intake_form_id")
-	Long id;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@Column(name = "intake_form_id")
+//	Long id;
 
 	// A 
 	@Column(name = "pi")
@@ -143,13 +143,13 @@ public class IntakeForm implements Serializable {
 
 
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+//	public Long getId() {
+//		return id;
+//	}
+//
+//	public void setId(Long id) {
+//		this.id = id;
+//	}
 
 	public String getPrincipleInvestigator() {
 		return principleInvestigator;

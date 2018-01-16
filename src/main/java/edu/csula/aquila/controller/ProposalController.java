@@ -4,10 +4,10 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.csula.aquila.daos.IntakeDao;
@@ -29,12 +29,12 @@ public class ProposalController {
 	@Autowired
 	private IntakeDao intakeDao;
 	
-	@RequestMapping(value = "api/proposal", method = RequestMethod.GET)
-	public Proposal getProposal(@RequestParam Long id){
+	@RequestMapping(value = "proposal/{id}", method = RequestMethod.GET)
+	public Proposal getProposal(@PathVariable Long id){
 		return proposalDao.getProposal(id);
 	}
 	
-	@RequestMapping(value = "api/proposal", method = RequestMethod.POST)
+	@RequestMapping(value = "proposal/", method = RequestMethod.POST)
 	public Proposal newProposal(@RequestBody ProposalInstantiate proposalInstantiate) {
 		//create proposal and set the name
 		Proposal proposal = new Proposal();
@@ -62,8 +62,8 @@ public class ProposalController {
 		return proposal = proposalDao.saveProposal(proposal);
 	}
 	
-	@RequestMapping(value = "api/getproposals", method = RequestMethod.GET)
-	public List<Proposal> getProposalsOfUser(@RequestParam Long id){
+	@RequestMapping(value = "proposals/{id}", method = RequestMethod.GET)
+	public List<Proposal> getProposalsOfUser(@PathVariable Long id){
 		
 		return proposalDao.getProposalsOfUser(id);
 	}

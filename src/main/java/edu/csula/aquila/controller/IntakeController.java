@@ -19,7 +19,7 @@ public class IntakeController {
 	private IntakeDao intakeDao;
 	
 	//create a new form
-	@RequestMapping(value = "intake", method = RequestMethod.POST)
+	@RequestMapping(value = "intake/", method = RequestMethod.POST)
 	public IntakeForm newIntakeForm(@RequestBody IntakeForm intakeForm) {
 		
 		return intakeDao.saveIntakeForm(intakeForm);
@@ -32,7 +32,7 @@ public class IntakeController {
 		return intakeDao.saveIntakeForm(intakeForm);
 	}
 	
-	//return a form
+	//return a form 
 	@RequestMapping(value = "intake/{id}", method = RequestMethod.GET)
 	public IntakeForm getIntakeForm(@PathVariable Long id) {
 		

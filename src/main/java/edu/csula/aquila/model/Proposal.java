@@ -46,6 +46,10 @@ public class Proposal implements Serializable{
 	@OneToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn(name="intake_form_id")
 	IntakeForm intakeForm;
+	
+	@OneToOne(cascade = {CascadeType.MERGE})
+	@JoinColumn(name="timeline_id")
+	Timeline timeline;
 //	
 //	@JsonIgnore
 //	@OneToOne
@@ -196,13 +200,13 @@ public class Proposal implements Serializable{
 //		this.equipmentForm = equipmentForm;
 //	}
 //
-//	public Timeline getTimeline() {
-//		return timeline;
-//	}
-//
-//	public void setTimeline(Timeline timeline) {
-//		this.timeline = timeline;
-//	}
+	public Timeline getTimeline() {
+		return timeline;
+	}
+
+	public void setTimeline(Timeline timeline) {
+		this.timeline = timeline;
+	}
 //
 //	public BudgetFile getBudgetForm() {
 //		return budgetForm;

@@ -16,14 +16,14 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "approval_form")
-public class ApprovalForm implements Serializable{
+public class ApprovalForm extends Form implements Serializable{
 	
 	private static final long serialVersionUID = 2L;
 	
-	@Id
-	@GeneratedValue
-	@Column(name="approval_form_id")
-	private Long Id;
+//	@Id
+//	@GeneratedValue
+//	@Column(name="approval_form_id")
+//	private Long Id;
 
 	
 	// 1-4
@@ -251,13 +251,13 @@ public class ApprovalForm implements Serializable{
 
 	public ApprovalForm(){}
 
-	public Long getId() {
-		return Id;
-	}
-
-	public void setId(Long id) {
-		Id = id;
-	}
+//	public Long getId() {
+//		return Id;
+//	}
+//
+//	public void setId(Long id) {
+//		Id = id;
+//	}
 
 	public String getProjectTitle() {
 		return projectTitle;

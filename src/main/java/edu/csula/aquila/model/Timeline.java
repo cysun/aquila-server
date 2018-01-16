@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -52,6 +54,10 @@ public class Timeline implements Serializable {
 	@OneToMany(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "timeline_id", nullable = true)
 	List<Stage> stages;
+	
+//	@ManyToOne( cascade = {CascadeType.ALL})
+//	@JoinColumn(name="user_id")
+//	User user;
 
 	// proposal relationship
 	// @OneToOne(mappedBy="timeline")
@@ -61,7 +67,7 @@ public class Timeline implements Serializable {
 	}
 
 	public Timeline(User pI, List<String> coPI, String proposal, String fundingAgency, Date uasDueDate,
-			Date sponsorDueDate, Date finalSign, List<Stage> stages) {
+			Date sponsorDueDate, Date finalSign, List<Stage> stages, User user) {
 		super();
 		this.pI = pI;
 		this.coPI = coPI;
@@ -71,6 +77,7 @@ public class Timeline implements Serializable {
 		this.sponsorDueDate = sponsorDueDate;
 		this.finalSign = finalSign;
 		this.stages = stages;
+//		this.user = user;
 	}
 
 	// premade PI stages
@@ -158,6 +165,16 @@ public class Timeline implements Serializable {
 		this.stages = stages;
 	}
 
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
+
+
+
 	// Timeline contains a list of stages
 	// This is the innerclass of stage to help a uas member
 	// manage the timeline
@@ -180,8 +197,26 @@ public class Timeline implements Serializable {
 
 		@Column(name = "completed_date")
 		Date completedDate;
+		
+		//these two booleans allow a PI to move on to the next stage
+		//a PI can move on to the next stage when the first one is false and the second one is true
+		
+		//when PI completes a stage turn to true
+		@Column(name = "uas_review_required")
+		boolean uasReviewRequired;
+		
+		//When uas completes a review for a stage turn to true
+		@Column(name ="uas_reviewed")
+		boolean uasReviewed;
+		
+		
 
 		// allows uas member to add a needed form
+		@ElementCollection
+		@CollectionTable(name = "required_forms", joinColumns = @JoinColumn(name = "timeline_id"))
+		@Column(name = "form_name")
+		List<String> requiredForms;
+		
 		@OneToMany(cascade = { CascadeType.ALL })
 		@JoinColumn(name = "stage_id", nullable = true)
 		List<Form> forms;
@@ -196,14 +231,22 @@ public class Timeline implements Serializable {
 		public Stage() {
 		}
 
-		public Stage(String name, Date expectedDate, Date completedDate, List<Form> forms, List<String> addComments) {
+	
+
+		public Stage(Long id, String name, Date expectedDate, Date completedDate, boolean uasReviewRequired,
+				boolean uasReviewed, List<String> requiredForms, List<Form> forms, List<String> addComments) {
 			super();
 			this.name = name;
 			this.expectedDate = expectedDate;
 			this.completedDate = completedDate;
+			this.uasReviewRequired = uasReviewRequired;
+			this.uasReviewed = uasReviewed;
+			this.requiredForms = requiredForms;
 			this.forms = forms;
 			this.addComments = addComments;
 		}
+
+
 
 		public Long getId() {
 			return Id;
@@ -252,6 +295,44 @@ public class Timeline implements Serializable {
 		public void setAddComments(List<String> addComments) {
 			this.addComments = addComments;
 		}
+
+
+
+		public boolean isUasReviewRequired() {
+			return uasReviewRequired;
+		}
+
+
+
+		public void setUasReviewRequired(boolean uasReviewRequired) {
+			this.uasReviewRequired = uasReviewRequired;
+		}
+
+
+
+		public boolean isUasReviewed() {
+			return uasReviewed;
+		}
+
+
+
+		public void setUasReviewed(boolean uasReviewed) {
+			this.uasReviewed = uasReviewed;
+		}
+
+
+
+		public List<String> getRequiredForms() {
+			return requiredForms;
+		}
+
+
+
+		public void setRequiredForms(List<String> requiredForms) {
+			this.requiredForms = requiredForms;
+		}
+		
+		
 
 	}
 
