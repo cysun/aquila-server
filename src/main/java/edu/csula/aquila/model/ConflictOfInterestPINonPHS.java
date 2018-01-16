@@ -12,14 +12,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "conflict_of_interest_pi_non_phs")
 public class ConflictOfInterestPINonPHS implements Serializable{
+
+	private static final long serialVersionUID = 326016992276354262L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

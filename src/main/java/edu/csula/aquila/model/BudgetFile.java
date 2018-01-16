@@ -2,7 +2,6 @@ package edu.csula.aquila.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.Map;
 
 import javax.persistence.CollectionTable;
@@ -15,12 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "budget")
 public class BudgetFile implements Serializable{
+
 
 	private static final long serialVersionUID = 1L;
 
