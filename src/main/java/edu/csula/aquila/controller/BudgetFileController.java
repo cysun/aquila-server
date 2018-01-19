@@ -64,4 +64,10 @@ public class BudgetFileController {
 		return status;
 	}
 
+	
+	@RequestMapping(value = "/proposal/budget/file", method = RequestMethod.GET)
+	public void returnFile(@RequestParam String fileName)
+	{
+		budgetFileDao.returnFile(fileName);
+	}
 }

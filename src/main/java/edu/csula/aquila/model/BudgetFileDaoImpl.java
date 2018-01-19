@@ -52,12 +52,12 @@ public class BudgetFileDaoImpl implements BudgetFileDao{
 		int count = 1;
 		//directory = directory + "budget-id" + "\\";
 	
-		String checkName =  Calendar.getInstance().get(Calendar.YEAR) + "version" + count + ".xls";
+		String checkName =  Calendar.getInstance().get(Calendar.YEAR) + "id" + id + "version" + count + ".xls";
 
 		
 		while(new File(directory + checkName).exists()) {
 			count++;
-			checkName =  Calendar.getInstance().get(Calendar.YEAR) + "version" + count + ".xls";
+			checkName =  Calendar.getInstance().get(Calendar.YEAR) + "id" + id + "version" + count + ".xls";
 			
 		}
 		String newFileName = checkName;
@@ -115,7 +115,14 @@ public class BudgetFileDaoImpl implements BudgetFileDao{
 
 	@Override
 	public void returnFile(String fileName) {
-		// TODO Auto-generated method stub
+		try
+		{
+			Runtime.getRuntime().exec("cmd /c start " + directory + fileName);
+		} catch (IOException e) 
+		{
+			System.out.println("Invalid File Name");
+			e.printStackTrace();
+		}
 		
 	}
 	
