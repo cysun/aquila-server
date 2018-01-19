@@ -2,7 +2,6 @@ package edu.csula.aquila.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CollectionTable;
@@ -14,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +21,8 @@ public class ConflictOfInterestPHS implements Serializable{
 
 	//identical to Non PHS, excludes bool subaward, sponsor as Map<Boolean,String>
 	
+	private static final long serialVersionUID = -8195316383450056859L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="conflict_of_interest_phs_id")

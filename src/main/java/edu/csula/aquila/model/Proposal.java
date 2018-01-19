@@ -1,7 +1,6 @@
 package edu.csula.aquila.model;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -12,9 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 
 
 @Entity
@@ -42,10 +43,13 @@ public class Proposal implements Serializable{
 	@JoinColumn(name="user_id")
 	User user;
 	
-//	@JsonIgnore
-//	@OneToOne
-//	@JoinColumn(name="intake_form_id")
-//	private IntakeForm intakeForm;
+	@OneToOne(cascade = {CascadeType.MERGE})
+	@JoinColumn(name="intake_form_id")
+	IntakeForm intakeForm;
+	
+	@OneToOne(cascade = {CascadeType.MERGE})
+	@JoinColumn(name="timeline_id")
+	Timeline timeline;
 //	
 //	@JsonIgnore
 //	@OneToOne
@@ -89,7 +93,7 @@ public class Proposal implements Serializable{
 
 	public Proposal(){}
 	
-	public Proposal(String proposalName, User user, String status, Date dateCreate) {
+	public Proposal(String proposalName, User user, String status, Date dateCreated) {
 		this.proposalName = proposalName;
 		this.status = status;
 		this.user = user;
@@ -139,17 +143,15 @@ public class Proposal implements Serializable{
 		this.status = status;
 	}
 
-	
-//
-//
-//	public IntakeForm getIntakeForm() {
-//		return intakeForm;
-//	}
-//
-//	public void setIntakeForm(IntakeForm intakeForm) {
-//		this.intakeForm = intakeForm;
-//	}
-//
+
+	public IntakeForm getIntakeForm() {
+		return intakeForm;
+	}
+
+	public void setIntakeForm(IntakeForm intakeForm) {
+		this.intakeForm = intakeForm;
+	}
+
 //	public ApprovalForm getApprovalForm() {
 //		return approvalForm;
 //	}
@@ -198,13 +200,13 @@ public class Proposal implements Serializable{
 //		this.equipmentForm = equipmentForm;
 //	}
 //
-//	public Timeline getTimeline() {
-//		return timeline;
-//	}
-//
-//	public void setTimeline(Timeline timeline) {
-//		this.timeline = timeline;
-//	}
+	public Timeline getTimeline() {
+		return timeline;
+	}
+
+	public void setTimeline(Timeline timeline) {
+		this.timeline = timeline;
+	}
 //
 //	public BudgetFile getBudgetForm() {
 //		return budgetForm;

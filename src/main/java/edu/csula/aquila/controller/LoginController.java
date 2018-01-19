@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.csula.aquila.daos.LoginDao;
 import edu.csula.aquila.model.User;
-import edu.csula.aquila.model.LoginDao;
 
 @RestController
 public class LoginController {

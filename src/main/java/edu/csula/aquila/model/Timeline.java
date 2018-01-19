@@ -1,32 +1,33 @@
 package edu.csula.aquila.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.MapKeyColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="timeline")
-public class Timeline implements Serializable{
-	
+@Table(name = "timeline")
+public class Timeline implements Serializable {
+
+	private static final long serialVersionUID = -3646369830165962564L;
+
 	@Id
-	@GeneratedValue
-	@Column(name="timeline_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "timeline_id")
 	private Long Id;
-	
+
 	@Column(name = "pi")
 	User pI;
 
@@ -34,86 +35,69 @@ public class Timeline implements Serializable{
 	@Column(name = "co_pis")
 	List<String> coPI;
 
-	@Column(name="proposal")
+	@Column(name = "proposal")
 	String proposal;// unclear if proposal name or code
-	
-	@Column(name="funding_agency")
+
+	@Column(name = "funding_agency")
 	String fundingAgency;
-	
-	@Column(name="shipping_deadline")
-	Date shippingDeadline; //??
-	
-	@Column(name="uas_date")
-	Date uASDate;
-	
-	@Column(name="sponsor_date")
+
+	@Column(name = "uas_date")
+	Date uasDueDate;
+
+	@Column(name = "sponsor_date")
 	Date sponsorDueDate;
-	
-	@Column(name="final_sign_date")
+
+	@Column(name = "final_sign_date")
 	Date finalSign;
-	
-	@Column(name="shipping_date")
-	Date shippingDate; // same as shipping deadline?
-	
-	//add meaningful column names to piDueDates and orspDueDates
-	
-	@ElementCollection
-	@MapKeyColumn(name ="principal_investigator")
-	@Column(name ="pi_date_due")
-	@CollectionTable(name="pi_due_dates", joinColumns=@JoinColumn(name="id"))
-	Map<String,Date> piDueDates;
 
-	@ElementCollection
-	@MapKeyColumn(name ="orsp")
-	@Column(name ="orsp_date_due")
-	@CollectionTable(name="orsp_due_dates", joinColumns=@JoinColumn(name="id"))
-	Map<String,Date> orspDueDates;
+	@OneToMany(cascade = { CascadeType.ALL })
+	@JoinColumn(name = "timeline_id", nullable = true)
+	List<Stage> stages;
+	
+//	@ManyToOne( cascade = {CascadeType.ALL})
+//	@JoinColumn(name="user_id")
+//	User user;
 
-	public Map<String, Date> getPiDueDates() {
-		return piDueDates;
+	// proposal relationship
+	// @OneToOne(mappedBy="timeline")
+	// Proposal proposalForm;
+
+	Timeline() {
 	}
 
-	public void setPiDueDates(Map<String, Date> piDueDates) {
-		this.piDueDates = piDueDates;
+	public Timeline(User pI, List<String> coPI, String proposal, String fundingAgency, Date uasDueDate,
+			Date sponsorDueDate, Date finalSign, List<Stage> stages, User user) {
+		super();
+		this.pI = pI;
+		this.coPI = coPI;
+		this.proposal = proposal;
+		this.fundingAgency = fundingAgency;
+		this.uasDueDate = uasDueDate;
+		this.sponsorDueDate = sponsorDueDate;
+		this.finalSign = finalSign;
+		this.stages = stages;
+//		this.user = user;
 	}
 
-	public Map<String, Date> getOrspDueDates() {
-		return orspDueDates;
+	// premade PI stages
+	// String name,
+	// Date expectedDate,
+	// Date completedDate,
+	// List<Form> forms,
+	// List<String> addComments
+	public List<Stage> piStages() {
+		this.stages = new ArrayList<Stage>();
+		// what are these stages even
+
+		return this.stages;
 	}
-
-	public void setOrspDueDates(Map<String, Date> orspDueDates) {
-		this.orspDueDates = orspDueDates;
-	}
-
-	@Column(name="pi_initial")
-	//signatures, may not be strings
-	String piInitial;
-	
-	@Column(name="analyst_initial")
-	String analystInitial;
-
-	@Column(name="pi_sign_date")
-	Date piSign;
-	
-	@Column(name="analyst_sign_date")
-	Date analystSign;
-	
-	@ElementCollection
-	@Column(name="add_comments")
-	List<String> addComments;
-	
-	//proposal relationship
-//	@OneToOne(mappedBy="timeline")
-//	Proposal proposalForm;
-
-	Timeline(){}
 
 	public Long getId() {
 		return Id;
 	}
 
-	public void setId(Long Id) {
-		this.Id = Id;
+	public void setId(Long id) {
+		Id = id;
 	}
 
 	public User getpI() {
@@ -122,6 +106,14 @@ public class Timeline implements Serializable{
 
 	public void setpI(User pI) {
 		this.pI = pI;
+	}
+
+	public List<String> getCoPI() {
+		return coPI;
+	}
+
+	public void setCoPI(List<String> coPI) {
+		this.coPI = coPI;
 	}
 
 	public String getProposal() {
@@ -140,20 +132,12 @@ public class Timeline implements Serializable{
 		this.fundingAgency = fundingAgency;
 	}
 
-	public Date getShippingDeadline() {
-		return shippingDeadline;
+	public Date getUasDueDate() {
+		return uasDueDate;
 	}
 
-	public void setShippingDeadline(Date shippingDeadline) {
-		this.shippingDeadline = shippingDeadline;
-	}
-
-	public Date getuASDate() {
-		return uASDate;
-	}
-
-	public void setuASDate(Date uASDate) {
-		this.uASDate = uASDate;
+	public void setUasDueDate(Date uasDueDate) {
+		this.uasDueDate = uasDueDate;
 	}
 
 	public Date getSponsorDueDate() {
@@ -172,73 +156,183 @@ public class Timeline implements Serializable{
 		this.finalSign = finalSign;
 	}
 
-	public Date getShippingDate() {
-		return shippingDate;
+	public List<Stage> getStages() {
+		return stages;
 	}
 
-	public void setShippingDate(Date shippingDate) {
-		this.shippingDate = shippingDate;
+	public void setStages(List<Stage> stages) {
+		this.stages = stages;
 	}
 
-	public String getPiInitial() {
-		return piInitial;
-	}
-
-	public void setPiInitial(String piInitial) {
-		this.piInitial = piInitial;
-	}
-
-	public String getAnalystInitial() {
-		return analystInitial;
-	}
-
-	public void setAnalystInitial(String analystInitial) {
-		this.analystInitial = analystInitial;
-	}
-
-	public Date getPiSign() {
-		return piSign;
-	}
-
-	public void setPiSign(Date piSign) {
-		this.piSign = piSign;
-	}
-
-	public Date getAnalystSign() {
-		return analystSign;
-	}
-
-	public void setAnalystSign(Date analystSign) {
-		this.analystSign = analystSign;
-	}
-
-
-	public List<String> getAddComments() {
-		return addComments;
-	}
-
-	public void setAddComments(List<String> addComments) {
-		this.addComments = addComments;
-	}
-
-	public List<String> getCoPI() {
-		return coPI;
-	}
-
-	public void setCoPI(List<String> coPI) {
-		this.coPI = coPI;
-	}
-
-//	public Proposal getProposalForm() {
-//		return proposalForm;
+//	public User getUser() {
+//		return user;
 //	}
 //
-//	public void setProposalForm(Proposal proposalForm) {
-//		this.proposalForm = proposalForm;
+//	public void setUser(User user) {
+//		this.user = user;
 //	}
 
 
+
+	// Timeline contains a list of stages
+	// This is the innerclass of stage to help a uas member
+	// manage the timeline
+	@Entity
+	@Table(name = "stage")
+	public static class Stage implements Serializable {
+
+		private static final long serialVersionUID = 4793986574923358796L;
+
+		@Id
+		@GeneratedValue(strategy = GenerationType.IDENTITY)
+		@Column(name = "stage_id")
+		Long Id;
+
+		@Column
+		String name;
+
+		@Column(name = "expected_date")
+		Date expectedDate;
+
+		@Column(name = "completed_date")
+		Date completedDate;
+		
+		//these two booleans allow a PI to move on to the next stage
+		//a PI can move on to the next stage when the first one is false and the second one is true
+		
+		//when PI completes a stage turn to true
+		@Column(name = "uas_review_required")
+		boolean uasReviewRequired;
+		
+		//When uas completes a review for a stage turn to true
+		@Column(name ="uas_reviewed")
+		boolean uasReviewed;
+		
+		
+
+		// allows uas member to add a needed form
+		@ElementCollection
+		@CollectionTable(name = "required_forms", joinColumns = @JoinColumn(name = "timeline_id"))
+		@Column(name = "form_name")
+		List<String> requiredForms;
+		
+		@OneToMany(cascade = { CascadeType.ALL })
+		@JoinColumn(name = "stage_id", nullable = true)
+		List<Form> forms;
+
+		// allows uas member to add needed file
+
+		// allows uas member to add comments to a stage if needed
+		@ElementCollection
+		@Column(name = "add_comments")
+		List<String> addComments;
+
+		public Stage() {
+		}
+
 	
-	
-	
+
+		public Stage(Long id, String name, Date expectedDate, Date completedDate, boolean uasReviewRequired,
+				boolean uasReviewed, List<String> requiredForms, List<Form> forms, List<String> addComments) {
+			super();
+			this.name = name;
+			this.expectedDate = expectedDate;
+			this.completedDate = completedDate;
+			this.uasReviewRequired = uasReviewRequired;
+			this.uasReviewed = uasReviewed;
+			this.requiredForms = requiredForms;
+			this.forms = forms;
+			this.addComments = addComments;
+		}
+
+
+
+		public Long getId() {
+			return Id;
+		}
+
+		public void setId(Long id) {
+			Id = id;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public Date getExpectedDate() {
+			return expectedDate;
+		}
+
+		public void setExpectedDate(Date expectedDate) {
+			this.expectedDate = expectedDate;
+		}
+
+		public Date getCompletedDate() {
+			return completedDate;
+		}
+
+		public void setCompletedDate(Date completedDate) {
+			this.completedDate = completedDate;
+		}
+
+		public List<Form> getForms() {
+			return forms;
+		}
+
+		public void setForms(List<Form> forms) {
+			this.forms = forms;
+		}
+
+		public List<String> getAddComments() {
+			return addComments;
+		}
+
+		public void setAddComments(List<String> addComments) {
+			this.addComments = addComments;
+		}
+
+
+
+		public boolean isUasReviewRequired() {
+			return uasReviewRequired;
+		}
+
+
+
+		public void setUasReviewRequired(boolean uasReviewRequired) {
+			this.uasReviewRequired = uasReviewRequired;
+		}
+
+
+
+		public boolean isUasReviewed() {
+			return uasReviewed;
+		}
+
+
+
+		public void setUasReviewed(boolean uasReviewed) {
+			this.uasReviewed = uasReviewed;
+		}
+
+
+
+		public List<String> getRequiredForms() {
+			return requiredForms;
+		}
+
+
+
+		public void setRequiredForms(List<String> requiredForms) {
+			this.requiredForms = requiredForms;
+		}
+		
+		
+
+	}
+
 }

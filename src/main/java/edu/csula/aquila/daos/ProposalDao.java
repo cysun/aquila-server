@@ -1,6 +1,8 @@
-package edu.csula.aquila.model;
+package edu.csula.aquila.daos;
 
 import java.util.List;
+
+import edu.csula.aquila.model.Proposal;
 
 public interface ProposalDao {
 	
