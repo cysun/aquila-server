@@ -9,23 +9,21 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "approval_form")
-public class ApprovalForm implements Serializable{
+public class ApprovalForm extends Form implements Serializable{
 	
 	private static final long serialVersionUID = 2L;
 	
-	@Id
-	@GeneratedValue
-	@Column(name="approval_form_id")
-	private Long Id;
+//	@Id
+//	@GeneratedValue
+//	@Column(name="approval_form_id")
+//	private Long Id;
 
 	private int progress;
 	
@@ -254,13 +252,13 @@ public class ApprovalForm implements Serializable{
 
 	public ApprovalForm(){}
 
-	public Long getId() {
-		return Id;
-	}
-
-	public void setId(Long id) {
-		Id = id;
-	}
+//	public Long getId() {
+//		return Id;
+//	}
+//
+//	public void setId(Long id) {
+//		Id = id;
+//	}
 
 	public int getProgress() {
 		return progress;

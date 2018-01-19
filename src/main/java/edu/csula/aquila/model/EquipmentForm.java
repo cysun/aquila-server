@@ -9,21 +9,20 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "intake_form")
-public class EquipmentForm implements Serializable{
+@Table(name = "equipment_form")
+public class EquipmentForm extends Form implements Serializable{
 	
-	@Id
-	@GeneratedValue
-	@Column(name="equipment_form_id")
-	Long id;
+	private static final long serialVersionUID = -639475707169544047L;
+
+//	@Id
+//	@GeneratedValue
+//	@Column(name="equipment_form_id")
+//	Long id;
 	
 	private int progress;
 	
@@ -179,13 +178,13 @@ public class EquipmentForm implements Serializable{
 //	@OneToOne(mappedBy="equipmentForm")
 //	Proposal proposalForm;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+//	public Long getId() {
+//		return id;
+//	}
+//
+//	public void setId(Long id) {
+//		this.id = id;
+//	}
 
 	public int getProgress() {
 		return progress;
