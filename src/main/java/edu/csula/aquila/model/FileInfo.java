@@ -35,6 +35,9 @@ public class FileInfo implements Serializable{
 	@Column(name ="upload_date")
 	Date uploadDate;
 	
+	@Column(name = "is_uploaded")
+	boolean isUploaded;
+	
 	public FileInfo() {}
 
 	public FileInfo(String nameOfUploader, String fileName, String fileType, String filePath, Date uploadDate) {

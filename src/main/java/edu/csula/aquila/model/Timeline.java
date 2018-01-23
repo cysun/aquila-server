@@ -14,8 +14,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "timeline")
@@ -29,7 +32,7 @@ public class Timeline implements Serializable {
 	private Long Id;
 
 	@Column(name = "pi")
-	User pI;
+	String pI;
 
 	@ElementCollection
 	@Column(name = "co_pis")
@@ -54,18 +57,16 @@ public class Timeline implements Serializable {
 	@JoinColumn(name = "timeline_id", nullable = true)
 	List<Stage> stages;
 	
-//	@ManyToOne( cascade = {CascadeType.ALL})
-//	@JoinColumn(name="user_id")
-//	User user;
 
 	// proposal relationship
-	// @OneToOne(mappedBy="timeline")
-	// Proposal proposalForm;
+//	@JsonIgnore
+	 @OneToOne(mappedBy="timeline")
+	 Proposal proposalForm;
 
-	Timeline() {
+	public Timeline() {
 	}
 
-	public Timeline(User pI, List<String> coPI, String proposal, String fundingAgency, Date uasDueDate,
+	public Timeline(String pI, List<String> coPI, String proposal, String fundingAgency, Date uasDueDate,
 			Date sponsorDueDate, Date finalSign, List<Stage> stages, User user) {
 		super();
 		this.pI = pI;
@@ -76,7 +77,6 @@ public class Timeline implements Serializable {
 		this.sponsorDueDate = sponsorDueDate;
 		this.finalSign = finalSign;
 		this.stages = stages;
-//		this.user = user;
 	}
 
 	// premade PI stages
@@ -100,11 +100,11 @@ public class Timeline implements Serializable {
 		Id = id;
 	}
 
-	public User getpI() {
+	public String getpI() {
 		return pI;
 	}
 
-	public void setpI(User pI) {
+	public void setpI(String pI) {
 		this.pI = pI;
 	}
 
@@ -164,13 +164,14 @@ public class Timeline implements Serializable {
 		this.stages = stages;
 	}
 
-//	public User getUser() {
-//		return user;
-//	}
-//
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
+	public Proposal getProposalForm() {
+		return proposalForm;
+	}
+
+	public void setProposalForm(Proposal proposalForm) {
+		this.proposalForm = proposalForm;
+	}
+
 
 
 
@@ -208,7 +209,9 @@ public class Timeline implements Serializable {
 		@Column(name ="uas_reviewed")
 		boolean uasReviewed;
 		
-		
+		//Deadline Type (for PI or ORSP)
+		@Column(name = "deadline_type")
+		String deadlineType;
 
 		// allows uas member to add a needed form
 		@ElementCollection
@@ -224,8 +227,13 @@ public class Timeline implements Serializable {
 
 		// allows uas member to add comments to a stage if needed
 		@ElementCollection
-		@Column(name = "add_comments")
+		@CollectionTable(name = "add_columns", joinColumns = @JoinColumn(name = "timeline_id"))
+		@Column(name = "comment")
 		List<String> addComments;
+		
+		@ManyToOne(cascade = { CascadeType.ALL })
+		@JoinColumn(name = "timeline_id", nullable = true)
+		Timeline timeline;
 
 		public Stage() {
 		}

@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.csula.aquila.daos.ConflictOfInterestKPNonPHSDao;
 import edu.csula.aquila.model.ConflictOfInterestKPNonPHS;
-import edu.csula.aquila.model.ConflictOfInterestKPNonPHSDao;
 
 @RestController
 public class ConflictOfInterestKPNonPHSController {
