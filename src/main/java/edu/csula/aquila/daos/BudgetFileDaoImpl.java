@@ -1,4 +1,4 @@
-package edu.csula.aquila.model;
+package edu.csula.aquila.daos;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +15,8 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
+import edu.csula.aquila.model.BudgetFile;
 
 @Repository
 public class BudgetFileDaoImpl implements BudgetFileDao{

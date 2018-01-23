@@ -1,9 +1,11 @@
-package edu.csula.aquila.model;
+package edu.csula.aquila.daos;
 
 import java.io.IOException;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
+
+import edu.csula.aquila.model.BudgetFile;
 
 public interface BudgetFileDao {
 	
