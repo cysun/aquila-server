@@ -86,10 +86,10 @@ public class Proposal implements Serializable{
 //	@JoinColumn(name="timeline_id")
 //	private Timeline timeline;
 //
-//	@JsonIgnore
-//	@OneToOne
-//	@JoinColumn(name="budget_form_id")
-//	BudgetFile budgetForm;
+	
+	@OneToOne(cascade = {CascadeType.MERGE})
+	@JoinColumn(name="budget_id")
+	BudgetFile budget;
 
 	public Proposal(){}
 	

@@ -1,4 +1,4 @@
-package edu.csula.aquila.model;
+package edu.csula.aquila.daos;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -16,22 +17,26 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.csula.aquila.model.BudgetFile;
+
 @Repository
 public class BudgetFileDaoImpl implements BudgetFileDao{
 	
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	
+	//files saved here
 	private static String directory = "C:\\uas_uploads\\";
 	
 	
 	@Override
-	public BudgetFile getBudget(Long id) {
+	public BudgetFile getBudget(Long id) 
+	{
 		
 		return entityManager.find(BudgetFile.class, id);
 		
 	}
+	
 
 	@Override
 	@Transactional
@@ -42,16 +47,18 @@ public class BudgetFileDaoImpl implements BudgetFileDao{
 
 	}
 	
+	
 	@Override
 	public String saveFile(List<MultipartFile> files, Long id) throws IOException 
 	{
-		//String newFileName = null;
+		//counter for version control
 		int count = 1;
 		//directory = directory + "budget-id" + "\\";
 	
 		String checkName =  Calendar.getInstance().get(Calendar.YEAR) + "id" + id + "version" + count + ".xls";
 
 		
+		//checks if version within budget already exists, increments version counter if it does
 		while(new File(directory + checkName).exists()) {
 			count++;
 			checkName =  Calendar.getInstance().get(Calendar.YEAR) + "id" + id + "version" + count + ".xls";
@@ -60,13 +67,14 @@ public class BudgetFileDaoImpl implements BudgetFileDao{
 		String newFileName = checkName;
 		
 		
+		
 		for (MultipartFile file : files) 
 		{
 			if (file.isEmpty()) 
 			{
 				continue; 
 	        }
-			
+				//save bytes to the created path(with new filename)
 	            byte[] bytes = file.getBytes();
 	            Path path = Paths.get(directory + newFileName);
 	            Files.write(path, bytes);   
@@ -83,11 +91,12 @@ public class BudgetFileDaoImpl implements BudgetFileDao{
 	public void addFile(Long id, String fileName)
 	{
 		BudgetFile budget = entityManager.find(BudgetFile.class, id);
-		Timestamp fileAddDate = new Timestamp(System.currentTimeMillis());
+		Date fileAddDate = new Date();
 	
-		
+		//add file to filePaths map in budget
 		budget.getFilePaths().put(fileName,fileAddDate);
 		
+		//update budget
 		saveBudgetFile( budget );		
 		
 	}

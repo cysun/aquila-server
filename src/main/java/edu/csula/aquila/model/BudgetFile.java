@@ -2,6 +2,7 @@ package edu.csula.aquila.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Map;
 
 import javax.persistence.CollectionTable;
@@ -15,11 +16,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "budget")
 public class BudgetFile implements Serializable{
-
 
 	private static final long serialVersionUID = 1L;
 
@@ -34,21 +38,25 @@ public class BudgetFile implements Serializable{
 	@Column(name = "uploader")
 	private String nameOfUploader;
 	
-	//private boolean isCompleted;
+	@Column(name="is_completed")
+	private boolean isCompleted;
 	
 
 	@ElementCollection
 	@MapKeyColumn(name="file_path")
 	@Column(name = "file_date")
 	@CollectionTable(name = "file_description", joinColumns=@JoinColumn(name = "budget_id"))
-	private Map<String,Timestamp> filePaths;
+	private Map<String,Date> filePaths;
 	
 	//proposal relationship
-	@OneToOne
-	@JoinColumn(name="proposal_id")
-	Proposal proposalForm;
+	@JsonIgnore
+	@OneToOne(mappedBy="budget")
+	Proposal proposal;
 
+	
+	
 	public BudgetFile() {}
+	
 
 	public Long getId() {
 		return id;
@@ -74,14 +82,32 @@ public class BudgetFile implements Serializable{
 		this.nameOfUploader = nameOfUploader;
 	}
 
-	
 
-	public Map<String, Timestamp> getFilePaths() {
+	public boolean isCompleted() {
+		return isCompleted;
+	}
+
+
+	public void setCompleted(boolean isCompleted) {
+		this.isCompleted = isCompleted;
+	}
+
+	public Map<String, Date> getFilePaths() {
 		return filePaths;
 	}
 
-	public void setFilePaths(Map<String, Timestamp> filePaths) {
+	public void setFilePaths(Map<String, Date> filePaths) {
 		this.filePaths = filePaths;
+	}
+
+
+	public Proposal getProposal() {
+		return proposal;
+	}
+
+
+	public void setProposal(Proposal proposal) {
+		this.proposal = proposal;
 	}
 
 	
