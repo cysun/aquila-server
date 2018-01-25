@@ -30,13 +30,11 @@ public class BudgetFileDaoImpl implements BudgetFileDao{
 	
 	
 	@Override
+
 	public BudgetFile getBudget(Long id) 
 	{
-		
 		return entityManager.find(BudgetFile.class, id);
-		
 	}
-	
 
 	@Override
 	@Transactional
@@ -46,8 +44,7 @@ public class BudgetFileDaoImpl implements BudgetFileDao{
 		return entityManager.merge( budgetFile );
 
 	}
-	
-	
+
 	@Override
 	public String saveFile(List<MultipartFile> files, Long id) throws IOException 
 	{
@@ -61,12 +58,10 @@ public class BudgetFileDaoImpl implements BudgetFileDao{
 		while(new File(directory + checkName).exists()) {
 			count++;
 			checkName =  Calendar.getInstance().get(Calendar.YEAR) + "id" + id + "version" + count + ".xls";
+
 			
 		}
 		String newFileName = checkName;
-		
-		
-		
 		for (MultipartFile file : files) 
 		{
 			if (file.isEmpty()) 
@@ -74,12 +69,11 @@ public class BudgetFileDaoImpl implements BudgetFileDao{
 				continue; 
 	        }
 				//save bytes to the created path(with new filename)
-	            byte[] bytes = file.getBytes();
-	            Path path = Paths.get(directory + newFileName);
-	            Files.write(path, bytes);   
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(directory + newFileName);
+            Files.write(path, bytes);   
 
 	    }
-		
 		return newFileName;
 	}
 	
@@ -128,6 +122,7 @@ public class BudgetFileDaoImpl implements BudgetFileDao{
 			System.out.println("Invalid File Name");
 			e.printStackTrace();
 		}
+		// TODO Auto-generated method stub
 		
 	}
 	

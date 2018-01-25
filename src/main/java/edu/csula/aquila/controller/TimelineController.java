@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.csula.aquila.daos.TimelineDao;
 import edu.csula.aquila.model.ApprovalForm;
 import edu.csula.aquila.model.EquipmentForm;
 import edu.csula.aquila.model.Form;
-import edu.csula.aquila.model.IntakeForm;
 import edu.csula.aquila.model.Timeline;
 
 @RestController
@@ -32,7 +32,10 @@ public class TimelineController {
 	
 	//update a timeline
 	@RequestMapping(value = "timeline/{id}", method = RequestMethod.PUT)
-	public Timeline updateTimeline(@RequestBody Timeline timeline) {
+	public Timeline updateTimeline(@RequestBody Timeline timeline, @PathVariable Long id) {
+		timelineDao.saveTimelineForm(timeline);
+		timeline = timelineDao.getTimelineForm(id);
+		
 		//get a list of stages
 		List<Timeline.Stage> stages = timeline.getStages();
 		//make a list of required forms
@@ -46,9 +49,14 @@ public class TimelineController {
 			
 			//if a form contains the name of a model form, add it to the form list
 			for(int j = 0; j < requiredForms.size(); j++) {
+				
+				//if the string is an intake form, get a user's intake form and add it to the form list
 				if(requiredForms.get(j).equals("Intake Form")) {
-					forms.add(new IntakeForm());
+					forms.add(timeline.getProposalForm().getIntakeForm());
 				}
+				
+				//since these forms aren't mapped out yet, this creates a new form for now
+				//will implement soon
 				if(requiredForms.get(j).equals("Equipment Form")) {
 					forms.add(new EquipmentForm());
 				}
@@ -73,4 +81,48 @@ public class TimelineController {
 		return timelineDao.getTimelineForm(id);
 	}
 	
+	
+	//Stage Daos
+	@RequestMapping(value = "timeline/stage/{id}", method = RequestMethod.GET)
+	public Timeline.Stage getStage(@PathVariable Long id){
+		return timelineDao.getStage(id);
+	}
+	
+	@RequestMapping(value = "timeline/stage/", method = RequestMethod.POST)
+	public Timeline.Stage createStage(Timeline.Stage stage){
+		return timelineDao.createStage(stage);
+	}
+	
+	@RequestMapping(value = "timeline/stage/{id}", method = RequestMethod.PUT)
+	public Timeline.Stage updateStage(Timeline.Stage stage, @PathVariable Long id){
+		return timelineDao.updateStage(stage);
+	}
+	
+	@RequestMapping(value = "timeline/stage/{id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public DeleteResponse deleteStage(Timeline.Stage stage, @PathVariable Long id){
+		stage = timelineDao.getStage(id);
+		timelineDao.deleteStage(stage);
+		return new DeleteResponse("Stage Deleted!");
+	}
+	
+	public class DeleteResponse{
+		private String message;
+		
+		public DeleteResponse(String message){
+			this.message = message;
+		}
+
+		public String getMessage() {
+			return message;
+		}
+
+		public void setMessage(String message) {
+			this.message = message;
+		}
+
+	}
 }
+
+
+

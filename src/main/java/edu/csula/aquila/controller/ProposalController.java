@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.csula.aquila.daos.IntakeDao;
 import edu.csula.aquila.daos.ProposalDao;
+import edu.csula.aquila.daos.TimelineDao;
 import edu.csula.aquila.daos.UserDao;
 import edu.csula.aquila.model.IntakeForm;
 import edu.csula.aquila.model.Proposal;
+import edu.csula.aquila.model.Timeline;
 import edu.csula.aquila.model.User;
 
 @RestController
@@ -28,6 +30,9 @@ public class ProposalController {
 	
 	@Autowired
 	private IntakeDao intakeDao;
+	
+	@Autowired
+	private TimelineDao timelineDao;
 	
 	@RequestMapping(value = "proposal/{id}", method = RequestMethod.GET)
 	public Proposal getProposal(@PathVariable Long id){
@@ -52,12 +57,21 @@ public class ProposalController {
 		//set the date
 		proposal.setDateCreated(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
 		
+		
 		//create a null intake form
 		IntakeForm intakeForm = new IntakeForm();
 		intakeForm.setProjectTitle(proposalInstantiate.getProposalName());
 		intakeForm.setPrincipleInvestigator(user.getFirstName() + " " + user.getLastName());
 		intakeDao.saveIntakeForm(intakeForm);
 		proposal.setIntakeForm(intakeForm);
+		
+		//create a null timeline
+		Timeline timeline = new Timeline();
+		timeline.setProposal(proposal.getProposalName());
+		timeline.setpI(user.getFirstName() + " " + user.getLastName());
+		timelineDao.saveTimelineForm(timeline);
+		proposal.setTimeline(timeline);
+		
 		
 		return proposal = proposalDao.saveProposal(proposal);
 	}
