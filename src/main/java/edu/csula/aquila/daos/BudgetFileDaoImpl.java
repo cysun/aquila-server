@@ -53,7 +53,6 @@ public class BudgetFileDaoImpl implements BudgetFileDao{
 	{
 		//counter for version control
 		int count = 1;
-		//directory = directory + "budget-id" + "\\";
 	
 		String checkName =  Calendar.getInstance().get(Calendar.YEAR) + "id" + id + "version" + count + ".xls";
 
