@@ -13,7 +13,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "conflict_of_interest_pi_phs")
@@ -79,8 +82,9 @@ public class ConflictOfInterestPHS implements Serializable{
 	Date aRIDate;
 	
 	//proposal relationship
-//	@OneToOne(mappedBy="coiPhs")
-//	Proposal proposalForm;
+	@JsonIgnore
+	@OneToOne(mappedBy="coiPhs")
+	Proposal proposal;
 
 	public Long getId() {
 		return id;

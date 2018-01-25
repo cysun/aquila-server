@@ -12,7 +12,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 
 @Entity
@@ -154,6 +158,12 @@ public class EconomicInterestPI implements Serializable {
 	private Date dateSigned;
 	
 	private String signature;
+	
+	//proposal relationship
+	@JsonIgnore
+	@OneToOne(mappedBy="economicInterest")
+	Proposal proposal;
+	
 	
 	public EconomicInterestPI() {}
 

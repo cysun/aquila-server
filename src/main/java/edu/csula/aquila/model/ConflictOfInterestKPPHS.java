@@ -12,7 +12,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 
@@ -87,8 +90,9 @@ public class ConflictOfInterestKPPHS implements Serializable{
 	private Date aRIDate;
 	
 	//proposal relationship
-//	@OneToOne(mappedBy="coiKpPhs")
-//	Proposal proposalForm;
+	@JsonIgnore
+	@OneToOne(mappedBy="coiKpPhs")
+	Proposal proposal;
 	
 	public ConflictOfInterestKPPHS() {}
 

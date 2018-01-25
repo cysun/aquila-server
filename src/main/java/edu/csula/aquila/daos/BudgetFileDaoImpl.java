@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -24,15 +25,15 @@ public class BudgetFileDaoImpl implements BudgetFileDao{
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	
+	//files saved here
 	private static String directory = "C:\\uas_uploads\\";
 	
 	
 	@Override
-	public BudgetFile getBudget(Long id) {
-		
+
+	public BudgetFile getBudget(Long id) 
+	{
 		return entityManager.find(BudgetFile.class, id);
-		
 	}
 
 	@Override
@@ -43,38 +44,36 @@ public class BudgetFileDaoImpl implements BudgetFileDao{
 		return entityManager.merge( budgetFile );
 
 	}
-	
+
 	@Override
 	public String saveFile(List<MultipartFile> files, Long id) throws IOException 
 	{
-		//String newFileName = null;
+		//counter for version control
 		int count = 1;
-		//directory = directory + "budget-id" + "\\";
 	
-		String checkName =  Calendar.getInstance().get(Calendar.YEAR) + "version" + count + ".xls";
+		String checkName =  Calendar.getInstance().get(Calendar.YEAR) + "id" + id + "version" + count + ".xls";
 
 		
+		//checks if version within budget already exists, increments version counter if it does
 		while(new File(directory + checkName).exists()) {
 			count++;
-			checkName =  Calendar.getInstance().get(Calendar.YEAR) + "version" + count + ".xls";
+			checkName =  Calendar.getInstance().get(Calendar.YEAR) + "id" + id + "version" + count + ".xls";
+
 			
 		}
 		String newFileName = checkName;
-		
-		
 		for (MultipartFile file : files) 
 		{
 			if (file.isEmpty()) 
 			{
 				continue; 
 	        }
-			
-	            byte[] bytes = file.getBytes();
-	            Path path = Paths.get(directory + newFileName);
-	            Files.write(path, bytes);   
+				//save bytes to the created path(with new filename)
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(directory + newFileName);
+            Files.write(path, bytes);   
 
 	    }
-		
 		return newFileName;
 	}
 	
@@ -85,11 +84,12 @@ public class BudgetFileDaoImpl implements BudgetFileDao{
 	public void addFile(Long id, String fileName)
 	{
 		BudgetFile budget = entityManager.find(BudgetFile.class, id);
-		Timestamp fileAddDate = new Timestamp(System.currentTimeMillis());
+		Date fileAddDate = new Date();
 	
-		
+		//add file to filePaths map in budget
 		budget.getFilePaths().put(fileName,fileAddDate);
 		
+		//update budget
 		saveBudgetFile( budget );		
 		
 	}
@@ -114,6 +114,14 @@ public class BudgetFileDaoImpl implements BudgetFileDao{
 
 	@Override
 	public void returnFile(String fileName) {
+		try
+		{
+			Runtime.getRuntime().exec("cmd /c start " + directory + fileName);
+		} catch (IOException e) 
+		{
+			System.out.println("Invalid File Name");
+			e.printStackTrace();
+		}
 		// TODO Auto-generated method stub
 		
 	}

@@ -58,26 +58,30 @@ public class Proposal implements Serializable{
 //	@OneToOne
 //	@JoinColumn(name="approval_form_id")
 //	private ApprovalForm approvalForm;
-//
-//	@JsonIgnore
-//	@OneToOne
-//	@JoinColumn(name="coi_kp_non_phs_id")
-//	private ConflictOfInterestKPNonPHS coiKpNonPhs;
-//
-//	@JsonIgnore
-//	@OneToOne
-//	@JoinColumn(name="coi_kp_phs_id")
-//	private ConflictOfInterestKPPHS coiKpPhs;
-//
-//	@JsonIgnore
-//	@OneToOne
-//	@JoinColumn(name="coi_pi_non_phs_id")
-//	private ConflictOfInterestPINonPHS coiPiNonphs;
-//
-//	@JsonIgnore
-//	@OneToOne
-//	@JoinColumn(name="coi_phs_id")
-//	private ConflictOfInterestPHS coiPhs;
+
+	
+	@OneToOne
+	@JoinColumn(name="coi_kp_non_phs_id")
+	ConflictOfInterestKPNonPHS coiKpNonPhs;
+
+	
+	@OneToOne
+	@JoinColumn(name="coi_kp_phs_id")
+	ConflictOfInterestKPPHS coiKpPhs;
+
+	
+	@OneToOne
+	@JoinColumn(name="coi_pi_non_phs_id")
+	ConflictOfInterestPINonPHS coiPiNonPhs;
+
+
+	@OneToOne
+	@JoinColumn(name="coi_phs_id")
+	ConflictOfInterestPHS coiPhs;
+	
+	@OneToOne
+	@JoinColumn(name="economic_interest_id")
+	EconomicInterestPI economicInterest;
 //
 //	@JsonIgnore
 //	@OneToOne
@@ -89,10 +93,10 @@ public class Proposal implements Serializable{
 //	@JoinColumn(name="timeline_id")
 //	private Timeline timeline;
 //
-//	@JsonIgnore
-//	@OneToOne
-//	@JoinColumn(name="budget_form_id")
-//	BudgetFile budgetForm;
+	
+	@OneToOne(cascade = {CascadeType.MERGE})
+	@JoinColumn(name="budget_id")
+	BudgetFile budget;
 
 	public Proposal(){}
 	
